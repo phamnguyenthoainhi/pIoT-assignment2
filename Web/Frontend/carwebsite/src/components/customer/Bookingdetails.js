@@ -1,92 +1,82 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import style from './style';
-import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+// import TextField from '@material-ui/core/TextField';
+// import Card from '@material-ui/core/Card';
+// import CardActions from '@material-ui/core/CardActions';
+// import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import Typography from '@material-ui/core/Typography';
+
+import {bookCar} from '../../actions/carAction'
+
 class Bookingdetails extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        car: {},
+        
+    }
+}
+      componentDidUpdate(prevProps) {
+        if(this.props.car !== prevProps.car) {
+            this.setState({
+                car: this.props.car
+            })
+        }
+        if(this.props.bookingStatus !== prevProps.bookingStatus && this.props.bookingStatus === 'success') {
+          console.log("Success")
+      } else {
+        console.log("Failed")
+      }
+    }
+
+    close = () => {
+      this.props.handleClose()
+    };
+
+    book = () => {
+      const booking = {
+        car_id: this.state.car.id,
+        user_id: 1,
+        start_day: '',
+        end_day:''
+      }
+      this.props.bookCar(booking)
+    }
+
     render() {
+      console.log(this.state.car)
         const {classes} = this.props;
         return (
             <div>
-
+<Button variant="contained" color="primary" onClick = {this.close}>Close</Button>
                 <form className={classes.root} noValidate autoComplete="off">
                 <h2>Booking Details</h2>
-                {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="MM/dd/yyyy"
-          margin="normal"
-          id="date-picker-inline"
-          label="Date picker inline"
-        //   value={selectedDate}
-        //   onChange={handleDateChange}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-        </MuiPickersUtilsProvider> */}
-        <input type="date" id="birthday" name="birthday"/>
-                <TextField 
-                variant='outlined'
-                type="text"
-                // name="loginUsername"
-                // placeholder="Email"
-                className={classes.textField} fullWidth color="grey"
-                // helperText = {this.state.loginFormError.emailError}
-                // error = {!!this.state.loginFormError.emailError}
-                // id="loginEmail"
-                // InputLabelProps={{className: classes.input}}
-                // InputProps={{
-                //     className: classes.input,
-                //     startAdornment: (
-                //         <InputAdornment position="start">
-                //             <AccountCircleIcon style={{color: '#3C5155'}}/>
-                //         </InputAdornment>
-                //     ),
-                // }}
-                // onChange={this.handleChange}
-                // value={this.state.loginEmail}
-                />
-                <br/>
-                <TextField 
-                variant='outlined'
-                type="text"
-                fullWidth
-                // name="loginPassword"
-                // placeholder="Password"
-                className={classes.textField}
-                // helperText = {this.state.loginFormError.emailError}
-                // error = {!!this.state.loginFormError.emailError}
-                // id="loginPassword"
-                />
                 
-                <Button variant="contained" color="primary">Save</Button>
+        <input type="datetime-local" id="meeting-time"
+       name="meeting-time" value="2018-06-12T19:30"
+       min="2018-06-07T00:00" max="2018-06-14T00:00"/><br/>
+       <input type="datetime-local" id="meeting-time"
+       name="meeting-time" value="2018-06-12T19:30"
+       min="2018-06-07T00:00" max="2018-06-14T00:00"/>
+                
+                <br/>
+                <Button variant="contained" color="primary" onClick = {() => this.book()}>Save</Button>
                 </form>
             </div>
         )
     }
 }
 const mapDispatchToProps = dispatch => ({
-    // sendMessage: (message, history) => dispatch(sendMessage(message, history)),
+    bookCar: (booking) => dispatch(bookCar(booking)),
    
   
 })
 
 const mapStateToProps = state => ({
-    // sendMessageLoading: state.usersReducer.sendMessageLoading,
+  bookingStatus: state.customerReducer.bookingStatus,
 
 });
 

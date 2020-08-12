@@ -19,7 +19,7 @@ class Login extends Component {
                 type="text"
                 name="loginUsername"
                 placeholder="Email"
-                className={classes.textField} fullWidth color="grey"
+                className={classes.textField} fullWidth 
                 // helperText = {this.state.loginFormError.emailError}
                 // error = {!!this.state.loginFormError.emailError}
                 id="loginEmail"

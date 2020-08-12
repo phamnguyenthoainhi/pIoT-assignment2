@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core';
 import style from './style';
 class sample extends Component {
     render() {
-        const {classes} = this.props;
+        // const {classes} = this.props;
         return (
             <div>
                 

@@ -6,7 +6,7 @@ import { BrowserRouter, Route} from 'react-router-dom';
 import themeFile from "./utils/theme";
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { ThemeProvider } from '@material-ui/core/styles';
-import sample from './components/sample/sample'
+
 import Login from './components/authentication/Login';
 import Signup from './components/authentication/Signup';
 import Homepage from './components/authentication/Homepage';
