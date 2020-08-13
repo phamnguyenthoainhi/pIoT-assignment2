@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 
 import style from './style';
-// import TextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -18,7 +18,10 @@ class Carslist extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cars: []
+            cars: [],
+            searchedCar: [],
+            chosenCar: {},
+            searchinput : ''
         }
     }
 
@@ -26,13 +29,16 @@ class Carslist extends Component {
         if(this.props.cars !== prevProps.cars) {
             this.setState({
                 cars: this.props.cars,
-                chosenCar: {}
+                searchedCars : this.state.cars
+               
+                
             })
         }
     }
 
     componentDidMount() {
         this.props.fetchCars()
+        
         
     }
 
@@ -50,6 +56,26 @@ class Carslist extends Component {
         var bookdetails = document.getElementById("bookdetails");
         bookdetails.style.display = 'none'
     }
+
+    handleChangeSearch = (e) => {
+        e.preventDefault();
+        this.setState({
+            [e.target.name] : e.target.value
+        }) 
+        
+        const searchedCars = this.state.cars.filter(car => car.title.includes(this.state.searchinput))
+        if (searchedCars.length === 0) {
+            this.setState({
+                searchedCars: this.state.cars
+            })
+        } else {
+            this.setState({
+                searchedCars
+            })
+        }
+
+        console.log(this.state.searchinput)
+    }
     
     
     render() {
@@ -57,10 +83,20 @@ class Carslist extends Component {
         const {classes} = this.props;
         return (
             <div>
+                <TextField 
+                variant='outlined'
+                type="text"
+                name="searchinput"
+                placeholder="Search for a car "
+                className={classes.textField} fullWidth 
+                onChange={(e) => this.handleChangeSearch(e)}
+                value={this.state.searchinput}
+                />
                  <div id= "bookdetails" style={{"display": "none"}} >
                     
                 <Bookingdetails car={this.state.chosenCar} handleClose={this.handleClose}/> </div>
-                {this.state.cars.map((car) => 
+                {this.state.searchedCars ? 
+                (this.state.searchedCars.map((car) => 
                 <div>
                
                 <Card className={classes.root} key ={car.id}>
@@ -96,7 +132,7 @@ class Carslist extends Component {
                 </CardActions>
             </Card>
             </div>
-                )}
+                )):null}
                 
                 
             </div>

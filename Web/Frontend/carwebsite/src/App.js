@@ -13,6 +13,9 @@ import Homepage from './components/authentication/Homepage';
 import Carslist from './components/customer/Carslist';
 import Dashboard from './components/customer/Dashboard';
 import Bookingdetails from './components/customer/Bookingdetails';
+import Carslistadmin from './components/admin/Carslistadmin';
+import Rentalhistory from './components/admin/Rentalhistory';
+import Userslist from './components/admin/Userslist';
 class App extends Component{
   render () {
     const theme = createMuiTheme(themeFile);
@@ -26,6 +29,9 @@ class App extends Component{
       <Route exact path={'/customer/cars'} render={(props) => <Carslist {...props} />} />
       <Route exact path={'/customer/dashboard'} render={(props) => <Dashboard {...props} />} />
       <Route exact path={'/customer/booking'} render={(props) => <Bookingdetails {...props} />} />
+      <Route exact path={'/admin/cars'} render={(props) => <Carslistadmin {...props} />} />
+      <Route exact path={'/admin/history'} render={(props) => <Rentalhistory {...props} />} />
+      <Route exact path={'/admin/users'} render={(props) => <Userslist {...props} />} />
       </ThemeProvider>
         
 

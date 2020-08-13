@@ -1,6 +1,7 @@
 import { FETCH_CARS, BOOK_CAR} from '../actions/types';
 
 const initialState = {
+    
     cars : [],
     car: {},
     bookingStatus: ''
