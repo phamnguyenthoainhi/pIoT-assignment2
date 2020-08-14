@@ -9,3 +9,5 @@ export const CREATE_CAR = "CREATE_CAR"
 export const EDIT_CAR = "EDIT_CAR"
 export const EDIT_USER = "EDIT_USER"
 export const DELETE_CAR = "DELETE_CAR"
+
+export const FETCH_REPORT = "FETCH_REPORT"

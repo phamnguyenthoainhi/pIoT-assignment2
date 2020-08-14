@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import style from './style';
 import {connect} from "react-redux";
 import { withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 // import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
@@ -10,8 +11,20 @@ class Homepage extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <Button component={Link} fullWidth className={classes.buttonLogin}to="/signup">LOGIN</Button><br/>
-                <Button component={Link}  fullWidth className={classes.buttonLogin} to="/login">SIGN UP</Button><br/>
+                <Grid container className={classes.gridcontainer} spacing={2}>
+                <Grid item xs={12}>
+                    <img src='https://static.dribbble.com/users/29678/screenshots/5009992/electric_car_dribbble_mesa_de_trabajo_1_mesa_de_trabajo_1_4x.png?compress=1&resize=1200x900' 
+                    alt='img' style={{width: "50%", display: "block", margin:"auto"}}/>
+                </Grid>
+                <Grid item xs={6}>
+                <Button component={Link} fullWidth className={classes.buttonLogin}to="/login">LOGIN</Button><br/>
+                    
+                </Grid>
+                <Grid item xs={6}>
+                <Button component={Link}  fullWidth className={classes.buttonLogin} to="/signup">SIGN UP</Button><br/>
+                    
+                </Grid>
+                </Grid>
             </div>
         )
     }

@@ -19,6 +19,11 @@ export default function (state = initialState, action) {
                 ...state,
                 rentalhistory: action.payload
             }
+        case FETCH_USERS:
+            return {
+                ...state,
+                users: action.payload
+            } 
         
         default:
             return state;

@@ -13,7 +13,7 @@ class Signup extends Component {
             <div className={classes.container}>
                 
                 <form className={classes.root} noValidate autoComplete="off">
-                <h2>Sign Up</h2>
+                <h2 className={classes.logintitle}>Sign Up</h2>
                 <TextField 
                 variant='outlined'
                 type="text"
@@ -48,7 +48,7 @@ class Signup extends Component {
                 id="signupPassword"
                 />
                 <Button component={Link} to="/login">Login Here</Button><br/>
-                <Button variant="contained" color="primary">Sign Up</Button>
+                <Button variant="contained" color="primary" className={classes.btnlogin}>Sign Up</Button>
                 </form>
             </div>
         )

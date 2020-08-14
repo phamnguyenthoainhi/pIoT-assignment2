@@ -23,6 +23,26 @@ export const fetchRentalHistory = () => dispatch => {
     }       
     )
 }
+export const fetchUsers = () => dispatch => {
+    
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json'
+        },
+        
+    })
+    .then((res) => res.json())
+    .then((users) => 
+    {
+        dispatch({
+            type: FETCH_USERS,
+            payload: users
+        })
+    }       
+    )
+}
 export const createCar = (car) => dispatch => {
     fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',

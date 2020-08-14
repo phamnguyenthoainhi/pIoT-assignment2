@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
-import { Link } from "react-router-dom";
 import style from './style';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Navigationbar from './Navigationbar';
 class Dashboard extends Component {
     render() {
         const {classes} = this.props;
         return (
             <div>
-                <Button component={Link} fullWidth className={classes.buttonLogout}>Logout</Button><br/>
-                <Card className={classes.root}>
+                <Navigationbar/>
+                
+                <Card className={classes.bookingcard}>
                 <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    <Typography className={classes.bookingtitle} color="textSecondary" gutterBottom>
                     Name of the car
                     </Typography>
                     <Typography variant="body2" component="p">

@@ -13,7 +13,7 @@ class Login extends Component {
             <div className={classes.container}>
                 
                 <form className={classes.root} noValidate autoComplete="off">
-                <h2>Login</h2>
+                <h2 className={classes.logintitle}>Login</h2>
                 <TextField 
                 variant='outlined'
                 type="text"
@@ -47,8 +47,8 @@ class Login extends Component {
                 // error = {!!this.state.loginFormError.emailError}
                 id="loginPassword"
                 />
-                <Button component={Link} to="/signup">Sign Up Here</Button><br/>
-                <Button variant="contained" color="primary">Login</Button>
+                <Button component={Link} to="/signup" >Sign Up Here</Button><br/>
+                <Button variant="contained" color="primary" className={classes.btnlogin}>Login</Button>
                 </form>
             </div>
         )

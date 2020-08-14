@@ -5,6 +5,9 @@ import style from './style.js'
 import {fetchCars} from '../../actions/carAction'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+
+import Navigationbaradmin from './Navigationbar';
 class Carslistadmin extends Component {
     constructor(props) {
         super(props);
@@ -50,14 +53,28 @@ class Carslistadmin extends Component {
 
         console.log(this.state.searchinput)
     }
+
     openedit = () => {
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
         
         
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+       
+
+    
+        
+
+        // When the user clicks anywhere outside of the modal, close it
+       
+    }
+    openreport = () => {
+        var modal = document.getElementById("myModal1");
+        modal.style.display = "block";
+        
+        
+
+        
 
     
         
@@ -70,12 +87,17 @@ class Carslistadmin extends Component {
         var modal = document.getElementById("myModal");
         modal.style.display = "none";
     }
+    closeopen = () => {
+        var modal = document.getElementById("myModal1");
+        modal.style.display = "none";
+    }
         
     render() {
         const {classes} = this.props;
         return (
             <div>
-
+                <Navigationbaradmin />
+                <div className={classes.carlistcontainer}>
                 <TextField 
                 variant='outlined'
                 type="text"
@@ -85,7 +107,14 @@ class Carslistadmin extends Component {
                 onChange={(e) => this.handleChangeSearch(e)}
                 value={this.state.searchinput}
                 />
-                <Button variant="contained" onClick={() => this.openedit()}>ADD A NEW CAR</Button>
+                <Button
+                
+                
+                className={classes.addcarbtn}
+                startIcon={<AddIcon />}
+                onClick={() => this.openedit()}
+                >Add a new car</Button>
+                {/* <Button variant="contained" onClick={() => this.openedit()}>ADD A NEW CAR</Button> */}
                 <div id="myModal" class="modal">
                     <div class="modal-content">
                     <span class="close" onClick={() => this.closeedit()}  >&times;</span>
@@ -117,17 +146,29 @@ class Carslistadmin extends Component {
                     </div>
 
                 </div>
+                <div id="myModal1" class="modal">
+                    <div class="modal-content">
+                    <span class="close" onClick={() => this.closeopen()}  >&times;</span>
+                    <div class="form-group">
+                        <label for="carmake">Desciption of problem:</label>
+                        <textarea type="text" class="form-control" id="carmake"/>
+                    </div>
+                    
+                    <Button variant="contained">Report</Button>
+                    </div>
+
+                </div>
                         <table className="table">
                     <thead>
                     <tr>
-                        <th style={{width: '10%', textAlign: 'center', color: "#51617D"}}>Make</th>
-                        <th style={{width: '20%', textAlign: 'center', color: "#51617D"}}>Body Type</th>
-                        <th style={{width: '10%', textAlign: 'center', color: "#51617D"}}>Colour</th>
-                        <th style={{width: '10%', textAlign: 'center', color: "#51617D"}}>Seats</th>
-                        <th style={{width: '20%', textAlign: 'center', color: "#51617D"}}>Location</th>
-                        <th style={{width: '10%', textAlign: 'center', color: "#51617D"}}>Cost per hour</th>
-                        <th style={{width: '10%', textAlign: 'center', color: "#51617D"}}></th>
-                        <th style={{width: '10%', textAlign: 'center', color: "#51617D"}}></th>
+                        <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Make</th>
+                        <th style={{width: '15%', textAlign: 'center', color: "#66827A"}}>Body Type</th>
+                        <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Colour</th>
+                        <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Seats</th>
+                        <th style={{width: '20%', textAlign: 'center', color: "#66827A"}}>Location</th>
+                        <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Cost per hour</th>
+                        
+                        <th style={{width: '25%', textAlign: 'center', color: "#66827A"}}></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -138,13 +179,18 @@ class Carslistadmin extends Component {
                         <td style={{textAlign: 'center'}}>john@example.com</td>
                         <td style={{textAlign: 'center'}}>john@example.com</td>
                         <td style={{textAlign: 'center'}}>john@example.com</td>
-                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit()}   >EDIT</Button></td>
-                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="secondary">DELETE</Button></td>
+                        <td style={{textAlign: 'center'}}>
+                            <Button variant="outlined" color="default" onClick={() => this.openreport()} >Report</Button>
+                            <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit()}   >EDIT</Button>
+                            <Button variant="outlined" color="secondary">DELETE</Button>
+                        </td>
+                       
                     </tr>
                     
                     </tbody>
                 </table>
                  
+            </div>
             </div>
         )
     }
