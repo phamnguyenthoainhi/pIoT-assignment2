@@ -1,21 +1,29 @@
 import mysql.connector
 
-mydb = mysql.connector.connect(
-  host="34.105.54.90",
-  user="root",
-  password="1234",
-  database="car_share"
-)
+def create_connection():
+    mydb = None
+    # try:
+    #     mydb = mysql.connector.connect(
+    #         host="34.105.54.90",
+    #         user="root",
+    #         password="1234",
+    #         database="car_share"
+    #     )
+    #     return mydb
 
-def createdatabase(mydb):
-  try:
-      cursor = mydb.cursor()
-      cursor.execute("CREATE DATABASE IF NOT EXISTS db")
-      return True
+    try:
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="user",
+            password="1234",
+            database="car_share"
+        )
+        return mydb
 
-  except mysql.connector.Error as e:
-      print(str(e))
-      return False
+    except mysql.connector.Error as e:
+        print(e)
+
+
 
 def createtable_cars(mydb):
     """
@@ -131,7 +139,7 @@ def createtable_reports(mydb):
       return False
 
 
-# createdatabase(mydb)
+mydb = create_connection()
 createtable_cars(mydb)
 createtable_users(mydb)
 createtable_bookings(mydb)
