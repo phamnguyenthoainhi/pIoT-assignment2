@@ -39,7 +39,7 @@ def register_user():
     
     user_password = request.json["password"]
     user_confirm_password = request.json["confirm_password"]
-    
+    user_role = request.json["role"]
     if user_password == user_confirm_password and validate_user_input(
         "authentication", email=user_email, password=user_password
     ) and registered_email_check(email=user_email):
@@ -47,8 +47,8 @@ def register_user():
         password_hash = generate_hash(user_password, password_salt)
         mydb = create_connection()
         if db_write(mydb, 
-            """INSERT INTO users (email, password_salt, password_hash) VALUES (%s, %s, %s)""",
-            (user_email, password_salt, password_hash)
+            """INSERT INTO users (email, password_salt, password_hash, role) VALUES (%s, %s, %s, %s)""",
+            (user_email, password_salt, password_hash, user_role)
         ):
             # Registration Successful
             return Response(status=201)
@@ -75,12 +75,12 @@ def login_user():
 
     user_token = validate_user(user_email, user_password)
     print("USER_TOKEN "+ str(user_token))
-    if user_token != 1 and user_token != 2:
-        return jsonify({"jwt_token": user_token})
+    if user_token != 1 and user_token != 2 :
+        return jsonify({"jwt_token": user_token[0], "role": user_token[1]})
     elif user_token == 1:
         return Response("Wrong Email", status=401)
     elif user_token == 2:
-        return Response("Wrong Message", status=401)
+        return Response("Wrong Password", status=401)
         
 
 if __name__ == '__main__':
