@@ -8,8 +8,6 @@ def get_cars(mydb):
         cursor = mydb.cursor()
         cursor.execute(sql)
         return cursor.fetchall()
-        
-
     except mysql.connector.Error as e:
         print(str(e))
 
@@ -25,5 +23,7 @@ def add_car(mydb, data):
     except mysql.connector.Error as e:
         print(str(e))
 
-mydb = create_connection()
-get_cars(mydb)
+# mydb = create_connection()
+# get_cars(mydb)
+# car = ["make1", "body_type1", "color1", 1, "location1", 1]
+# add_car(mydb, car)
