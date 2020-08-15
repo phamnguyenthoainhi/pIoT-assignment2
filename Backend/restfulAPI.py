@@ -42,7 +42,37 @@ def addCar():
             return "Success"
 
         return "Please try again, data has not been inserted"
-    except:
+    except KeyError:
+        return Response("Record missing, please add full record", status=400)
+
+#Remove a car, accepts car_id in request
+@app.route("/api/cars/<int:car_id>", methods= ['DELETE'])
+def removeCar(car_id):
+    mydb = create_connection()
+    lastid = remove_car(mydb, (car_id,))
+    if (lastid is not None):
+        return "Success"
+    return "Please try again, record has not been deleted"
+           
+
+#Add a booking
+@app.route("/api/bookings", methods=['POST'])
+def addBooking():
+    try: 
+        mydb = create_connection()
+        car_id = request.json['car_id']
+        user_id = request.json['user_id']
+        booking_date = request.json['booking_date']
+        return_date = request.json['return_date']
+
+        data = [car_id, user_id, booking_date, return_date]
+
+        lastid = add_booking(mydb,data)
+        if (lastid is not None):
+            return "Success"
+
+        return "Please try again, data has not been inserted"
+    except KeyError:
         return Response("Record missing, please add full record", status=400)
 
 
