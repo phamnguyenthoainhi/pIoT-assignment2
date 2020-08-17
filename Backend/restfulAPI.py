@@ -106,6 +106,27 @@ def rmBooking(booking_id):
         return "Success"
     return "Please try again, record has not been deleted"
 
+# View car's rental history
+@app.route("/api/cars/<int:car_id>/bookings", methods=['GET'])
+def rentalHistory(car_id):
+    mydb = create_connection()
+    bookings = bookings_history(mydb, (car_id,))
+    result = []
+    for x in bookings:
+            result.append(x)
+    print(result)
+    return json.dumps(result) 
+
+# View user's rental history
+@app.route("/api/users/<int:user_id>/bookings", methods=['GET'])
+def rentalHistoryUser(user_id):
+    mydb = create_connection()
+    bookings = bookings_history_u(mydb, (user_id,))
+    result = []
+    for x in bookings:
+            result.append(x)
+    print(result)
+    return json.dumps(result) 
 
 
 if __name__ == '__main__':
