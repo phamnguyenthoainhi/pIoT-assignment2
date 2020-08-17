@@ -99,6 +99,7 @@ def createtable_bookings(mydb):
                                                   PRIMARY KEY, \
                                                   car_id INT, \
                                                   user_id INT, \
+                                                  status ENUM('Pending', 'Booked', 'Canceled'), \
                                                   FOREIGN KEY (car_id) REFERENCES cars(car_id), \
                                                   FOREIGN KEY (user_id) REFERENCES users(user_id), \
                                                   booking_date VARCHAR(255), \

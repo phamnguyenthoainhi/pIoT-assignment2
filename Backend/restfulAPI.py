@@ -10,6 +10,27 @@ app = Flask(__name__)
 def hello_world():
     return 'Index'
 
+
+# Sign up
+@app.route("/api/users/sign_up", methods=['POST'])
+def signUp():
+    try:
+        mydb = create_connection()
+        username = request.json['username']
+        password = request.json['password']
+        email = request.json['email']
+        role = request.json['role']
+
+        data = [username, password, email, role]
+
+        lastid = sign_up(mydb,data)
+        if (lastid is not None):
+            return "Success"
+        return "Please try again, data has not been inserted"
+    except KeyError:
+        return Response("Record missing, please add full record", status=400)
+
+
 # Get all cars
 @app.route("/api/cars", methods=['GET'])
 def getCars():
@@ -62,18 +83,28 @@ def addBooking():
         mydb = create_connection()
         car_id = request.json['car_id']
         user_id = request.json['user_id']
+        status = request.json['status']
         booking_date = request.json['booking_date']
         return_date = request.json['return_date']
 
-        data = [car_id, user_id, booking_date, return_date]
+        data = [car_id, user_id, status, booking_date, return_date]
 
         lastid = add_booking(mydb,data)
         if (lastid is not None):
             return "Success"
 
-        return "Please try again, data has not been inserted"
+        return "Please try again, booking has not been inserted"
     except KeyError:
         return Response("Record missing, please add full record", status=400)
+
+#Remove a booking
+@app.route("/api/bookings/<int:booking_id>", methods=['DELETE'])
+def rmBooking(booking_id):
+    mydb = create_connection()
+    lastid = remove_booking(mydb, (booking_id,))
+    if (lastid is not None):
+        return "Success"
+    return "Please try again, record has not been deleted"
 
 
 
