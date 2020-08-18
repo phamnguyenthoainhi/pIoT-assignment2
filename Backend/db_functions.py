@@ -50,6 +50,18 @@ def remove_car(mydb, data):
     except mysql.connector.Error as e:
         print(str(e))
 
+# Edit a car
+def edit_car(mydb, data):
+    try:
+        sql = "UPDATE cars SET make = %s, body_type = %s, color = %s, seats = %s, location = %s, cost = %s \
+            WHERE car_id = %s "
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        mydb.commit()
+        return cursor.lastrowid
+    except mysql.connector.Error as e:
+        print(str(e))
+
 # Add a booking
 def add_booking(mydb,data):
     try:
@@ -63,6 +75,18 @@ def add_booking(mydb,data):
     except mysql.connector.Error as e:
         print(str(e))
 
+# Edit a booking with id
+def edit_booking(mydb, data):
+    try:
+        sql = "UPDATE bookings SET status = %s, booking_date = %s, return_date = %s\
+            WHERE booking_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        mydb.commit()
+        return cursor.lastrowid
+
+    except mysql.connector.Error as e:
+        print(str(e))
 
 # View rental history of a car (all of its bookings)
 def bookings_history(mydb,data):
@@ -102,7 +126,7 @@ def remove_booking(mydb,data):
 
 # mydb = create_connection()
 # get_cars(mydb)
-# car = ["make1", "body_type1", "color1", 1, "location1", 1]
+# car = ["make1", "body_type1", "color1", 1, "location1", 1, 1]
 # add_car(mydb, car)
 # remove_car(mydb, (10,))
-# print(bookings_history(mydb, 1))
+# edit_car(mydb, car)

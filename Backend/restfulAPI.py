@@ -66,6 +66,28 @@ def addCar():
     except KeyError:
         return Response("Record missing, please add full record", status=400)
 
+# Edit a car, accepts all 6 features of car and the car_id in the URL
+@app.route("/api/cars/<int:car_id>", methods = ['PUT'])
+def editCar(car_id):
+    try:
+        mydb = create_connection()
+
+        make = request.json['make']
+        body_type = request.json['body_type']
+        color = request.json['color']
+        seats = request.json['seats']
+        location = request.json['location']
+        cost = request.json['cost']
+
+        data = [make, body_type, color, seats, location, cost, car_id]
+        
+        lastid = edit_car(mydb, data)
+        if (lastid is not None):
+            return "Success"
+
+    except KeyError:
+        return Response("Record missing, please try again", status=400)
+
 #Remove a car, accepts car_id in request
 @app.route("/api/cars/<int:car_id>", methods= ['DELETE'])
 def removeCar(car_id):
@@ -105,6 +127,24 @@ def rmBooking(booking_id):
     if (lastid is not None):
         return "Success"
     return "Please try again, record has not been deleted"
+
+#Edit a booking, accepts status, booking_date, return_date and finally booking id
+@app.route("/api/bookings/<int:booking_id>", methods=["PUT"])
+def editBooking(booking_id):
+    mydb = create_connection() 
+
+    status = request.json['status']
+    booking_date = request.json['booking_date']
+    return_date = request.json['return_date']
+
+    data = [status, booking_date, return_date, booking_id]
+
+    lastid = edit_booking(mydb, data)
+    if (lastid is not None):
+        return "Success"
+    return "Please try again, record has not been deleted"
+    
+
 
 # View car's rental history
 @app.route("/api/cars/<int:car_id>/bookings", methods=['GET'])
