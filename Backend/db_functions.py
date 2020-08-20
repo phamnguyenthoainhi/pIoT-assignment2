@@ -124,7 +124,52 @@ def remove_booking(mydb,data):
     except mysql.connector.Error as e:
         print(str(e))
 
-# mydb = create_connection()
+# View reports
+def view_reports(mydb):
+    try:
+        sql = "select * from reports"
+        cursor = mydb.cursor()
+        cursor.execute(sql)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e))
+
+# Add a report
+def add_report(mydb, data):
+    try:
+        sql = "INSERT INTO reports (car_id, user_id, content, report_date) VALUES (%s, %s, %s, %s)"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        mydb.commit()
+        return cursor.lastrowid
+    except mysql.connector.Error as e:
+        print(str(e))
+
+# Remove a report
+def remove_report(mydb, data):
+    try:
+        sql = "DELETE FROM cars WHERE report_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        mydb.commit()
+        return cursor.lastrowid
+    except mysql.connector.Error as e:
+        print(str(e))
+
+# Edit a report and change its content
+def edit_report(mybd,data):
+    try:
+        sql = "UPDATE reports SET content = %s \
+            WHERE report_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        mydb.commit()
+        return cursor.lastrowid
+
+    except mysql.connector.Error as e:
+        print(str(e))
+
+mydb = create_connection()
 # get_cars(mydb)
 # car = ["make1", "body_type1", "color1", 1, "location1", 1, 1]
 # add_car(mydb, car)
