@@ -27,12 +27,6 @@ def create_connection():
 
 def createtable_cars(mydb):
     """
-    Create a table named datab1 in assignment1 database
-
-    Parameters:
-        mydb: a MySQLConnection object
-
-    Returns: true if the query excecutes sucessfully, false if there is error
 
     """
     try:
@@ -56,12 +50,6 @@ def createtable_cars(mydb):
 
 def createtable_users(mydb):
   """
-  Create a table named datab1 in assignment1 database
-
-  Parameters:
-      mydb: a MySQLConnection object
-
-  Returns: true if the query excecutes sucessfully, false if there is error
 
   """
   try:
@@ -83,13 +71,6 @@ def createtable_users(mydb):
 
 def createtable_bookings(mydb):
   """
-  Create a table named datab1 in assignment1 database
-
-  Parameters:
-      mydb: a MySQLConnection object
-
-  Returns: true if the query excecutes sucessfully, false if there is error
-
   """
   try:
       cursor = mydb.cursor()
@@ -113,17 +94,33 @@ def createtable_bookings(mydb):
 
 def createtable_reports(mydb):
   """
-  Create a table named datab1 in assignment1 database
-
-  Parameters:
-      mydb: a MySQLConnection object
-
-  Returns: true if the query excecutes sucessfully, false if there is error
-
   """
   try:
       cursor = mydb.cursor()
       cursor.execute("CREATE TABLE IF NOT EXISTS reports( \
+                                                  report_id INT \
+                                                  auto_increment \
+                                                  PRIMARY KEY, \
+                                                  car_id INT, \
+                                                  user_id INT, \
+                                                  content VARCHAR(255),\
+                                                  FOREIGN KEY (car_id) REFERENCES cars(car_id), \
+                                                  FOREIGN KEY (user_id) REFERENCES users(user_id), \
+                                                  report_date VARCHAR(255) \
+                                                  )")
+      return True
+
+  except mysql.connector.Error as e:
+      print(str(e))
+      return False
+
+def createtable_reports(mydb):
+  """
+
+  """
+  try:
+      cursor = mydb.cursor()
+      cursor.execute("CREATE TABLE IF NOT EXISTS pictures( \
                                                   report_id INT \
                                                   auto_increment \
                                                   PRIMARY KEY, \

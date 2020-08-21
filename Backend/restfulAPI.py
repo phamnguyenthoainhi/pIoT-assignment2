@@ -139,8 +139,6 @@ def editBooking(booking_id):
     if (lastid is not None):
         return "Success"
     return Response("Bad request", status=400)
-    
-
 
 # View car's rental history
 @app.route("/api/cars/<int:car_id>/bookings", methods=['GET'])
@@ -152,6 +150,55 @@ def rentalHistory(car_id):
             result.append(x)
     return json.dumps(result) 
 
+# View reports
+@app.route("/api/reports", methods=['GET'])
+def getReports():
+    mydb = create_connection()
+    reports = view_reports(mydb)
+    result = []
+    for x in reports:
+        result.append(x)
+    return json.dumps(result)
+
+# Add a report
+@app.route("/api/reports", methods=['POST'])
+def addReport():
+    mydb = create_connection()
+
+    car_id = request.json['car_id']
+    user_id = request.json['user_id']
+    content = request.json['content']
+    report_date = request.json['report_date']
+
+    data = [car_id, user_id, content, report_date]
+
+    lastid = add_report(mydb,data)
+    if (lastid is not None):
+        return "Success"
+    return Response("Bad request", status=400)
+
+#Edit a report with id, accepts content
+@app.route("/api/reports/<int:report_id>", methods=["PUT"])
+def editReport(report_id):
+    mydb = create_connection() 
+
+    content = request.json['content']
+
+    data = [content, report_id]
+
+    lastid = edit_booking(mydb, data)
+    if (lastid is not None):
+        return "Success"
+    return Response("Bad request", status=400)
+
+#Remove a report with id
+@app.route("/api/reports/<int:report_id>", methods=['DELETE'])
+def rmReport(report_id):
+    mydb = create_connection()
+    lastid = remove_report(mydb, (report_id,))
+    if (lastid is not None):
+        return "Success"
+    return Response("Bad request", status=400)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
