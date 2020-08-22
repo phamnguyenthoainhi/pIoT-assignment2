@@ -62,7 +62,7 @@ def validate_user(email, password):
         if password_hash == saved_password_hash:
             user_id = current_user[0][0]
             jwt_token = generate_jwt_token({"id": user_id})
-            return [jwt_token, role]
+            return [jwt_token, role, user_id]
         else:
             return 2
 

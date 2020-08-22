@@ -5,10 +5,11 @@ from flask import Blueprint, request, Response, jsonify
 from db_functions import db_write
 from gcloud_db import create_connection
 from utils import generate_salt, generate_hash, validate_user_input, validate_user, registered_email_check
-
+from flask_cors import CORS, cross_origin
 from flask import Flask
 app = Flask(__name__)
-
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/')
 def hello_world():
     return 'Index'
@@ -34,6 +35,7 @@ def addCar():
     return
 
 @app.route("/register", methods=["POST"])
+@cross_origin()
 def register_user():
     user_email = request.json["email"]
     
@@ -76,9 +78,9 @@ def login_user():
     user_token = validate_user(user_email, user_password)
     print("USER_TOKEN "+ str(user_token))
     if user_token != 1 and user_token != 2 :
-        return jsonify({"jwt_token": user_token[0], "role": user_token[1]})
+        return jsonify({"jwt_token": user_token[0], "role": user_token[1], "user_id": user_token[2]})
     elif user_token == 1:
-        return Response("Wrong Email", status=401)
+        return Response("Email is not registered", status=401)
     elif user_token == 2:
         return Response("Wrong Password", status=401)
         

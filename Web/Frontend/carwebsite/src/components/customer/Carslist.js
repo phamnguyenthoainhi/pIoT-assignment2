@@ -66,7 +66,7 @@ class Carslist extends Component {
         
         const searchedCars = this.state.cars.filter(car => car.title.includes(this.state.searchinput))
         if (searchedCars.length === 0) {
-            console.log("hRLLO")
+            
             this.setState({
                 searchedCars: this.state.cars
             })
@@ -75,12 +75,12 @@ class Carslist extends Component {
                 searchedCars
             })
         }
-        console.log(this.state.searchinput)
+        // console.log(this.state.searchinput)
     }
     
     
     render() {
-        console.log(this.state.chosenCar)
+        // console.log(this.state.chosenCar)
         const {classes} = this.props;
         return (
             <div>

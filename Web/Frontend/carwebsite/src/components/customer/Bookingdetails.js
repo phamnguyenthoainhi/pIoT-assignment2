@@ -47,7 +47,7 @@ class Bookingdetails extends Component {
     }
 
     render() {
-      console.log(this.state.car)
+      // console.log(this.state.car)
         const {classes} = this.props;
         return (
             <div>

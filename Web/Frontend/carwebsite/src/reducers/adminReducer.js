@@ -14,7 +14,7 @@ const initialState = {
 export default function (state = initialState, action) {
     switch(action.type) {
         case FETCH_RENTAL_CARS:
-            console.log("reducer")
+            // console.log("reducer")
             return {
                 ...state,
                 rentalhistory: action.payload

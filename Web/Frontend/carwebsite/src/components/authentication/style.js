@@ -36,6 +36,14 @@ const style = (theme) => ({
             color: 'white'
         }
     },
+    btnloginsuccess: {
+        backgroundColor: theme.color.green.light,
+        textAlign: 'center',
+        color: 'white',
+        padding: "10px 40px 10px 40px",
+        transitionDuration : "0.2s",
+        
+    },
     textField: {
         marginBottom: "30px",
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
@@ -43,6 +51,9 @@ const style = (theme) => ({
         },
         
     },
+    buttonFile: {
+        float: "left"
+    }
   
 })
 export default style;

@@ -5,63 +5,113 @@ import { Link } from "react-router-dom";
 import style from './style';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
+import {login} from "../../actions/userAction"
+import DoneIcon from '@material-ui/icons/Done';
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            success: false,
+            emailerror: '',
+            passworderror: '',
+            loginemail: '',
+            loginpassword: ''
+        }
+    }
+    componentDidUpdate(prevProps) {
+        console.log(this.props.loginsuccess)
+        if(this.props.loginsuccess !== prevProps.loginsuccess & this.props.loginsuccess === 'success') {
+            this.setState ({
+                success: true
+            })
+        }
+        if(this.props.login_message !== prevProps.login_message & this.props.login_message === 'Email is not registered') {
+            this.setState ({
+                emailerror: "Email is not registered"
+            })
+        }
+        if(this.props.login_message !== prevProps.login_message & this.props.login_message === 'Wrong Password') {
+            this.setState ({
+                passworderror: "Wrong Password"
+            })
+        }
+        
+    }
+    onChange(e) {
+       
+        console.log(e.target.value)
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
+    
+    onSubmit(e) {
+    
+        e.preventDefault();
+        const user = {
+            email: this.state.loginemail,
+            password: this.state.loginpassword
+        }
+        this.props.login(user)
+    }
     render() {
         const {classes} = this.props;
         return (
             <div className={classes.container}>
                 
-                <form className={classes.root} noValidate autoComplete="off">
+                <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.onSubmit(e)}>
                 <h2 className={classes.logintitle}>Login</h2>
                 <TextField 
                 variant='outlined'
                 type="text"
-                name="loginUsername"
+                name="loginemail"
                 placeholder="Email"
                 className={classes.textField} fullWidth 
-                // helperText = {this.state.loginFormError.emailError}
-                // error = {!!this.state.loginFormError.emailError}
+                helperText = {this.state.emailerror}
                 id="loginEmail"
-                // InputLabelProps={{className: classes.input}}
-                // InputProps={{
-                //     className: classes.input,
-                //     startAdornment: (
-                //         <InputAdornment position="start">
-                //             <AccountCircleIcon style={{color: '#3C5155'}}/>
-                //         </InputAdornment>
-                //     ),
-                // }}
-                // onChange={this.handleChange}
-                // value={this.state.loginEmail}
+            
+                onChange= {(e) => this.onChange(e)}
+                value={this.state.loginemail}
                 />
                 <br/>
                 <TextField 
                 variant='outlined'
                 type="text"
                 fullWidth
-                name="loginPassword"
+                name="loginpassword"
                 placeholder="Password"
                 className={classes.textField}
-                // helperText = {this.state.loginFormError.emailError}
-                // error = {!!this.state.loginFormError.emailError}
+                helperText = {this.state.passworderror}
+                onChange= {(e) => this.onChange(e)}
+                value={this.state.loginpassword}
+                
                 id="loginPassword"
                 />
                 <Button component={Link} to="/signup" >Sign Up Here</Button><br/>
-                <Button variant="contained" color="primary" className={classes.btnlogin}>Login</Button>
+                {(this.state.success === true ?
+                
+                (
+                    (sessionStorage.getItem("id") === 'Customer'? (<Button type='submit' component={Link} to='/' className={classes.btnloginsuccess} startIcon={<DoneIcon />}>Success</Button>):(null))
+                 
+                
+                )
+                :
+                (<Button variant="contained" color="primary" className={classes.btnlogin} type='submit'>Login</Button>))}
+                
+                               
                 </form>
             </div>
         )
     }
 }
 const mapDispatchToProps = dispatch => ({
-    // sendMessage: (message, history) => dispatch(sendMessage(message, history)),
+    login: (user) => dispatch(login(user)),
    
-  
 })
 
 const mapStateToProps = state => ({
-    // sendMessageLoading: state.usersReducer.sendMessageLoading,
+    loginsuccess: state.userReducer.loginsuccess,
+    login_message: state.userReducer.login_message,
 
 });
 

@@ -50,7 +50,7 @@ class Userslist extends Component {
             })
         }
 
-        console.log(this.state.searchinput)
+        // console.log(this.state.searchinput)
     }
     openedit = () => {
         var modal = document.getElementById("myModal");

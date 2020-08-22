@@ -2,7 +2,7 @@ import {
     FETCH_RENTAL_CARS, 
     FETCH_USERS, CREATE_CAR, EDIT_CAR, EDIT_USER, DELETE_CAR
 } from './types';
-
+import {backend} from './backend'
 export const fetchRentalHistory = () => dispatch => {
     
     fetch('https://jsonplaceholder.typicode.com/posts', {
