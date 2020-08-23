@@ -10,6 +10,7 @@ export default function (state = initialState, action) {
     switch(action.type) {
         case FETCH_CARS:
             // console.log("reducer")
+            // console.log(action.payload)
             return {
                 ...state,
                 cars: action.payload

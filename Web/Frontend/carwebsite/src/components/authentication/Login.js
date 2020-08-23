@@ -91,7 +91,11 @@ class Login extends Component {
                 {(this.state.success === true ?
                 
                 (
-                    (sessionStorage.getItem("id") === 'Customer'? (<Button type='submit' component={Link} to='/' className={classes.btnloginsuccess} startIcon={<DoneIcon />}>Success</Button>):(null))
+                    (sessionStorage.getItem("role") === 'Customer'? (<Button type='submit' component={Link} to='/customer/cars' className={classes.btnloginsuccess} startIcon={<DoneIcon />}>Success</Button>):
+                    ((sessionStorage.getItem("role") === 'Admin'? (<Button type='submit' component={Link} to='/admin/cars' className={classes.btnloginsuccess} startIcon={<DoneIcon />}>Success</Button>):
+                    (null)
+                    ))
+                    )
                  
                 
                 )

@@ -1,13 +1,14 @@
 import { FETCH_CARS, BOOK_CAR} from './types';
-
+import {backend} from './backend';
 
 export const fetchCars = () => dispatch => {
     
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch(backend+'api/cars', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
         },
         
     })
@@ -27,7 +28,8 @@ export const bookCar = (booking) => dispatch => {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
         },
         body: JSON.stringify(booking)
         
@@ -45,4 +47,18 @@ export const bookCar = (booking) => dispatch => {
             })
         }
     })
+}
+
+export const createCar = (car) => dispatch => {
+    fetch(backend+'api/cars', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        },
+        body: JSON.stringify(car)
+        
+    })
+    .then((res) => {return res.text()})
 }
