@@ -40,7 +40,7 @@ def createtable_cars(mydb):
                                                     color VARCHAR(255), \
                                                     seats INT, \
                                                     location VARCHAR(255), \
-                                                    cost INT \
+                                                    cost FLOAT \
                                                     )")
         return True
 
@@ -114,14 +114,14 @@ def createtable_reports(mydb):
       print(str(e))
       return False
 
-def createtable_reports(mydb):
+def createtable_pictures(mydb):
   """
 
   """
   try:
       cursor = mydb.cursor()
       cursor.execute("CREATE TABLE IF NOT EXISTS pictures( \
-                                                  report_id INT \
+                                                  picture_id INT \
                                                   auto_increment \
                                                   PRIMARY KEY, \
                                                   car_id INT, \

@@ -1,5 +1,6 @@
 from gcloud_db import *
 from db_functions import *
+from classes import *
 import json
 import requests
 
@@ -46,8 +47,10 @@ def getCars():
     mydb = create_connection()
     cars = get_cars(mydb)
     result = []
-    for x in cars:
-        result.append(x)
+    for car in cars:
+        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6])
+        result.append(_)
+    result = tuple(result)
     return json.dumps(result)
  
 

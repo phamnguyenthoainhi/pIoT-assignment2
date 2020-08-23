@@ -170,7 +170,7 @@ def edit_report(mybd,data):
         print(str(e))
 
 mydb = create_connection()
-# get_cars(mydb)
+print(get_cars(mydb))
 # car = ["make1", "body_type1", "color1", 1, "location1", 1, 1]
 # add_car(mydb, car)
 # remove_car(mydb, (10,))
