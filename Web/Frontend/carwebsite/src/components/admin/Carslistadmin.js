@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
 import style from './style.js'
-import {fetchCars} from '../../actions/carAction'
+import {fetchCars, createCar} from '../../actions/carAction'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -14,11 +14,26 @@ class Carslistadmin extends Component {
         this.state = {
             cars: [],
             searchedCar: [],
-            
+        
+                car_id: '', 
+                make: "", 
+                body_type: "",
+                color:"", 
+                seats: 0, 
+                location: "",
+                cost: 0
+            ,
             searchinput : ''
         }
     }
+    onChange(e) {
+       console.log(e.target.value)
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
     componentDidUpdate(prevProps) {
+        console.log(this.props.cars)
         if(this.props.cars !== prevProps.cars) {
             this.setState({
                 cars: this.props.cars,
@@ -31,7 +46,7 @@ class Carslistadmin extends Component {
 
     componentDidMount() {
         this.props.fetchCars()
-        
+    
         
     }
     handleChangeSearch = (e) => {
@@ -39,17 +54,19 @@ class Carslistadmin extends Component {
         this.setState({
             [e.target.name] : e.target.value
         }) 
-        
-        const searchedCars = this.state.cars.filter(car => car.title.includes(this.state.searchinput))
-        if (searchedCars.length === 0) {
-            this.setState({
-                searchedCars: this.state.cars
-            })
-        } else {
-            this.setState({
-                searchedCars
-            })
+        if (this.state.cars !== undefined) {
+            const searchedCars = this.state.cars.filter(car => car.make.includes(this.state.make) || car.body_type.includes(this.state.body_type) || car.color.includes(this.state.color) || car.location.includes(this.state.location) )
+            if (searchedCars.length === 0) {
+                this.setState({
+                    searchedCars: this.state.cars
+                })
+            } else {
+                this.setState({
+                    searchedCars
+                })
+            }
         }
+        
 
         // console.log(this.state.searchinput)
     }
@@ -58,13 +75,7 @@ class Carslistadmin extends Component {
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
         
-        
-
-       
-
-    
-        
-
+      
         // When the user clicks anywhere outside of the modal, close it
        
     }
@@ -91,8 +102,23 @@ class Carslistadmin extends Component {
         var modal = document.getElementById("myModal1");
         modal.style.display = "none";
     }
+    onSubmit(e) {
+        e.preventDefault();
+        const car = {
+            car_id: this.state.car_id, 
+            make: this.state.make, 
+            body_type: this.state.body_type,
+            color: this.state.color, 
+            seats: this.state.seats, 
+            location: this.state.location,
+            cost: this.state.cost
+        }
+
+        this.props.createCar(car)
+    }
         
     render() {
+        console.log(this.state.cars)
         const {classes} = this.props;
         return (
             <div>
@@ -115,37 +141,41 @@ class Carslistadmin extends Component {
                 onClick={() => this.openedit()}
                 >Add a new car</Button>
                 {/* <Button variant="contained" onClick={() => this.openedit()}>ADD A NEW CAR</Button> */}
-                <div id="myModal" class="modal">
+                <form id="myModal" class="modal" onSubmit={(e) => this.onSubmit(e)}>
                     <div class="modal-content">
                     <span class="close" onClick={() => this.closeedit()}  >&times;</span>
                     <div class="form-group">
+                        <label for="carmake">ID:</label>
+                        <input type="text" class="form-control" id="car_id" name='car_id' value={this.state.car_id} disabled/>
+                    </div>
+                    <div class="form-group">
                         <label for="carmake">Make:</label>
-                        <input type="text" class="form-control" id="carmake"/>
+                        <input type="text" class="form-control" id="carmake" name='make' value={this.state.make}  onChange= {(e) => this.onChange(e)}/>
                     </div>
                     <div class="form-group">
                         <label for="bodytype">Body Type:</label>
-                        <input type="text" class="form-control"  id="bodytype"/>
+                        <input type="text" class="form-control"  id="bodytype" name='body_type' value={this.state.type}  onChange= {(e) => this.onChange(e)}/>
                     </div>
                     <div class="form-group">
                         <label for="colour">Colour:</label>
-                        <input type="text" class="form-control"  id="colour"/>
+                        <input type="text" class="form-control"  id="color" name='color' value={this.state.color} onChange= {(e) => this.onChange(e)}/>
                     </div>
                     <div class="form-group">
                         <label for="seats">Seats</label>
-                        <input type="number" class="form-control"  id="seats"/>
+                        <input type="number" class="form-control"  id="seats" name='seats' value={this.state.seats} onChange= {(e) => this.onChange(e)}/>
                     </div>
                     <div class="form-group">
                         <label for="location">Location:</label>
-                        <input type="text" class="form-control"  id="location"/>
+                        <input type="text" class="form-control"  id="location" name='location' value={this.state.location} onChange= {(e) => this.onChange(e)}/>
                     </div>
                     <div class="form-group">
                         <label for="cost">Cost per hour:</label>
-                        <input type="number" class="form-control"  id="cost"/>
+                        <input type="number" class="form-control"  id="cost" name='cost' value={this.state.cost} onChange= {(e) => this.onChange(e)}/>
                     </div>
-                    <Button variant="contained">SAVE</Button>
+                    <Button variant="contained" type='submit'>SAVE</Button>
                     </div>
 
-                </div>
+                </form>
                 <div id="myModal1" class="modal">
                     <div class="modal-content">
                     <span class="close" onClick={() => this.closeopen()}  >&times;</span>
@@ -171,14 +201,17 @@ class Carslistadmin extends Component {
                         <th style={{width: '25%', textAlign: 'center', color: "#66827A"}}></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td style={{textAlign: 'center'}}>John</td>
-                        <td style={{textAlign: 'center'}}>Doe</td>
-                        <td style={{textAlign: 'center'}}>john@example.com</td>
-                        <td style={{textAlign: 'center'}}>john@example.com</td>
-                        <td style={{textAlign: 'center'}}>john@example.com</td>
-                        <td style={{textAlign: 'center'}}>john@example.com</td>
+                    
+                    {this.state.searchedCars ? 
+                       ( <tbody>
+                    {this.state.searchedCars.map((car) => 
+                    <tr key={car.id}>
+                        <td style={{textAlign: 'center'}}>{car.make}</td>
+                        <td style={{textAlign: 'center'}}>{car.body_type}</td>
+                        <td style={{textAlign: 'center'}}>{car.color}</td>
+                        <td style={{textAlign: 'center'}}>{car.seats}</td>
+                        <td style={{textAlign: 'center'}}>{car.location}</td>
+                        <td style={{textAlign: 'center'}}>{car.cost}</td>
                         <td style={{textAlign: 'center'}}>
                             <Button variant="outlined" color="default" onClick={() => this.openreport()} >Report</Button>
                             <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit()}   >EDIT</Button>
@@ -186,8 +219,31 @@ class Carslistadmin extends Component {
                         </td>
                        
                     </tr>
+                    )}
+                        
+                    </tbody>):
+                    (<tbody>
+                        {this.state.cars.map((car) => 
+                        <tr key={car.id}>
+                            <td style={{textAlign: 'center'}}>{car.make}</td>
+                            <td style={{textAlign: 'center'}}>{car.body_type}</td>
+                            <td style={{textAlign: 'center'}}>{car.color}</td>
+                            <td style={{textAlign: 'center'}}>{car.seats}</td>
+                            <td style={{textAlign: 'center'}}>{car.location}</td>
+                            <td style={{textAlign: 'center'}}>{car.cost}</td>
+                            <td style={{textAlign: 'center'}}>
+                                <Button variant="outlined" color="default" onClick={() => this.openreport()} >Report</Button>
+                                <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit()}   >EDIT</Button>
+                                <Button variant="outlined" color="secondary">DELETE</Button>
+                            </td>
+                           
+                        </tr>
+                        )}
+                            
+                        </tbody>)}
                     
-                    </tbody>
+                    
+                    
                 </table>
                  
             </div>
@@ -197,6 +253,7 @@ class Carslistadmin extends Component {
 }
 const mapDispatchToProps = dispatch => ({
     fetchCars: () => dispatch(fetchCars()),
+    createCar: (car) => dispatch(createCar(car))
 })
 
 const mapStateToProps = state => ({

@@ -43,18 +43,19 @@ export const fetchUsers = () => dispatch => {
     }       
     )
 }
-export const createCar = (car) => dispatch => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify(car)
+// export const createCar = (car) => dispatch => {
+//     fetch(backend+'api/cars', {
+//         method: 'POST',
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-type': 'application/json',
+//             "Access-Control-Allow-Origin": "*"
+//         },
+//         body: JSON.stringify(car)
         
-    })
-    .then((res) => res.json())
-}
+//     })
+//     .then((res) => {return res.json()})
+// }
 
 export const editCar = (car) => dispatch => {
     fetch('https://jsonplaceholder.typicode.com/posts', {

@@ -16,6 +16,8 @@ class Bookingdetails extends Component {
     super(props);
     this.state = {
         car: {},
+        pickuptime: '',
+        returntime: ''
         
     }
 }
@@ -35,35 +37,106 @@ class Bookingdetails extends Component {
     close = () => {
       this.props.handleClose()
     };
+    onChange(e) {
+       
+      console.log(e.target.value)
+      this.setState({
+          [e.target.name] : e.target.value
+      })
+      
+  }
 
     book = () => {
+      var gapi = window.gapi
+      var CLIENT_ID = "1011886611099-3tpug8k9tksko69s2s7bns0q74a9vkeg.apps.googleusercontent.com"
+      var API_KEY = "AIzaSyCc23hisVCuVZTq3GNvfJGSWXlMr19feC8"
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
+      var SCOPES = "https://www.googleapis.com/auth/calendar.events"
       const booking = {
         car_id: this.state.car.id,
         user_id: 1,
         start_day: '',
         end_day:''
       }
-      this.props.bookCar(booking)
+      gapi.load('client:auth2', () => {
+        
+
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES,
+        })
+        gapi.client.load('calendar', 'v3', () => console.log('bam!'))
+        gapi.auth2.getAuthInstance().signIn()
+        .then(() => 
+        {
+          var event = {
+            'summary': 'Car Rent Pickup',
+          'location': '800 Howard St., San Francisco, CA 94103',
+          'description': 'Unlock a car',
+          'start': {
+            'dateTime': new Date(this.state.pickuptime),
+            'timeZone': 'America/Los_Angeles'
+          },
+          'end': {
+            'dateTime': new Date(this.state.returntime),
+            'timeZone': 'America/Los_Angeles'
+          },
+          'recurrence': [
+            'RRULE:FREQ=DAILY;COUNT=2'
+          ],
+          'attendees': [
+            // {'email': 'lpage@example.com'},
+            // {'email': 'sbrin@example.com'}
+          ],
+          'reminders': {
+            'useDefault': false,
+            'overrides': [
+              {'method': 'email', 'minutes': 24 * 60},
+              {'method': 'popup', 'minutes': 10}
+            ]
+          }
+          }
+          var request = gapi.client.calendar.events.insert({
+            'calendarId': 'primary',
+            'resource': event,
+          })
+  
+          request.execute(event => {
+            console.log(event)
+            window.open(event.htmlLink)
+          })
+        })
+
+      })
+      
+      // this.props.bookCar(booking)
     }
 
     render() {
-      // console.log(this.state.car)
+      var date = new Date(this.state.pickuptime)
+
+      console.log(date.toString())
         const {classes} = this.props;
         return (
             <div>
-<Button variant="contained" color="primary" onClick = {this.close}>Close</Button>
+
                 <form className={classes.root} noValidate autoComplete="off">
                 <h2>Booking Details</h2>
                 
         <input type="datetime-local" id="meeting-time"
-       name="meeting-time" value="2018-06-12T19:30"
-       min="2018-06-07T00:00" max="2018-06-14T00:00"/><br/>
+       name="pickuptime" value = {this.state.pickuptime}
+      //  min="2018-06-07T00:00" max="2018-06-14T00:00" 
+       onChange= {(e) => this.onChange(e)}/><br/>
        <input type="datetime-local" id="meeting-time"
-       name="meeting-time" value="2018-06-12T19:30"
-       min="2018-06-07T00:00" max="2018-06-14T00:00"/>
+       name="returntime" value = {this.state.returntime}
+      //  min="2018-06-07T00:00" max="2018-06-14T00:00" 
+       onChange= {(e) => this.onChange(e)}/>
                 
                 <br/>
-                <Button variant="contained" color="primary" onClick = {() => this.book()}>Save</Button>
+                <Button variant="contained" color="primary" onClick = {() => this.book()} className={classes.savebtn}>Save</Button>
+                <Button variant="contained" color="primary" onClick = {this.close} className={classes.savebtn}>Cancel</Button>
                 </form>
             </div>
         )
