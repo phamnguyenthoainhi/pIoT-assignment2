@@ -116,7 +116,6 @@ def createtable_reports(mydb):
 
 def createtable_pictures(mydb):
   """
-
   """
   try:
       cursor = mydb.cursor()
@@ -124,15 +123,13 @@ def createtable_pictures(mydb):
                                                   picture_id INT \
                                                   auto_increment \
                                                   PRIMARY KEY, \
-                                                  car_id INT, \
                                                   user_id INT, \
-                                                  content VARCHAR(255),\
-                                                  FOREIGN KEY (car_id) REFERENCES cars(car_id), \
-                                                  FOREIGN KEY (user_id) REFERENCES users(user_id), \
-                                                  report_date VARCHAR(255) \
+                                                  username VARCHAR(255),\
+                                                  email VARCHAR(255),\
+                                                  picture BINARY,\
+                                                  FOREIGN KEY (user_id) REFERENCES users(user_id) \
                                                   )")
       return True
-
   except mysql.connector.Error as e:
       print(str(e))
       return False
@@ -143,3 +140,4 @@ createtable_cars(mydb)
 createtable_users(mydb)
 createtable_bookings(mydb)
 createtable_reports(mydb)
+createtable_pictures(mydb)
