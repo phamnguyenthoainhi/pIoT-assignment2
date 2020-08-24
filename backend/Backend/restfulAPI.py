@@ -1,6 +1,7 @@
 from gcloud_db import *
 from db_functions import *
 import json
+from classes import *
 from flask import Blueprint, request, Response, jsonify
 from db_functions import db_write
 from gcloud_db import create_connection
@@ -29,6 +30,7 @@ def hello_world():
 #         print(e)
 
 # View user's rental history
+# View user's rental history
 @app.route("/api/users/<int:user_id>/bookings", methods=['GET'])
 @cross_origin()
 def rentalHistoryUser(user_id):
@@ -48,8 +50,10 @@ def getCars():
     mydb = create_connection()
     cars = get_cars(mydb)
     result = []
-    for x in cars:
-        result.append(x)
+    for car in cars:
+        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6])
+        result.append(_)
+    result = tuple(result)
     return json.dumps(result)
  
 

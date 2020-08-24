@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 import style from './style';
 import { withStyles } from '@material-ui/core';
 class Navigationbar extends Component {
+    logout = () => {
+        sessionStorage.removeItem("id")
+        sessionStorage.removeItem("role")
+        
+    }
     render() {
         const {classes} = this.props;
         return (
@@ -26,7 +31,7 @@ class Navigationbar extends Component {
                                 
                                 </ul>
                                 <form className="form-inline my-2 my-lg-0">
-                                <Button className={classes.buttonLogout}>Logout</Button><br/>
+                                <Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button><br/>
                                 </form>
                             </div>
                     </nav>

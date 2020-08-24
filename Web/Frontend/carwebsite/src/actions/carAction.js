@@ -60,5 +60,5 @@ export const createCar = (car) => dispatch => {
         body: JSON.stringify(car)
         
     })
-    .then((res) => {return res.text()})
+    .then((res) => {fetchCars()})
 }

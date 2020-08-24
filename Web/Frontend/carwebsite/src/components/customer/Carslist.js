@@ -12,7 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import {fetchCars} from '../../actions/carAction'
+import {fetchCars, bookCar} from '../../actions/carAction'
 import Bookingdetails from './Bookingdetails';
 import Navigationbar from './Navigationbar';
 class Carslist extends Component {
@@ -39,10 +39,13 @@ class Carslist extends Component {
 
     componentDidMount() {
         this.props.fetchCars()
+        // if (this.state.searchedCars.length === 0) {
+        //         this.setState({
+        //             searchedCars: this.state.cars
+        // })
         
-        
+    // }
     }
-
     showDetails = (car) => {
         
         var bookdetails = document.getElementById("bookdetails");
@@ -63,24 +66,27 @@ class Carslist extends Component {
         this.setState({
             [e.target.name] : e.target.value
         }) 
-        
-        const searchedCars = this.state.cars.filter(car => car.title.includes(this.state.searchinput))
-        if (searchedCars.length === 0) {
-            
-            this.setState({
-                searchedCars: this.state.cars
-            })
-        } else {
-            this.setState({
-                searchedCars
-            })
+        if (this.state.cars !== undefined) {
+            const searchedCars = this.state.cars.filter(car => car.make.includes(this.state.searchinput) || car.body_type.includes(this.state.searchinput) || car.color.includes(this.state.searchinput) || car.location.includes(this.state.searchinput) )
+            if (searchedCars.length === 0) {
+                this.setState({
+                    searchedCars: this.state.cars
+                })
+            } else {
+                this.setState({
+                    searchedCars
+                })
+            }
         }
+        
+
+        
         // console.log(this.state.searchinput)
     }
     
     
     render() {
-        // console.log(this.state.chosenCar)
+        console.log(this.state.searchedCars)
         const {classes} = this.props;
         return (
             <div>
@@ -110,26 +116,26 @@ class Carslist extends Component {
                             <Card className={classes.carcard} key ={car.id}>
                             <CardContent>
                                 <Typography className={classes.carcardtitle} color="textSecondary" gutterBottom>
-                                {car.id}
+                                {car.car_id}
                                 </Typography>
                                 
                                 <Typography variant="body2" component="p">
-                                Make
+                                Car Make: {car.make}
                                 </Typography>
                                 <Typography variant="body2" component="p">
-                                Body Type
+                                Body Type: {car.body_type}
                                 </Typography>
                                 <Typography variant="body2" component="p">
-                                Colour
+                                Color: {car.color}
                                 </Typography>
                                 <Typography variant="body2" component="p">
-                                Seats
+                                Seats: {car.seats}
                                 </Typography>
                                 <Typography variant="body2" component="p">
-                                Location
+                                Location: {car.location}
                                 </Typography>
                                 <Typography variant="body2" component="p">
-                                Cost per hour
+                                Cost per hour: {car.cost}
                                 </Typography>
                             </CardContent>
                             
@@ -151,26 +157,26 @@ class Carslist extends Component {
                                 <Card className={classes.root} key ={car.id}>
                                 <CardContent>
                                     <Typography className={classes.title} color="textSecondary" gutterBottom>
-                                    {car.id}
+                                    {car.car_id}
                                     </Typography>
                                     
                                     <Typography variant="body2" component="p">
-                                    Make
+                                    Car Make: {car.make}
                                     </Typography>
                                     <Typography variant="body2" component="p">
-                                    Body Type
+                                    Body Type: {car.body_type}
                                     </Typography>
                                     <Typography variant="body2" component="p">
-                                    Colour
+                                    Color: {car.color}
                                     </Typography>
                                     <Typography variant="body2" component="p">
-                                    Seats
+                                    Seats: {car.seats}
                                     </Typography>
                                     <Typography variant="body2" component="p">
-                                    Location
+                                    Location: {car.location}
                                     </Typography>
                                     <Typography variant="body2" component="p">
-                                    Cost per hour
+                                    Cost per hour: {car.cost}
                                     </Typography>
                                 </CardContent>
                                 
@@ -194,6 +200,7 @@ class Carslist extends Component {
 }
 const mapDispatchToProps = dispatch => ({
     fetchCars: () => dispatch(fetchCars()),
+    bookCar: (booking) => dispatch(bookCar(booking))
    
   
 })

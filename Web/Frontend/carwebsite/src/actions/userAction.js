@@ -1,7 +1,7 @@
 import { LOGIN, LOGIN_FAILED, SIGNUP, SIGNUP_FAILED} from './types'
 import {backend} from "./backend"
 export const login = (user) => dispatch => {
-    console.log("actionnn")
+    
     fetch(backend+"login", {
         method: 'POST',
         headers: {

@@ -17,7 +17,12 @@ class Bookingdetails extends Component {
     this.state = {
         car: {},
         pickuptime: '',
-        returntime: ''
+        returntime: '',
+        booking_id : "",
+        car_id : "",
+        user_id : "",
+        status : "",
+        
         
     }
 }
@@ -52,12 +57,7 @@ class Bookingdetails extends Component {
       var API_KEY = "AIzaSyCc23hisVCuVZTq3GNvfJGSWXlMr19feC8"
       var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
       var SCOPES = "https://www.googleapis.com/auth/calendar.events"
-      const booking = {
-        car_id: this.state.car.id,
-        user_id: 1,
-        start_day: '',
-        end_day:''
-      }
+      
       gapi.load('client:auth2', () => {
         
 
@@ -73,7 +73,7 @@ class Bookingdetails extends Component {
         {
           var event = {
             'summary': 'Car Rent Pickup',
-          'location': '800 Howard St., San Francisco, CA 94103',
+          'location': this.state.car.location,
           'description': 'Unlock a car',
           'start': {
             'dateTime': new Date(this.state.pickuptime),
@@ -87,8 +87,7 @@ class Bookingdetails extends Component {
             'RRULE:FREQ=DAILY;COUNT=2'
           ],
           'attendees': [
-            // {'email': 'lpage@example.com'},
-            // {'email': 'sbrin@example.com'}
+           
           ],
           'reminders': {
             'useDefault': false,
@@ -110,8 +109,16 @@ class Bookingdetails extends Component {
         })
 
       })
+      const booking = {
       
-      // this.props.bookCar(booking)
+        car_id : this.state.car.car_id,
+        user_id : sessionStorage.getItem('id'),
+        status : "booking",
+        booking_date : this.state.pickuptime,
+        return_date : this.state.returntime
+      }
+      
+      this.props.bookCar(booking)
     }
 
     render() {
