@@ -2,6 +2,39 @@ import mysql.connector
 from gcloud_db import create_connection
 
 
+# Get all users
+def get_users(mydb):
+    try:
+        sql = "select * from users"
+        cursor = mydb.cursor()
+        cursor.execute(sql)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e))
+
+# Remove a user by id
+def remove_user(mydb, data):
+    try:
+        sql = "DELETE FROM users WHERE user_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        mydb.commit()
+        return cursor.lastrowid
+    except mysql.connector.Error as e:
+        print(str(e))
+
+# Edit a user by id
+def edit_user(mydb, data):
+    try:
+        sql = "UPDATE users SET username = %s, email = %s \
+            WHERE user_id = %s "
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        mydb.commit()
+        return cursor.lastrowid
+    except mysql.connector.Error as e:
+        print(str(e))
+
 def get_cars(mydb):
     try:
         sql = "select * from cars"
@@ -57,6 +90,8 @@ def db_read(mydb, query, params=None):
         content.append(entry)
 
     return content
+
+
 # Remove a car with car_id
 def remove_car(mydb, data):
     try:
@@ -68,7 +103,7 @@ def remove_car(mydb, data):
     except mysql.connector.Error as e:
         print(str(e))
 
-# Edit a car
+# Edit a car by id
 def edit_car(mydb, data):
     try:
         sql = "UPDATE cars SET make = %s, body_type = %s, color = %s, seats = %s, location = %s, cost = %s \
@@ -79,6 +114,49 @@ def edit_car(mydb, data):
         return cursor.lastrowid
     except mysql.connector.Error as e:
         print(str(e))
+
+# Lock a car by id
+def lock_car(mydb, data):
+    try:
+        sql = "UPDATE cars SET lock = 1 WHERE car_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        mydb.commit()
+        return cursor.lastrowid
+    except mysql.connector.Error as e:
+        print(str(e))
+
+# Unlock a car by id
+def lock_car(mydb, data):
+    try:
+        sql = "UPDATE cars SET lock = 0 WHERE car_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        mydb.commit()
+        return cursor.lastrowid
+    except mysql.connector.Error as e:
+        print(str(e))
+
+
+# Get all cars that are locked
+def get_locked(mydb):
+    try:
+        sql = "get * from cars where lock = 1"
+        cursor = mydb.cursor()
+        cursor.execute(sql)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e))  
+
+# Get all cars that are unlocked
+def get_locked(mydb):
+    try:
+        sql = "get * from cars where lock = 0"
+        cursor = mydb.cursor()
+        cursor.execute(sql)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e)) 
 
 # Add a booking
 def add_booking(mydb,data):

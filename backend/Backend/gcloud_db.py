@@ -47,7 +47,8 @@ def createtable_cars(mydb):
                                                     color VARCHAR(255), \
                                                     seats INT, \
                                                     location VARCHAR(255), \
-                                                    cost INT \
+                                                    cost INT, \
+                                                    lock BIT \
                                                     )")
         return True
 
@@ -71,6 +72,7 @@ def createtable_users(mydb):
                                                   user_id INT \
                                                   auto_increment \
                                                   PRIMARY KEY, \
+                                                  username VARCHAR(255),\
                                                   email VARCHAR(255), \
                                                   password_salt VARCHAR(255) NOT NULL, \
                                                   password_hash VARCHAR(255) NOT NULL, \

@@ -24,7 +24,7 @@ def rentalHistoryUser(user_id):
     bookings = bookings_history_u(mydb, (user_id,))
     result = []
     for booking in bookings:
-        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5], booking[6])
+        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
             result.append(_)
     result = tuple(result)
     return json.dumps(result) 
@@ -93,6 +93,25 @@ def removeCar(car_id):
         return "Success"
     return Response("Bad request", status=400)
            
+# Lock a car, accepts car_id in request
+@app.route("/api/cars/<int:car_id>/lock", methods=['PUT'])
+@cross_origin()
+def lockCar(car_id):
+    mydb = create_connection()
+    lastid = lock_car(mydb, (car_id,))
+    if (lastid is not None):
+        return "Success"
+    return Response("Bad request", status=400)
+
+# Unlock a car, accepts car_id in request
+@app.route("/api/cars/<int:car_id>/unlock", methods=['PUT'])
+@cross_origin()
+def lockCar(car_id):
+    mydb = create_connection()
+    lastid = lock_car(mydb, (car_id,))
+    if (lastid is not None):
+        return "Success"
+    return Response("Bad request", status=400)
 
 #Add a booking
 @app.route("/api/bookings", methods=['POST'])
@@ -146,9 +165,11 @@ def rentalHistory(car_id):
     mydb = create_connection()
     bookings = bookings_history(mydb, (car_id,))
     result = []
-    for x in bookings:
-            result.append(x)
-    return json.dumps(result) 
+    for booking in bookings:
+        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
+            result.append(_)
+    result = tuple(result)
+    return json.dumps(result)  
 
 # View reports
 @app.route("/api/reports", methods=['GET'])
@@ -157,8 +178,10 @@ def getReports():
     mydb = create_connection()
     reports = view_reports(mydb)
     result = []
-    for x in reports:
-        result.append(x)
+    for report in reports:
+        _ = Report(report[0], report[1], report[2], report[3], report[4])
+        result.append(_)
+    result = tuple(result)
     return json.dumps(result)
 
 # Add a report
@@ -254,6 +277,29 @@ def login_user():
     elif user_token == 2:
         return Response("Wrong Password", status=401)
         
+# Get all users
+@app.route("/api/users", methods=['GET'])
+@cross_origin()
+def getUsers():
+    mydb = create_connection()
+    users = get_users(mydb)
+    result = []
+    for user in users:
+        _ = User(user[0], user[1], user[2], user[3], user[4], user[5])
+        result.append(_)
+    result = tuple(result)
+    return json.dumps(result)
+
+# Remove a user by id
+@app.route("/api/cars/<int:car_id>", methods= ['DELETE'])
+@cross_origin()
+def removeCar(car_id):
+    mydb = create_connection()
+    lastid = remove_car(mydb, (car_id,))
+    if (lastid is not None):
+        return "Success"
+    return Response("Bad request", status=400)
+ 
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
