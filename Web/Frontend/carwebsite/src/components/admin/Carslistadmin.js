@@ -117,12 +117,14 @@ class Carslistadmin extends Component {
         var modal = document.getElementById("myModal");
         modal.style.display = "none";
     }
+    
     closeopen = () => {
         var modal = document.getElementById("myModal1");
         modal.style.display = "none";
     }
+
     delete = (car) => {
-        
+
         this.props.deleteCar(car.car)
     }
     onSubmit(e) {
