@@ -16,20 +16,6 @@ def hello_world():
     return 'Index'
 
 
-# @app.route("/api/cars", methods=['GET'])
-# @cross_origin()
-# def getCars():
-#     try: 
-#         mydb = create_connection()
-#         cars = get_cars(mydb)
-#         result = []
-#         for x in cars:
-#             result.append(x)
-#         return json.dumps(result) 
-#     except TypeError as e:
-#         print(e)
-
-# View user's rental history
 # View user's rental history
 @app.route("/api/users/<int:user_id>/bookings", methods=['GET'])
 @cross_origin()
@@ -37,9 +23,10 @@ def rentalHistoryUser(user_id):
     mydb = create_connection()
     bookings = bookings_history_u(mydb, (user_id,))
     result = []
-    for x in bookings:
-            result.append(x)
-    print(result)
+    for booking in bookings:
+        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5], booking[6])
+            result.append(_)
+    result = tuple(result)
     return json.dumps(result) 
 
 
