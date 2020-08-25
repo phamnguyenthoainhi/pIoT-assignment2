@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
 import style from './style.js'
 import {fetchCars, createCar} from '../../actions/carAction'
-import {editCar, deleteCar } from '../../actions/adminAction'
+import {editCar, deleteCar, createReport } from '../../actions/adminAction'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -24,17 +24,18 @@ class Carslistadmin extends Component {
                 location: "",
                 cost: 0
             ,
-            searchinput : ''
+            searchinput : '',
+            reportcarid: ''
         }
     }
     onChange(e) {
-       console.log(e.target.value)
+    //    console.log(e.target.value)
         this.setState({
             [e.target.name] : e.target.value
         })
     }
     componentDidUpdate(prevProps) {
-        console.log(this.props.cars)
+        // console.log(this.props.cars)
         if(this.props.cars !== prevProps.cars) {
             this.setState({
                 cars: this.props.cars,
@@ -98,9 +99,13 @@ class Carslistadmin extends Component {
         // When the user clicks anywhere outside of the modal, close it
        
     }
-    openreport = () => {
+    openreport = (car) => {
+        
         var modal = document.getElementById("myModal1");
         modal.style.display = "block";
+        this.setState({
+            reportcarid: car.car.car_id
+        })
         
         
 
@@ -117,7 +122,7 @@ class Carslistadmin extends Component {
         var modal = document.getElementById("myModal");
         modal.style.display = "none";
     }
-    
+
     closeopen = () => {
         var modal = document.getElementById("myModal1");
         modal.style.display = "none";
@@ -126,6 +131,20 @@ class Carslistadmin extends Component {
     delete = (car) => {
 
         this.props.deleteCar(car.car)
+    }
+
+    onSubmitreport = (e) => {
+        e.preventDefault();
+        const date = new Date()
+        const report = {
+            car_id : this.state.reportcarid,
+            user_id : parseInt(sessionStorage.getItem("id")),
+            content : this.state.reportcontent,
+            report_date : date.toString()
+        }
+        
+        this.props.createReport(report)
+        this.closeopen()
     }
     onSubmit(e) {
         e.preventDefault();
@@ -219,18 +238,18 @@ class Carslistadmin extends Component {
                     </div>
 
                 </form>
-                <div id="myModal1" className="modal">
+                <form id="myModal1" className="modal" onSubmit={(e) => this.onSubmitreport(e)}>
                     <div className="modal-content">
                     <span className="close" onClick={() => this.closeopen()}  >&times;</span>
                     <div className="form-group">
                         <label htmlFor="carmake">Desciption of problem:</label>
-                        <textarea type="text" className="form-control" id="carmake"/>
+                        <textarea type="text" className="form-control" id="carmake" name='reportcontent' value = {this.state.reportcontent} onChange= {(e) => this.onChange(e)}/>
                     </div>
                     
-                    <Button variant="contained">Report</Button>
+                    <Button variant="contained" type='submit' >Report</Button>
                     </div>
 
-                </div>
+                </form>
                         <table className="table">
                     <thead>
                     <tr>
@@ -256,7 +275,7 @@ class Carslistadmin extends Component {
                         <td style={{textAlign: 'center'}}>{car.location}</td>
                         <td style={{textAlign: 'center'}}>{car.cost}</td>
                         <td style={{textAlign: 'center'}}>
-                            <Button variant="outlined" color="default" onClick={() => this.openreport()} >Report</Button>
+                            <Button variant="outlined" color="default" onClick={() => this.openreport({car})} >Report</Button>
                             <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit({car})}   >EDIT</Button>
                             <Button variant="outlined" color="secondary" onClick={() => this.delete({car})}>DELETE</Button>
                         </td>
@@ -298,7 +317,8 @@ const mapDispatchToProps = dispatch => ({
     fetchCars: () => dispatch(fetchCars()),
     createCar: (car) => dispatch(createCar(car)),
     editCar: (car) => dispatch(editCar(car)),
-    deleteCar: (id) => dispatch(deleteCar(id))
+    deleteCar: (id) => dispatch(deleteCar(id)),
+    createReport: (report) => dispatch(createReport(report))
 })
 
 const mapStateToProps = state => ({

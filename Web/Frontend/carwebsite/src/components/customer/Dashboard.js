@@ -21,7 +21,7 @@ class Dashboard extends Component {
                     Name of the car
                     </Typography>
                     <Typography variant="body2" component="p">
-                    Date Book - Date Return
+                    Pickup Date - Return Date
                     </Typography>
                     <Typography variant="body2" component="p">
                     Make

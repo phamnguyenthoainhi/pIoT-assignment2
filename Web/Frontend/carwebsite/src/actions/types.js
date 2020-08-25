@@ -15,3 +15,5 @@ export const LOGIN_FAILED = "LOGIN_FAILED"
 
 export const SIGNUP = "SIGNUP"
 export const SIGNUP_FAILED = "SIGNUP_FAILED"
+
+export const CREATE_REPORT = "CREATE_REPORT"

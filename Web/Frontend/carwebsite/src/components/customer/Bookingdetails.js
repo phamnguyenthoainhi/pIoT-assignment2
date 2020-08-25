@@ -33,7 +33,8 @@ class Bookingdetails extends Component {
             })
         }
         if(this.props.bookingStatus !== prevProps.bookingStatus && this.props.bookingStatus === 'success') {
-          console.log("Success")
+          this.close()
+          alert("Booking Success");
       } else {
         console.log("Failed")
       }
@@ -102,23 +103,24 @@ class Bookingdetails extends Component {
             'resource': event,
           })
   
-          request.execute(event => {
-            console.log(event)
-            window.open(event.htmlLink)
-          })
+          // request.execute(event => {
+          //   console.log(event)
+          //   window.open(event.htmlLink)
+          // })
         })
 
       })
       const booking = {
       
         car_id : this.state.car.car_id,
-        user_id : sessionStorage.getItem('id'),
-        status : "booking",
+        user_id : parseInt(sessionStorage.getItem('id')),
+        status: "Booked",
         booking_date : this.state.pickuptime,
         return_date : this.state.returntime
       }
-      
+      console.log(booking)
       this.props.bookCar(booking)
+      
     }
 
     render() {

@@ -1,6 +1,6 @@
 import { 
     FETCH_RENTAL_CARS, 
-    FETCH_USERS, CREATE_CAR, EDIT_CAR, EDIT_USER, DELETE_CAR
+    FETCH_USERS,  EDIT_USER, DELETE_CAR, CREATE_REPORT
 } from './types';
 import {backend} from './backend'
 import {fetchCars} from './carAction';
@@ -44,19 +44,24 @@ export const fetchUsers = () => dispatch => {
     }       
     )
 }
-// export const createCar = (car) => dispatch => {
-//     fetch(backend+'api/cars', {
-//         method: 'POST',
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-type': 'application/json',
-//             "Access-Control-Allow-Origin": "*"
-//         },
-//         body: JSON.stringify(car)
+export const createReport = (report) => dispatch => {
+   
+    fetch(backend+'api/reports', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        },
+        body: JSON.stringify(report)
         
-//     })
-//     .then((res) => {return res.json()})
-// }
+    })
+    .then((res) => {
+        if (res.status === 200) {
+            alert("Success")
+        }
+    })
+}
 
 export const editCar = (car) => dispatch => {
     fetch(backend+`api/cars/${car.car_id}`, {

@@ -24,12 +24,13 @@ export const fetchCars = () => dispatch => {
 }
 
 export const bookCar = (booking) => dispatch => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    console.log("book a car")
+    fetch(backend+'api/bookings', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json',
-            "Access-Control-Allow-Origin": "*"
+            'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify(booking)
         

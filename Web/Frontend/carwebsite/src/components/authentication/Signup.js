@@ -16,6 +16,7 @@ class Signup extends Component {
             emailerror: '',
             passworderror: '',
             signupemail: '',
+            signupusername: "",
             signuppassword: '',
             signupconfirmpassword: '',
             img: '',
@@ -41,9 +42,11 @@ class Signup extends Component {
              email : this.state.signupemail,
              password: this.state.signuppassword,
              confirm_password: this.state.signupconfirmpassword,
+             username: this.state.signupusername,
              img: encodedImage,
              role: 'Customer'
          }
+         console.log(encodedImage)
          this.props.signup(user)
      }
 
@@ -91,6 +94,7 @@ class Signup extends Component {
         e.preventDefault();
         if (!(this.state.img === '' || this.state.img === null || this.state.img === undefined)) {
             this.getBase64(this.state.img, this.handleSignup)
+
         } else {
             this.setState({
                 error: "Please add your images"
@@ -120,6 +124,18 @@ class Signup extends Component {
                 
                 />
                 <br/>
+                <TextField 
+                variant='outlined'
+                type="text"
+                fullWidth
+                name="signupusername"
+                placeholder="Username"
+                className={classes.textField}
+                
+                value = {this.state.signupusername}
+                id="signupusername"
+                onChange= {(e) => this.onChange(e)}
+                />
                 <TextField 
                 variant='outlined'
                 type="text"
@@ -158,8 +174,10 @@ class Signup extends Component {
             </Button>)    
             }
                 
-
-                <Button component={Link} to="/login">Login Here</Button><br/>
+                <br/>
+                
+                
+                <Button component={Link} to="/login">Login Here</Button>
                 {this.state.success ? 
                 (null):(<Button variant="contained" color="primary" className={classes.btnlogin} type="submit">Sign Up</Button>)
             }
