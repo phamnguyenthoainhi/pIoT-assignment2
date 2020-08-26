@@ -22,17 +22,17 @@ class Car(dict):
 
 class User(dict):
     user_id = int
-    username = str
-    password = str
     email = str
+    password_salt = str
+    password_hash = str
     role = str
 
-    def __init__(self, user_id, username, password, email, role):
-        dict.__init__(self, user_id=user_id, username=username, password=password, email=email, role=role)
+    def __init__(self, user_id, email, password_hash, password_salt, role):
+        dict.__init__(self, user_id=user_id, email=email, password_salt=password_salt, password_hash=password_hash, role=role)
         self.user_id = user_id
-        self.username = username
-        self.password = password
         self.email = email
+        self.password_salt = password_salt
+        self.password_hash = password_hash
         self.role = role
         # Relationships
         self.booking = None
