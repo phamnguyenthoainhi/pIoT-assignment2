@@ -167,7 +167,7 @@ def rentalHistory(car_id):
     result = []
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
-            result.append(_)
+        result.append(_)
     result = tuple(result)
     return json.dumps(result)  
 
@@ -285,17 +285,17 @@ def getUsers():
     users = get_users(mydb)
     result = []
     for user in users:
-        _ = User(user[0], user[1], user[2], user[3], user[4], user[5])
+        _ = User(user[0], user[1], user[2], user[3], user[4])
         result.append(_)
     result = tuple(result)
     return json.dumps(result)
 
 # Remove a user by id
-@app.route("/api/cars/<int:car_id>", methods= ['DELETE'])
+@app.route("/api/users/<int:user_id>", methods= ['DELETE'])
 @cross_origin()
-def removeCar(car_id):
+def removeUser(car_id):
     mydb = create_connection()
-    lastid = remove_car(mydb, (car_id,))
+    lastid = remove_user(mydb, (car_id,))
     if (lastid is not None):
         return "Success"
     return Response("Bad request", status=400)

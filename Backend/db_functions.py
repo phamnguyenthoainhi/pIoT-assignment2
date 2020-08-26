@@ -127,7 +127,7 @@ def lock_car(mydb, data):
         print(str(e))
 
 # Unlock a car by id
-def lock_car(mydb, data):
+def unlock_car(mydb, data):
     try:
         sql = "UPDATE cars SET locked = 0 WHERE car_id = %s"
         cursor = mydb.cursor()
@@ -149,7 +149,7 @@ def get_locked(mydb):
         print(str(e))  
 
 # Get all cars that are unlocked
-def get_locked(mydb):
+def get_unlocked(mydb):
     try:
         sql = "get * from cars where locked = 0"
         cursor = mydb.cursor()

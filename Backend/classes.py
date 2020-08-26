@@ -48,10 +48,11 @@ class Report(dict):
     content = str
     report_date = str
 
-    def __init__(self, report_id, car_id, content, report_date):
-        dict.__init__(self, report_id=report_id, car_id=car_id, content=content, report_date=report_date)
+    def __init__(self, report_id, car_id, user_id, content, report_date):
+        dict.__init__(self, report_id=report_id, car_id=car_id, user_id=user_id, content=content, report_date=report_date)
         self.report_id = report_id
         self.car_id = car_id
+        self.user_id = user_id
         self.content = content
         self.report_date = report_date
       
