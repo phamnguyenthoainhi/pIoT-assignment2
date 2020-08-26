@@ -219,9 +219,9 @@ def rmReport(report_id):
 
 @app.route("/register", methods=["POST"])
 @cross_origin()
+
 def register_user():
     user_email = request.json["email"]
-    
     user_password = request.json["password"]
     user_confirm_password = request.json["confirm_password"]
     user_role = request.json["role"]

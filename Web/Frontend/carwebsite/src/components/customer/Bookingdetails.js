@@ -103,10 +103,10 @@ class Bookingdetails extends Component {
             'resource': event,
           })
   
-          // request.execute(event => {
-          //   console.log(event)
-          //   window.open(event.htmlLink)
-          // })
+          request.execute(event => {
+            console.log(event)
+            window.open(event.htmlLink)
+          })
         })
 
       })
@@ -118,8 +118,8 @@ class Bookingdetails extends Component {
         booking_date : this.state.pickuptime,
         return_date : this.state.returntime
       }
-      console.log(booking)
-      this.props.bookCar(booking)
+      
+      // this.props.bookCar(booking)
       
     }
 
