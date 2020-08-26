@@ -118,7 +118,7 @@ def edit_car(mydb, data):
 # Lock a car by id
 def lock_car(mydb, data):
     try:
-        sql = "UPDATE cars SET lock = 1 WHERE car_id = %s"
+        sql = "UPDATE cars SET locked = 1 WHERE car_id = %s"
         cursor = mydb.cursor()
         cursor.execute(sql, data)
         mydb.commit()
@@ -129,7 +129,7 @@ def lock_car(mydb, data):
 # Unlock a car by id
 def lock_car(mydb, data):
     try:
-        sql = "UPDATE cars SET lock = 0 WHERE car_id = %s"
+        sql = "UPDATE cars SET locked = 0 WHERE car_id = %s"
         cursor = mydb.cursor()
         cursor.execute(sql, data)
         mydb.commit()
@@ -141,7 +141,7 @@ def lock_car(mydb, data):
 # Get all cars that are locked
 def get_locked(mydb):
     try:
-        sql = "get * from cars where lock = 1"
+        sql = "get * from cars where locked = 1"
         cursor = mydb.cursor()
         cursor.execute(sql)
         return cursor.fetchall()
@@ -151,7 +151,7 @@ def get_locked(mydb):
 # Get all cars that are unlocked
 def get_locked(mydb):
     try:
-        sql = "get * from cars where lock = 0"
+        sql = "get * from cars where locked = 0"
         cursor = mydb.cursor()
         cursor.execute(sql)
         return cursor.fetchall()

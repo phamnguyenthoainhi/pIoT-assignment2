@@ -6,9 +6,10 @@ class Car(dict):
     seats = int
     location = str
     cost = float
+    locked = bool
 
-    def __init__(self, car_id, make, body_type, color, seats, location, cost):
-        dict.__init__(self, car_id=car_id, make=make, body_type=body_type, color=color, seats=seats, location=location, cost=cost)
+    def __init__(self, car_id, make, body_type, color, seats, location, cost, locked):
+        dict.__init__(self, car_id=car_id, make=make, body_type=body_type, color=color, seats=seats, location=location, cost=cost, locked=locked)
         self.car_id = car_id
         self.make = make
         self.body_type = body_type
@@ -16,6 +17,7 @@ class Car(dict):
         self.seats = seats
         self.location = location
         self.cost = cost
+        self.locked = locked
         # Relationships
         self.report = None
         self.booking = None
