@@ -106,9 +106,9 @@ def lockCar(car_id):
 # Unlock a car, accepts car_id in request
 @app.route("/api/cars/<int:car_id>/unlock", methods=['PUT'])
 @cross_origin()
-def lockCar(car_id):
+def unlockCar(car_id):
     mydb = create_connection()
-    lastid = lock_car(mydb, (car_id,))
+    lastid = unlock_car(mydb, (car_id,))
     if (lastid is not None):
         return "Success"
     return Response("Bad request", status=400)
