@@ -25,7 +25,7 @@ def rentalHistoryUser(user_id):
     result = []
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
-            result.append(_)
+        result.append(_)
     result = tuple(result)
     return json.dumps(result) 
 
