@@ -17,6 +17,8 @@ import Carslistadmin from './components/admin/Carslistadmin';
 import Rentalhistory from './components/admin/Rentalhistory';
 import Userslist from './components/admin/Userslist';
 import Reportedcars from './components/engineer/Reportedcars';
+// import Map from './components/map/Map';
+// import Test from './components/map/Test';
 class App extends Component{
   render () {
     const theme = createMuiTheme(themeFile);
@@ -33,7 +35,14 @@ class App extends Component{
       <Route exact path={'/admin/cars'} render={(props) => <Carslistadmin {...props} />} />
       <Route exact path={'/admin/history'} render={(props) => <Rentalhistory {...props} />} />
       <Route exact path={'/admin/users'} render={(props) => <Userslist {...props} />} />
-      <Route exact path={'/engineer/report'} render={(props) => <Reportedcars {...props} />} />
+      <Route exact path={'/engineer/reports'} render={(props) => <Reportedcars {...props} />} />
+      {/* <Route exact path={'/map'} render={(props) => <Map google={this.props.google}
+      center={{lat: 18.5204, lng: 73.8567}}
+      hright='300px'
+      zoom={15}
+      {...props} />} />
+      <Route exact path={'/test'} render={(props) => <Test {...props} />} /> */}
+
 
       </ThemeProvider>
         

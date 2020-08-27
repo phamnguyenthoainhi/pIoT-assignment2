@@ -52,6 +52,7 @@ class Login extends Component {
             email: this.state.loginemail,
             password: this.state.loginpassword
         }
+        // console.log(user)
         this.props.login(user)
     }
     render() {

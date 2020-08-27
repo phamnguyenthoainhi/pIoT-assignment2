@@ -46,7 +46,7 @@ class Signup extends Component {
              img: encodedImage,
              role: 'Customer'
          }
-         console.log(encodedImage)
+        //  console.log(user)
          this.props.signup(user)
      }
 

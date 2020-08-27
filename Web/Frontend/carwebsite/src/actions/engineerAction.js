@@ -1,13 +1,15 @@
 import { 
     FETCH_REPORT
 } from './types';
+import {backend} from './backend'
 export const fetchReport = () => dispatch => {
-    
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    console.log("actionnnnn")
+    fetch(backend+"api/reports", {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
         },
         
     })

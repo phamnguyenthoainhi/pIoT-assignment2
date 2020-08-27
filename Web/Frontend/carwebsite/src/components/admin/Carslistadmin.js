@@ -170,7 +170,8 @@ class Carslistadmin extends Component {
                 color: this.state.color, 
                 seats: this.state.seats, 
                 location: this.state.location,
-                cost: this.state.cost
+                cost: this.state.cost,
+                locked: 1
             }
 
         this.props.createCar(car)
