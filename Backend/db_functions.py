@@ -2,6 +2,16 @@ import mysql.connector
 from gcloud_db import create_connection
 
 
+# Get car by id
+def get_car(mydb, data):
+    try:
+        sql = "select * from cars where car_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e))
+
 # Get all users
 def get_users(mydb):
     try:
@@ -266,4 +276,4 @@ def edit_report(mybd,data):
         print(str(e))
 
 mydb = create_connection()
-print(get_cars(mydb))
+print(get_car(mydb, (2,)))

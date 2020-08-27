@@ -38,7 +38,7 @@ def getCars():
     cars = get_cars(mydb)
     result = []
     for car in cars:
-        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6])
+        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6], car[7])
         result.append(_)
     result = tuple(result)
     return json.dumps(result)
