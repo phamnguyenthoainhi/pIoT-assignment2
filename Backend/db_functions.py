@@ -168,6 +168,26 @@ def get_unlocked(mydb):
     except mysql.connector.Error as e:
         print(str(e)) 
 
+# Get all bookings booking_dates of a car
+def car_booking_dates(mydb, data):
+    try:   
+        sql = "select booking_date from bookings where car_id = %s"
+        cursor= mydb.cursor()
+        cursor.execute(sql, data)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e)) 
+
+# Get all bookings return_dates of a car
+def car_return_dates(mydb, data):
+    try:
+        sql = "select return_date from bookings where car_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e)) 
+
 # Add a booking
 def add_booking(mydb,data):
     try:
@@ -275,5 +295,7 @@ def edit_report(mybd,data):
     except mysql.connector.Error as e:
         print(str(e))
 
-mydb = create_connection()
-print(get_car(mydb, (2,)))
+# mydb = create_connection()
+# print(get_car(mydb, (2,)))
+# print(car_booking_dates(mydb, (1,)))
+# print(car_return_dates(mydb, (1,)))
