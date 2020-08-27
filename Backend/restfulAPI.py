@@ -27,7 +27,7 @@ def rentalHistoryUser(user_id):
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
         result.append(_)
     result = tuple(result)
-    return json.dumps(result) 
+    return json.dumps(result, cls = ComplexEncoder) 
 
 
 # Get all cars
@@ -40,9 +40,12 @@ def getCars():
     for car in cars:
         _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6], car[7])
         result.append(_)
+    
     result = tuple(result)
-    return json.dumps(result)
- 
+    
+    # print(result)
+    # return ("Hello")
+    return json.dumps(result, cls = ComplexEncoder)
 
 #Add a car
 @app.route("/api/cars", methods=['POST'])
@@ -169,7 +172,7 @@ def rentalHistory(car_id):
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
         result.append(_)
     result = tuple(result)
-    return json.dumps(result)  
+    return json.dumps(result, cls = ComplexEncoder)  
 
 # View reports
 @app.route("/api/reports", methods=['GET'])
@@ -235,6 +238,7 @@ def register_user():
     user_password = request.json["password"]
     user_confirm_password = request.json["confirm_password"]
     user_role = request.json["role"]
+    username = request.json['username']
     if user_password == user_confirm_password and validate_user_input(
         "authentication", email=user_email, password=user_password
     ) and registered_email_check(email=user_email):
@@ -242,8 +246,8 @@ def register_user():
         password_hash = generate_hash(user_password, password_salt)
         mydb = create_connection()
         if db_write(mydb, 
-            """INSERT INTO users (email, password_salt, password_hash, role) VALUES (%s, %s, %s, %s)""",
-            (user_email, password_salt, password_hash, user_role)
+            """INSERT INTO users (username, email, password_salt, password_hash, role) VALUES (%s, %s, %s, %s, %s)""",
+            (username, user_email, password_salt, password_hash, user_role)
         ):
             # Registration Successful
             return Response(status=201)
@@ -286,10 +290,10 @@ def getUsers():
     users = get_users(mydb)
     result = []
     for user in users:
-        _ = User(user[0], user[1], user[2], user[3], user[4])
+        _ = User(user[0], user[1], user[2], user[3], user[4], user[5])
         result.append(_)
     result = tuple(result)
-    return json.dumps(result)
+    return json.dumps(result, cls = ComplexEncoder)
 
 # Remove a user by id
 @app.route("/api/users/<int:user_id>", methods= ['DELETE'])

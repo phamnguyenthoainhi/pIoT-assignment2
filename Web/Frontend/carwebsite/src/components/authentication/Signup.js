@@ -46,7 +46,7 @@ class Signup extends Component {
              img: encodedImage,
              role: 'Customer'
          }
-        //  console.log(user)
+         console.log(user)
          this.props.signup(user)
      }
 
@@ -83,7 +83,7 @@ class Signup extends Component {
     }
     onChange(e) {
        
-        console.log(e.target.value)
+        
         this.setState({
             [e.target.name] : e.target.value
         })

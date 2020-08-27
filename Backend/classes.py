@@ -39,15 +39,16 @@ class User():
     password_hash = str
     role = str
 
-    def __init__(self, user_id, email, password_hash, password_salt, role):
+    def __init__(self, user_id, username, email, password_hash, password_salt, role):
         self.user_id = user_id
+        self.username = username
         self.email = email
         self.password_salt = password_salt
         self.password_hash = password_hash
         self.role = role
 
     def reprJSON(self):
-        return dict(user_id=self.user_id, email=self.email, password_salt=self.password_salt, password_hash=self.password_hash, role=self.role)
+        return dict(user_id=self.user_id, username=self.username,email=self.email, password_salt=self.password_salt, password_hash=self.password_hash, role=self.role)
 
 
 class Report():

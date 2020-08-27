@@ -10,7 +10,8 @@ export const fetchRentalHistory = () => dispatch => {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
         },
         
     })
@@ -26,11 +27,12 @@ export const fetchRentalHistory = () => dispatch => {
 }
 export const fetchUsers = () => dispatch => {
     
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch(backend+"api/users", {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
         },
         
     })
@@ -80,11 +82,12 @@ export const editCar = (car) => dispatch => {
 }
 
 export const editUser = (user) => dispatch => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch(backend+`api/users`, {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
         },
         body: JSON.stringify(user)
         

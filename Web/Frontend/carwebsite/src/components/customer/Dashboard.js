@@ -76,6 +76,9 @@ class Dashboard extends Component {
                 <CardActions>
                     <Button size="small" className={classes.button} onClick= {() => this.cancelbooking({booking})}>Cancel This Booking</Button>
                 </CardActions>
+                <CardActions>
+                    <Button size="small" className={classes.button} >Unlock</Button>
+                </CardActions>
             </Card> 
                     </Grid>
                 

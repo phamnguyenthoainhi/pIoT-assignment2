@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
 import style from './style.js';
-import {fetchUsers} from '../../actions/adminAction'
+import {fetchUsers, editUser} from '../../actions/adminAction'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -14,14 +14,17 @@ class Userslist extends Component {
             users: [],
             searcheduser: [],
             
-            searchinput : ''
+            searchinput : '',
+            editemail: '',
+            editusername: ""
         }
     }
     componentDidUpdate(prevProps) {
+        
         if(this.props.users !== prevProps.users) {
             this.setState({
                 users: this.props.users,
-                searcheduser : this.state.users
+                searcheduser : this.props.users
                
                 
             })
@@ -33,14 +36,25 @@ class Userslist extends Component {
         
         
     }
+    onChange(e) {
+       
+        
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
+    
+    
     handleChangeSearch = (e) => {
         e.preventDefault();
         this.setState({
             [e.target.name] : e.target.value
         }) 
+        const searcheduser = this.state.users.filter(user => user.email.includes(this.state.searchinput) )
         
-        const searcheduser = this.state.users.filter(user => user.title.includes(this.state.searchinput))
+        
         if (searcheduser.length === 0) {
+            console.log("hello hello")
             this.setState({
                 searcheduser: this.state.users
             })
@@ -52,10 +66,17 @@ class Userslist extends Component {
 
         // console.log(this.state.searchinput)
     }
-    openedit = () => {
+    openedit = (user) => {
+        
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
-        
+        this.setState({
+            editemail: user.user.email,
+            editusername: user.user.username
+        })
+        // const user = {
+
+        // }
 
 
 
@@ -81,16 +102,16 @@ class Userslist extends Component {
                 onChange={(e) => this.handleChangeSearch(e)}
                 value={this.state.searchinput}
                 />
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                    <span class="close" onClick={() => this.closeedit()}  >&times;</span>
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" class="form-control" id="username"/>
+                <div id="myModal" className="modal">
+                    <div className="modal-content">
+                    <span className="close" onClick={() => this.closeedit()}  >&times;</span>
+                    <div className="form-group">
+                        <label htmlFor="username">Username:</label>
+                        <input type="text" className="form-control" id="username" value={this.state.editusername} name="editusername" onChange= {(e) => this.onChange(e)}/>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="text" class="form-control"  id="email"/>
+                    <div className="form-group">
+                        <label htmlFor="email">Email:</label>
+                        <input type="text" className="form-control"  id="email" value={this.state.editemail} name="editemail" onChange= {(e) => this.onChange(e)}/>
                     </div>
                     
                     <Button variant="contained">SAVE</Button>
@@ -109,13 +130,30 @@ class Userslist extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td style={{textAlign: 'center'}}>John</td>
-                        <td style={{textAlign: 'center'}}>Doe</td>
+                        {this.state.searcheduser ? 
+                        (
+                            
+                            this.state.searcheduser.map((user) => 
+                            <tr>
+                        <td style={{textAlign: 'center'}}>search</td>
+                        <td style={{textAlign: 'center'}}>{user.email}</td>
                         
-                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit()}   >EDIT</Button></td>
+                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
                         <td style={{textAlign: 'center'}}><Button variant="outlined" color="secondary" className={classes.deleteuser}>DELETE</Button></td>
                     </tr>
+                            )
+                        ): (
+                            this.state.users.map((user) => 
+                            
+                            <tr>
+                        <td style={{textAlign: 'center'}}>{user.username}</td>
+                        <td style={{textAlign: 'center'}}>{user.email}</td>
+                        
+                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
+                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="secondary" className={classes.deleteuser}>DELETE</Button></td>
+                    </tr>)
+                            )}
+                    
                     
                     </tbody>
                 </table>
@@ -127,6 +165,7 @@ class Userslist extends Component {
 }
 const mapDispatchToProps = dispatch => ({
     fetchUsers: () => dispatch(fetchUsers()),
+    editUser: (user) => dispatch(editUser(user)),
    
   
 })
