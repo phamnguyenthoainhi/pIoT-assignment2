@@ -198,11 +198,11 @@ class Carslist extends Component {
         )
     }
 }
+
 const mapDispatchToProps = dispatch => ({
     fetchCars: () => dispatch(fetchCars()),
     bookCar: (booking) => dispatch(bookCar(booking))
    
-  
 })
 
 const mapStateToProps = state => ({

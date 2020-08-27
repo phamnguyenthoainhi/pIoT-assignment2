@@ -29,15 +29,13 @@ def create_connection():
 def createtable_cars(mydb):
     """
     Create a table named datab1 in assignment1 database
-
     Parameters:
         mydb: a MySQLConnection object
-
     Returns: true if the query excecutes sucessfully, false if there is error
-
     """
     try:
         cursor = mydb.cursor()
+        
         cursor.execute("CREATE TABLE IF NOT EXISTS cars( \
                                                     car_id INT \
                                                     auto_increment \
@@ -47,8 +45,7 @@ def createtable_cars(mydb):
                                                     color VARCHAR(255), \
                                                     seats INT, \
                                                     location VARCHAR(255), \
-                                                    cost INT, \
-                                                    lock BIT \
+                                                    cost INT \
                                                     )")
         return True
 
@@ -59,12 +56,9 @@ def createtable_cars(mydb):
 def createtable_users(mydb):
   """
   Create a table named datab1 in assignment1 database
-
   Parameters:
       mydb: a MySQLConnection object
-
   Returns: true if the query excecutes sucessfully, false if there is error
-
   """
   try:
       cursor = mydb.cursor()
@@ -87,12 +81,9 @@ def createtable_users(mydb):
 def createtable_bookings(mydb):
   """
   Create a table named datab1 in assignment1 database
-
   Parameters:
       mydb: a MySQLConnection object
-
   Returns: true if the query excecutes sucessfully, false if there is error
-
   """
   try:
       cursor = mydb.cursor()
@@ -117,12 +108,9 @@ def createtable_bookings(mydb):
 def createtable_reports(mydb):
   """
   Create a table named datab1 in assignment1 database
-
   Parameters:
       mydb: a MySQLConnection object
-
   Returns: true if the query excecutes sucessfully, false if there is error
-
   """
   try:
       cursor = mydb.cursor()

@@ -1,4 +1,4 @@
-import { LOGIN, LOGIN_FAILED, SIGNUP, SIGNUP_FAILED} from './types'
+import { LOGIN, LOGIN_FAILED, SIGNUP, SIGNUP_FAILED, FETCH_BOOKINGS} from './types'
 import {backend} from "./backend"
 export const login = (user) => dispatch => {
     
@@ -74,4 +74,54 @@ export const signup = (user) => dispatch => {
         }
         
     })    
+}
+
+
+export const getBookingsbyUserid = (user_id) => dispatch => {
+    console.log("action")
+    fetch(backend+`api/users/${user_id}/bookings`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        }
+    })
+    .then((res) => res.json())
+    .then((bookings) => 
+    {
+        dispatch({
+            type: FETCH_BOOKINGS,
+            payload: bookings
+        })
+    }       
+    )
+}
+
+export const cancelBooking = (booking) => dispatch => {
+    fetch(backend+`api/bookings/${booking.booking_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        }
+        
+        
+    })
+    .then((res) => {
+        if(res.status === 200) {
+            alert("Success Cancel Booking!")
+            fetch(backend+`api/cars/${booking.car_id}/unlock`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                }
+                
+            })
+        }
+        
+    })
 }

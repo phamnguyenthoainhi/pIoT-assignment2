@@ -2,7 +2,7 @@ import { FETCH_CARS, BOOK_CAR} from './types';
 import {backend} from './backend';
 
 export const fetchCars = () => dispatch => {
-    
+    console.log("fetched cars")
     fetch(backend+'api/cars', {
         method: 'GET',
         headers: {
@@ -22,6 +22,7 @@ export const fetchCars = () => dispatch => {
     }       
     )
 }
+// /api/cars/<int:car_id>/lock
 
 export const bookCar = (booking) => dispatch => {
     console.log("book a car")
@@ -40,6 +41,15 @@ export const bookCar = (booking) => dispatch => {
             dispatch({
                 type: BOOK_CAR,
                 payload: 'success'
+            })
+            fetch(backend+`api/cars/${booking.car_id}/lock`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                }
+                
             })
         } else {
             dispatch({
@@ -61,5 +71,10 @@ export const createCar = (car) => dispatch => {
         body: JSON.stringify(car)
         
     })
-    .then((res) => {fetchCars()})
+    .then((res) => 
+        res.text()
+    )
+    .then(() => {
+        fetchCars()
+    })
 }

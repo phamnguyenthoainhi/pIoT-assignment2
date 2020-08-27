@@ -119,7 +119,7 @@ class Bookingdetails extends Component {
         return_date : this.state.returntime
       }
       
-      // this.props.bookCar(booking)
+      this.props.bookCar(booking)
       
     }
 

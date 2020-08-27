@@ -25,7 +25,7 @@ def rentalHistoryUser(user_id):
     result = []
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
-            result.append(_)
+        result.append(_)
     result = tuple(result)
     return json.dumps(result) 
 
@@ -106,7 +106,7 @@ def lockCar(car_id):
 # Unlock a car, accepts car_id in request
 @app.route("/api/cars/<int:car_id>/unlock", methods=['PUT'])
 @cross_origin()
-def lockCar(car_id):
+def unLockCar(car_id):
     mydb = create_connection()
     lastid = lock_car(mydb, (car_id,))
     if (lastid is not None):
@@ -167,7 +167,7 @@ def rentalHistory(car_id):
     result = []
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
-            result.append(_)
+        result.append(_)
     result = tuple(result)
     return json.dumps(result)  
 
@@ -264,6 +264,7 @@ def register_user():
         return Response(status=400)
 
 @app.route("/login", methods=["POST"])
+@cross_origin()
 def login_user():
     user_email = request.json["email"]
     user_password = request.json["password"]
@@ -291,11 +292,11 @@ def getUsers():
     return json.dumps(result)
 
 # Remove a user by id
-@app.route("/api/cars/<int:car_id>", methods= ['DELETE'])
+@app.route("/api/users/<int:user_id>", methods= ['DELETE'])
 @cross_origin()
-def removeCar(car_id):
+def removeUser(user_id):
     mydb = create_connection()
-    lastid = remove_car(mydb, (car_id,))
+    lastid = remove_user(mydb, (user_id,))
     if (lastid is not None):
         return "Success"
     return Response("Bad request", status=400)

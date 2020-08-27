@@ -1,6 +1,6 @@
 export const FETCH_CARS = 'FETCH_CARS';
 export const BOOK_CAR = 'BOOK_CAR';
-
+export const FETCH_BOOKINGS = 'FETCH_BOOKINGS';
 export const FETCH_RENTAL_CARS = "FETCH_RENTAL_CARS"
 export const FETCH_USERS = "FETCH_USERS"
 export const CREATE_CAR = "CREATE_CAR"
