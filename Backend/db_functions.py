@@ -22,6 +22,16 @@ def get_users(mydb):
     except mysql.connector.Error as e:
         print(str(e))
 
+# Get a user by id
+def get_user(mydb, data):
+    try:
+        sql = "select username, email from users where user_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e))
+
 # Remove a user by id
 def remove_user(mydb, data):
     try:

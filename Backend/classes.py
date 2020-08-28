@@ -34,21 +34,26 @@ class Car():
 
 class User():
     user_id = int
+    username = str
     email = str
     password_salt = str
     password_hash = str
     role = str
 
-    def __init__(self, user_id, email, password_hash, password_salt, role):
+    def __init__(self, user_id, username = "", email = "", password_hash = "", password_salt = "", role = ""):
         self.user_id = user_id
+        self.username = username
         self.email = email
         self.password_salt = password_salt
         self.password_hash = password_hash
         self.role = role
 
-    def reprJSON(self):
-        return dict(user_id=self.user_id, email=self.email, password_salt=self.password_salt, password_hash=self.password_hash, role=self.role)
+    # alternative way to represent json that also includes password and role
+    def reprJSONAlt(self):
+        return dict(user_id=self.user_id, username= self.username, email=self.email, password_salt=self.password_salt, password_hash=self.password_hash, role=self.role)
 
+    def reprJSON(self):
+        return dict(user_id = self.user_id, username = self.username, email= self.email)
 
 class Report():
     report_id = int
@@ -78,7 +83,9 @@ class Booking():
     status = str
     booking_date = str
     return_date = str
+
     car = Car
+    user = User
     
 
     def __init__(self, booking_id, car_id, user_id, status, booking_date, return_date):
@@ -90,8 +97,9 @@ class Booking():
         self.return_date = return_date
         # Relationship
         self.car = Car()
+        self.user = None
     def reprJSON(self):
-        return dict(booking_id=self.booking_id, car_id=self.car_id, user_id=self.user_id, status=self.status, booking_date=self.booking_date, return_date=self.return_date, car=self.car)
+        return dict(booking_id=self.booking_id, car_id=self.car_id, user_id=self.user_id, status=self.status, booking_date=self.booking_date, return_date=self.return_date, car=self.car, user=self.user)
     
 
 

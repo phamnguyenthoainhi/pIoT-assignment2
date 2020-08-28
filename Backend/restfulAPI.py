@@ -169,6 +169,9 @@ def rentalHistory(car_id):
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
         _.car = carObject
+        user = get_user(mydb, (booking[2],))
+        userObject = User(booking[2], user[0][0], user[0][1])
+        _.user = userObject
         result.append(_)
     result = tuple(result)
     return json.dumps(result, cls = ComplexEncoder)  
@@ -298,6 +301,22 @@ def getUsers():
 def removeUser(car_id):
     mydb = create_connection()
     lastid = remove_user(mydb, (car_id,))
+    if (lastid is not None):
+        return "Success"
+    return Response("Bad request", status=400)
+
+# Edit a user by id, accepts username and email
+@app.route("/api/users/<int:user_id>", methods=["PUT"])
+@cross_origin()
+def editUser(user_id):
+    mydb = create_connection() 
+
+    username = request.json['username']
+    email = request.json['email']
+
+    data = [username, email, user_id]
+
+    lastid = edit_user(mydb, data)
     if (lastid is not None):
         return "Success"
     return Response("Bad request", status=400)
