@@ -112,6 +112,25 @@ def unlockCar(car_id):
         return "Success"
     return Response("Bad request", status=400)
 
+#Get all bookings
+@app.route("/api/bookings", methods=['GET'])
+@cross_origin()
+def getBookings():
+    mydb = create_connection()
+    bookings = get_bookings(mydb)
+    result = []
+    for booking in bookings:
+        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
+        car = get_car(mydb, (booking[1],))
+        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7])
+        _.car = carObject
+        user = get_user(mydb, (booking[2],))
+        userObject = User(booking[2], user[0][0], user[0][1])
+        _.user = userObject
+        result.append(_)
+    result = tuple(result)
+    return json.dumps(result, cls = ComplexEncoder)  
+
 #Add a booking
 @app.route("/api/bookings", methods=['POST'])
 @cross_origin()

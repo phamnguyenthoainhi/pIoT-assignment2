@@ -260,6 +260,16 @@ def remove_booking(mydb,data):
     except mysql.connector.Error as e:
         print(str(e))
 
+# Get all bookings
+def get_bookings(mydb):
+    try:
+        sql = "select * from bookings"
+        cursor = mydb.cursor()
+        cursor.execute(sql)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e))
+
 # View reports
 def view_reports(mydb):
     try:
