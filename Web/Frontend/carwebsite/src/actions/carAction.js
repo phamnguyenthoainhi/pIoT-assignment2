@@ -72,9 +72,12 @@ export const createCar = (car) => dispatch => {
         
     })
     .then((res) => 
-        res.text()
+        {
+            if (res.status === 200) {
+                console.log("ok ok")
+                dispatch(fetchCars())
+            }
+        }
     )
-    .then(() => {
-        fetchCars()
-    })
+   
 }

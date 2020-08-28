@@ -53,6 +53,9 @@ class Bookingdetails extends Component {
   }
 
     book = () => {
+      if (this.state.pickuptime !== undefined & this.state.pickuptime !== '' & this.state.returntime !== undefined & this.state.returntime !== '') {
+
+     
       var gapi = window.gapi
       var CLIENT_ID = "1011886611099-3tpug8k9tksko69s2s7bns0q74a9vkeg.apps.googleusercontent.com"
       var API_KEY = "AIzaSyCc23hisVCuVZTq3GNvfJGSWXlMr19feC8"
@@ -120,6 +123,10 @@ class Bookingdetails extends Component {
       }
       
       this.props.bookCar(booking)
+    } else {
+      console.log(this.state.pickupdate)
+      alert("Please choose pickup date and return date")
+    }
       
     }
 
@@ -135,11 +142,11 @@ class Bookingdetails extends Component {
                 <h2>Booking Details</h2>
                 
         <input type="datetime-local" id="meeting-time"
-       name="pickuptime" value = {this.state.pickuptime}
+       name="pickuptime" value = {this.state.pickuptime} required
       //  min="2018-06-07T00:00" max="2018-06-14T00:00" 
        onChange= {(e) => this.onChange(e)}/><br/>
        <input type="datetime-local" id="meeting-time"
-       name="returntime" value = {this.state.returntime}
+       name="returntime" value = {this.state.returntime} required
       //  min="2018-06-07T00:00" max="2018-06-14T00:00" 
        onChange= {(e) => this.onChange(e)}/>
                 

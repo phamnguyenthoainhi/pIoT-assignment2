@@ -42,9 +42,6 @@ def getCars():
         result.append(_)
     
     result = tuple(result)
-    
-    # print(result)
-    # return ("Hello")
     return json.dumps(result, cls = ComplexEncoder)
 
 #Add a car
@@ -167,9 +164,12 @@ def editBooking(booking_id):
 def rentalHistory(car_id):
     mydb = create_connection()
     bookings = bookings_history(mydb, (car_id,))
+    car = get_car(mydb, (car_id,))
+    carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7])
     result = []
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
+        _.car = carObject
         result.append(_)
     result = tuple(result)
     return json.dumps(result, cls = ComplexEncoder)  
@@ -185,7 +185,7 @@ def getReports():
         _ = Report(report[0], report[1], report[2], report[3], report[4])
         result.append(_)
     result = tuple(result)
-    return json.dumps(result)
+    return json.dumps(result, cls = ComplexEncoder)
 
 # Add a report
 @app.route("/api/reports", methods=['POST'])

@@ -25,7 +25,8 @@ class Carslistadmin extends Component {
                 cost: 0
             ,
             searchinput : '',
-            reportcarid: ''
+            reportcarid: '',
+            car: ''
         }
     }
     onChange(e) {
@@ -104,7 +105,8 @@ class Carslistadmin extends Component {
         var modal = document.getElementById("myModal1");
         modal.style.display = "block";
         this.setState({
-            reportcarid: car.car.car_id
+            reportcarid: car.car.car_id,
+            car: car.car
         })
         
         
@@ -140,7 +142,8 @@ class Carslistadmin extends Component {
             car_id : this.state.reportcarid,
             user_id : parseInt(sessionStorage.getItem("id")),
             content : this.state.reportcontent,
-            report_date : date.toString()
+            report_date : date.toString(),
+            car: this.state.car
         }
         
         this.props.createReport(report)
@@ -181,7 +184,7 @@ class Carslistadmin extends Component {
     }
         
     render() {
-        console.log(this.state.cars)
+        // console.log(this.state.cars)
         const {classes} = this.props;
         return (
             <div>
@@ -213,27 +216,27 @@ class Carslistadmin extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="carmake">Make:</label>
-                        <input type="text" className="form-control" id="carmake" name='make' value={this.state.make}  onChange= {(e) => this.onChange(e)}/>
+                        <input type="text" className="form-control" id="carmake" name='make' value={this.state.make}  onChange= {(e) => this.onChange(e)} required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="bodytype">Body Type:</label>
-                        <input type="text" className="form-control"  id="bodytype" name='body_type' value={this.state.body_type}  onChange= {(e) => this.onChange(e)}/>
+                        <input type="text" className="form-control"  id="bodytype" name='body_type' value={this.state.body_type}  onChange= {(e) => this.onChange(e)} required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="colour">Colour:</label>
-                        <input type="text" className="form-control"  id="color" name='color' value={this.state.color} onChange= {(e) => this.onChange(e)}/>
+                        <input type="text" className="form-control"  id="color" name='color' value={this.state.color} onChange= {(e) => this.onChange(e)} required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="seats">Seats</label>
-                        <input type="number" className="form-control"  id="seats" name='seats' value={this.state.seats} onChange= {(e) => this.onChange(e)}/>
+                        <input type="number" className="form-control"  id="seats" name='seats' value={this.state.seats} onChange= {(e) => this.onChange(e)} required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="location">Location:</label>
-                        <input type="text" className="form-control"  id="location" name='location' value={this.state.location} onChange= {(e) => this.onChange(e)}/>
+                        <input type="text" className="form-control"  id="location" name='location' value={this.state.location} onChange= {(e) => this.onChange(e)} required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="cost">Cost per hour:</label>
-                        <input type="number" className="form-control"  id="cost" name='cost' value={this.state.cost} onChange= {(e) => this.onChange(e)}/>
+                        <input type="number" className="form-control"  id="cost" name='cost' value={this.state.cost} onChange= {(e) => this.onChange(e)} required/>
                     </div>
                     <Button variant="contained" type='submit'  >SAVE</Button>
                     </div>

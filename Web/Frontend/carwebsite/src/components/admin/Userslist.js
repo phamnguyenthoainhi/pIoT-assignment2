@@ -107,11 +107,11 @@ class Userslist extends Component {
                     <span className="close" onClick={() => this.closeedit()}  >&times;</span>
                     <div className="form-group">
                         <label htmlFor="username">Username:</label>
-                        <input type="text" className="form-control" id="username" value={this.state.editusername} name="editusername" onChange= {(e) => this.onChange(e)}/>
+                        <input type="text" className="form-control" id="username" value={this.state.editusername} name="editusername" onChange= {(e) => this.onChange(e)} required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email:</label>
-                        <input type="text" className="form-control"  id="email" value={this.state.editemail} name="editemail" onChange= {(e) => this.onChange(e)}/>
+                        <input type="text" className="form-control"  id="email" value={this.state.editemail} name="editemail" onChange= {(e) => this.onChange(e)} required/>
                     </div>
                     
                     <Button variant="contained">SAVE</Button>

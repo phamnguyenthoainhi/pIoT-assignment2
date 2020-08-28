@@ -77,7 +77,10 @@ export const editCar = (car) => dispatch => {
         
     })
     .then((res) => {
-        fetchCars()
+        if (res.status === 200) {
+            console.log("ok ok")
+            dispatch(fetchCars())
+        }
     })
 }
 
@@ -105,5 +108,10 @@ export const deleteCar = (car) => dispatch => {
         
         
     })
-    .then((res) => fetchCars())
+    .then((res) => {
+        if (res.status === 200) {
+            console.log("ok ok")
+            dispatch(fetchCars())
+        }
+    })
 }
