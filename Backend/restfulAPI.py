@@ -185,6 +185,9 @@ def getReports():
     result = []
     for report in reports:
         _ = Report(report[0], report[1], report[2], report[3], report[4])
+        car = get_car(mydb, (report[1], ))
+        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7])
+        _.car = carObject
         result.append(_)
     result = tuple(result)
     return json.dumps(result, cls = ComplexEncoder)
