@@ -22,6 +22,16 @@ def get_users(mydb):
     except mysql.connector.Error as e:
         print(str(e))
 
+# Get a user by id
+def get_user(mydb, data):
+    try:
+        sql = "select username, email from users where user_id = %s"
+        cursor = mydb.cursor()
+        cursor.execute(sql, data)
+        return cursor.fetchall()
+    except mysql.connector.Error as e:
+        print(str(e))
+
 # Remove a user by id
 def remove_user(mydb, data):
     try:
@@ -247,6 +257,16 @@ def remove_booking(mydb,data):
         cursor.execute(sql, data)
         mydb.commit()
         return cursor.lastrowid
+    except mysql.connector.Error as e:
+        print(str(e))
+
+# Get all bookings
+def get_bookings(mydb):
+    try:
+        sql = "select * from bookings"
+        cursor = mydb.cursor()
+        cursor.execute(sql)
+        return cursor.fetchall()
     except mysql.connector.Error as e:
         print(str(e))
 
