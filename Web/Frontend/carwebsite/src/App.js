@@ -18,7 +18,7 @@ import Rentalhistory from './components/admin/Rentalhistory';
 import Userslist from './components/admin/Userslist';
 import Reportedcars from './components/engineer/Reportedcars';
 // import Map from './components/map/Map';
-// import Test from './components/map/Test';
+import Mymap from './components/map/Mymap';
 class App extends Component{
   render () {
     const theme = createMuiTheme(themeFile);
@@ -42,6 +42,7 @@ class App extends Component{
       zoom={15}
       {...props} />} />
       <Route exact path={'/test'} render={(props) => <Test {...props} />} /> */}
+      <Route exact path={'/test'} render={(props) => <Mymap {...props} />} />
 
 
       </ThemeProvider>
