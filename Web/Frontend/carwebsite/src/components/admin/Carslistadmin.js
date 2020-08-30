@@ -39,6 +39,17 @@ class Carslistadmin extends Component {
         this.setState({
             [e.target.name] : e.target.value
         })
+        // this.autocomplete = new window.google.maps.places.Autocomplete(this.autocompleteInput.current,
+        //     {"types": ["geocode"]});
+    
+        this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
+        // const place = this.autocomplete.getPlace();
+        
+        // this.setState({
+        //     long: place.geometry.location.lng(),
+        //     lat: place.geometry.location.lat(),
+        //     location : place.formatted_address
+        // })
     }
     componentDidUpdate(prevProps) {
         // console.log(this.props.cars)
@@ -54,10 +65,11 @@ class Carslistadmin extends Component {
 
     handlePlaceChanged(){
         const place = this.autocomplete.getPlace();
-        // console.log(place.geometry.location.lat())
+        
         this.setState({
             long: place.geometry.location.lng(),
-            lat: place.geometry.location.lat()
+            lat: place.geometry.location.lat(),
+            location : place.formatted_address
         })
         
       }
@@ -251,7 +263,7 @@ class Carslistadmin extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="location">Location:</label>
-                        <input ref={this.autocompleteInput}  id="autocomplete" placeholder="Enter your address"
+                        <input ref={this.autocompleteInput}  id="autocomplete" placeholder="Enter your address"  required
          type="text"></input>
                         {/* <input type="text" className="form-control"  id="location" name='location' value={this.state.location} onChange= {(e) => this.onChange(e)} required/> */}
                     </div>

@@ -35,7 +35,7 @@ render(){
           google={this.props.google}
           zoom={8}
           style={{width: '100%',
-          height: '100%',}}
+          height: '25%',}}
           initialCenter={{ lat: 47.444, lng: -122.176}}
         >
           {this.displayMarkers()}
