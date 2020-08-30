@@ -78,14 +78,14 @@ export const editCar = (car) => dispatch => {
     })
     .then((res) => {
         if (res.status === 200) {
-            console.log("ok ok")
+            
             dispatch(fetchCars())
         }
     })
 }
 
 export const editUser = (user) => dispatch => {
-    fetch(backend+`api/users`, {
+    fetch(backend+`api/users/${user.user_id}`, {
         method: 'PUT',
         headers: {
             'Accept': 'application/json',
@@ -95,7 +95,11 @@ export const editUser = (user) => dispatch => {
         body: JSON.stringify(user)
         
     })
-    .then((res) => res.json())
+    .then((res) => {
+        if (res.status === 200) {
+            dispatch(fetchUsers())
+        }
+    })
 }
 
 export const deleteCar = (car) => dispatch => {

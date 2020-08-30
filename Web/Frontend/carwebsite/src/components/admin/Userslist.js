@@ -16,7 +16,8 @@ class Userslist extends Component {
             
             searchinput : '',
             editemail: '',
-            editusername: ""
+            editusername: "",
+            user_id: ''
         }
     }
     componentDidUpdate(prevProps) {
@@ -72,7 +73,8 @@ class Userslist extends Component {
         modal.style.display = "block";
         this.setState({
             editemail: user.user.email,
-            editusername: user.user.username
+            editusername: user.user.username,
+            user_id: user.user.user_id
         })
         // const user = {
 
@@ -81,6 +83,18 @@ class Userslist extends Component {
 
 
        
+    }
+    onSubmit = (e) => {
+        e.preventDefault();
+        const user = {
+            email: this.state.editemail,
+            username: this.state.editusername,
+            user_id: this.state.user_id
+            
+        }
+        
+        this.props.editUser(user)
+        this.closeedit()
     }
     closeedit = () => {
         var modal = document.getElementById("myModal");
@@ -102,7 +116,7 @@ class Userslist extends Component {
                 onChange={(e) => this.handleChangeSearch(e)}
                 value={this.state.searchinput}
                 />
-                <div id="myModal" className="modal">
+                <form id="myModal" className="modal" onSubmit={(e) => this.onSubmit(e)}>
                     <div className="modal-content">
                     <span className="close" onClick={() => this.closeedit()}  >&times;</span>
                     <div className="form-group">
@@ -114,10 +128,10 @@ class Userslist extends Component {
                         <input type="text" className="form-control"  id="email" value={this.state.editemail} name="editemail" onChange= {(e) => this.onChange(e)} required/>
                     </div>
                     
-                    <Button variant="contained">SAVE</Button>
+                    <Button variant="contained" type='submit'>SAVE</Button>
                     </div>
 
-                </div>
+                </form>
                 <div className={classes.usertable}>
                  <table className="table">
                     <thead>
@@ -134,8 +148,8 @@ class Userslist extends Component {
                         (
                             
                             this.state.searcheduser.map((user) => 
-                            <tr>
-                        <td style={{textAlign: 'center'}}>search</td>
+                            <tr key={user.user_id}>
+                        <td style={{textAlign: 'center'}}>{user.username}</td>
                         <td style={{textAlign: 'center'}}>{user.email}</td>
                         
                         <td style={{textAlign: 'center'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
