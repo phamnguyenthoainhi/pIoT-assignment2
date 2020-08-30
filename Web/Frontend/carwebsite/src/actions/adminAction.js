@@ -107,7 +107,8 @@ export const deleteCar = (car) => dispatch => {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
         }
         
         
@@ -116,6 +117,25 @@ export const deleteCar = (car) => dispatch => {
         if (res.status === 200) {
             console.log("ok ok")
             dispatch(fetchCars())
+        }
+    })
+}
+
+export const deleteUser = (user) => dispatch => {
+    fetch(backend+`api/users/${user.user_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        }
+        
+        
+    })
+    .then((res) => {
+        if (res.status === 200) {
+            
+            dispatch(fetchUsers())
         }
     })
 }

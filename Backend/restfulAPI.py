@@ -323,9 +323,9 @@ def getUsers():
 # Remove a user by id
 @app.route("/api/users/<int:user_id>", methods= ['DELETE'])
 @cross_origin()
-def removeUser(car_id):
+def removeUser(user_id):
     mydb = create_connection()
-    lastid = remove_user(mydb, (car_id,))
+    lastid = remove_user(mydb, (user_id,))
     if (lastid is not None):
         return "Success"
     return Response("Bad request", status=400)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
 import style from './style.js';
-import {fetchUsers, editUser} from '../../actions/adminAction'
+import {fetchUsers, editUser, deleteUser} from '../../actions/adminAction'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -84,6 +84,9 @@ class Userslist extends Component {
 
        
     }
+    delete = (user) => {
+        this.props.deleteUser(user.user)
+    }
     onSubmit = (e) => {
         e.preventDefault();
         const user = {
@@ -153,7 +156,7 @@ class Userslist extends Component {
                         <td style={{textAlign: 'center'}}>{user.email}</td>
                         
                         <td style={{textAlign: 'center'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
-                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="secondary" className={classes.deleteuser}>DELETE</Button></td>
+                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="secondary" className={classes.deleteuser} onClick={() => this.delete({user})}>DELETE</Button></td>
                     </tr>
                             )
                         ): (
@@ -164,7 +167,7 @@ class Userslist extends Component {
                         <td style={{textAlign: 'center'}}>{user.email}</td>
                         
                         <td style={{textAlign: 'center'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
-                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="secondary" className={classes.deleteuser}>DELETE</Button></td>
+                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="secondary" className={classes.deleteuser} onClick={() => this.delete({user})}>DELETE</Button></td>
                     </tr>)
                             )}
                     
@@ -180,6 +183,7 @@ class Userslist extends Component {
 const mapDispatchToProps = dispatch => ({
     fetchUsers: () => dispatch(fetchUsers()),
     editUser: (user) => dispatch(editUser(user)),
+    deleteUser: (user) => dispatch(deleteUser(user)),
    
   
 })
