@@ -7,7 +7,7 @@ import {editCar, deleteCar, createReport } from '../../actions/adminAction'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-
+import { Map, GoogleApiWrapper,  Marker  } from 'google-maps-react';
 import Navigationbaradmin from './Navigationbar';
 class Carslistadmin extends Component {
     constructor(props) {
@@ -26,8 +26,13 @@ class Carslistadmin extends Component {
             ,
             searchinput : '',
             reportcarid: '',
-            car: ''
+            car: '',
+            long: '',
+            lat: ''
         }
+        this.autocompleteInput = React.createRef();
+    this.autocomplete = null;
+    this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
     }
     onChange(e) {
     //    console.log(e.target.value)
@@ -47,9 +52,22 @@ class Carslistadmin extends Component {
         }
     }
 
+    handlePlaceChanged(){
+        const place = this.autocomplete.getPlace();
+        // console.log(place.geometry.location.lat())
+        this.setState({
+            long: place.geometry.location.lng(),
+            lat: place.geometry.location.lat()
+        })
+        
+      }
+
     componentDidMount() {
         this.props.fetchCars()
-        
+        this.autocomplete = new window.google.maps.places.Autocomplete(this.autocompleteInput.current,
+            {"types": ["geocode"]});
+    
+        this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
     
         
     }
@@ -184,6 +202,7 @@ class Carslistadmin extends Component {
     }
         
     render() {
+        console.log(this.state)
         // console.log(this.state.cars)
         const {classes} = this.props;
         return (
@@ -232,7 +251,9 @@ class Carslistadmin extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="location">Location:</label>
-                        <input type="text" className="form-control"  id="location" name='location' value={this.state.location} onChange= {(e) => this.onChange(e)} required/>
+                        <input ref={this.autocompleteInput}  id="autocomplete" placeholder="Enter your address"
+         type="text"></input>
+                        {/* <input type="text" className="form-control"  id="location" name='location' value={this.state.location} onChange= {(e) => this.onChange(e)} required/> */}
                     </div>
                     <div className="form-group">
                         <label htmlFor="cost">Cost per hour:</label>
@@ -330,3 +351,6 @@ const mapStateToProps = state => ({
 
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Carslistadmin));
+GoogleApiWrapper({
+    apiKey: 'AIzaSyCc23hisVCuVZTq3GNvfJGSWXlMr19feC8'
+  })(Carslistadmin);
