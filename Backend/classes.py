@@ -16,8 +16,10 @@ class Car():
     location = str
     cost = float
     locked = bool
+    latitude = float
+    longitude = float
 
-    def __init__(self, car_id = 0, make = "", body_type = "", color = "", seats = 0, location = "", cost = 0, locked = 1):
+    def __init__(self, car_id = 0, make = "", body_type = "", color = "", seats = 0, location = "", cost = 0, locked = 1, latitude = 0, longitude = 0):
         self.car_id = car_id
         self.make = make
         self.body_type = body_type
@@ -26,10 +28,12 @@ class Car():
         self.location = location
         self.cost = cost
         self.locked = locked
+        self.latitude = latitude
+        self.longitude = longitude
         # Relationships
 
     def reprJSON(self):
-        return dict(car_id=self.car_id, make=self.make, body_type=self.body_type, color=self.color, seats=self.seats, location=self.location, cost=self.cost, locked=self.locked)
+        return dict(car_id=self.car_id, make=self.make, body_type=self.body_type, color=self.color, seats=self.seats, location=self.location, cost=self.cost, locked=self.locked, latitude=self.latitude, longitude=self.longitude)
 
 
 class User():
@@ -84,6 +88,7 @@ class Booking():
     booking_date = str
     return_date = str
 
+
     car = Car
     user = User
     
@@ -95,6 +100,7 @@ class Booking():
         self.status = status
         self.booking_date = booking_date
         self.return_date = return_date
+        
         # Relationship
         self.car = Car()
         self.user = None

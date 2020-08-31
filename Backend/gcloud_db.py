@@ -48,7 +48,9 @@ def createtable_cars(mydb):
                                                     seats INT, \
                                                     location VARCHAR(255), \
                                                     cost INT, \
-                                                    locked BIT DEFAULT 1 \
+                                                    locked BIT DEFAULT 1, \
+                                                    latitude FLOAT, \
+                                                    longitude FLOAT \
                                                     )")
         return True
 

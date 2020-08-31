@@ -25,6 +25,12 @@ def rentalHistoryUser(user_id):
     result = []
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
+        car = get_car(mydb, (booking[1],))
+        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
+        _.car = carObject
+        user = get_user(mydb, (booking[2],))
+        userObject = User(booking[2], user[0][0], user[0][1])
+        _.user = userObject
         result.append(_)
     result = tuple(result)
     return json.dumps(result, cls = ComplexEncoder) 
@@ -38,7 +44,7 @@ def getCars():
     cars = get_cars(mydb)
     result = []
     for car in cars:
-        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6], car[7])
+        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6], car[7], car[8], car[9])
         result.append(_)
     result = tuple(result)
     return json.dumps(result, cls = ComplexEncoder)
@@ -54,8 +60,10 @@ def addCar():
     seats = request.json['seats']
     location = request.json['location']
     cost = request.json['cost']
+    latitude = request.json['latitude']
+    longitude = request.json['longitude']
 
-    data = [make, body_type, color, seats, location, cost]
+    data = [make, body_type, color, seats, location, cost, latitude, longitude]
 
     lastid = add_car(mydb,data)
     if (lastid is not None):
@@ -74,8 +82,10 @@ def editCar(car_id):
     seats = request.json['seats']
     location = request.json['location']
     cost = request.json['cost']
+    latitude = request.json['latitude']
+    longitude = request.json['longitude']
 
-    data = [make, body_type, color, seats, location, cost, car_id]
+    data = [make, body_type, color, seats, location, cost, car_id, latitude, longitude]
     
     lastid = edit_car(mydb, data)
     if (lastid is not None):
@@ -122,7 +132,7 @@ def getBookings():
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
         car = get_car(mydb, (booking[1],))
-        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7])
+        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
         _.car = carObject
         user = get_user(mydb, (booking[2],))
         userObject = User(booking[2], user[0][0], user[0][1])
@@ -183,7 +193,7 @@ def rentalHistory(car_id):
     mydb = create_connection()
     bookings = bookings_history(mydb, (car_id,))
     car = get_car(mydb, (car_id,))
-    carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7])
+    carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
     result = []
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
@@ -195,6 +205,29 @@ def rentalHistory(car_id):
     result = tuple(result)
     return json.dumps(result, cls = ComplexEncoder)  
 
+# Get all booking dates of a car
+@app.route("/api/cars/<int:car_id>/booking_dates", methods = ['GET'])
+@cross_origin()
+def getBookingDates(car_id):
+    mydb = create_connection()
+    bookingDates = car_booking_dates(mydb, (car_id,))
+    results = []
+    for i in bookingDates:
+        results.append(i[0])
+    return json.dumps(results, cls = ComplexEncoder)
+
+# Get all return dates of a car
+@app.route("/api/cars/<int:car_id>/return_dates", methods = ['GET'])
+@cross_origin()
+def getReturnDates(car_id):
+    mydb = create_connection()
+    returnDates = car_return_dates(mydb, (car_id,))
+    results = []
+    for i in returnDates:
+        results.append(i[0])
+    return json.dumps(results, cls = ComplexEncoder)
+
+
 # View reports
 @app.route("/api/reports", methods=['GET'])
 @cross_origin()
@@ -205,7 +238,7 @@ def getReports():
     for report in reports:
         _ = Report(report[0], report[1], report[2], report[3], report[4])
         car = get_car(mydb, (report[1], ))
-        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7])
+        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
         _.car = carObject
         result.append(_)
     result = tuple(result)
