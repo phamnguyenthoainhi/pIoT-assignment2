@@ -85,8 +85,8 @@ def editCar(car_id):
     cost = request.json['cost']
     latitude = request.json['latitude']
     longitude = request.json['longitude']
-
-    data = [make, body_type, color, seats, location, cost, car_id, latitude, longitude]
+# make = %s, body_type = %s, color = %s, seats = %s, location = %s, cost = %s, latitude = %s, longitude
+    data = [make, body_type, color, seats, location, cost, latitude, longitude, car_id]
     
     lastid = edit_car(mydb, data)
     if (lastid is not None):

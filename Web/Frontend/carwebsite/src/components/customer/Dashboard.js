@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Navigationbar from './Navigationbar';
-import {getBookingsbyUserid, cancelBooking, unlock} from '../../actions/userAction';
+import {getBookingsbyUserid, cancelBooking, unlock, lock} from '../../actions/userAction';
 import Grid from '@material-ui/core/Grid';
 class Dashboard extends Component {
     constructor(props) {
@@ -50,6 +50,10 @@ class Dashboard extends Component {
         
         this.props.unlock(booking.booking)
     }
+    lock = (booking) => {
+        
+        this.props.lock(booking.booking)
+    }
 
     render() {
         const {classes} = this.props;
@@ -83,7 +87,8 @@ class Dashboard extends Component {
                     <Button size="small" className={classes.button} onClick= {() => this.cancelbooking({booking})}>Cancel This Booking</Button>
                 </CardActions>
                 <CardActions>
-                    <Button size="small" className={classes.button} onClick= {() => this.unlock({booking})}>Unlock</Button>
+                    {booking.car.locked === 0 ? (<Button size="small" className={classes.lockbutton} onClick= {() => this.lock({booking})}>Lock</Button>):(<Button size="small" className={classes.unlockbutton} onClick= {() => this.unlock({booking})}>Unlock</Button>)}
+                    
                 </CardActions>
             </Card> 
                     </Grid>
@@ -102,6 +107,7 @@ const mapDispatchToProps = dispatch => ({
     getBookingsbyUserid: (user_id) => dispatch(getBookingsbyUserid(user_id)),
     cancelBooking: (booking_id) => dispatch(cancelBooking(booking_id)),
     unlock: (booking) => dispatch(unlock(booking)),
+    lock: (booking) => dispatch(lock(booking)),
    
   
 })

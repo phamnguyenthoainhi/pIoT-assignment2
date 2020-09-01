@@ -71,6 +71,30 @@ const style = (theme) => ({
         marginRight: "10px",
         marginTop: "10px"
     },
+    unlockbutton : {
+        backgroundColor: theme.color.green.light,
+        color: theme.color.grey.light,
+        border: "2px #93ABA5 solid",
+        transitionDuration: "0.3s",
+        padding: "10px 20px 10px 20px",
+        "&:hover" : {
+            backgroundColor: "transparent",
+            border: "2px #93ABA5 solid",
+            color: theme.color.green.dark
+        }
+    },
+    lockbutton : {
+        backgroundColor: "#c62828",
+        color: theme.color.grey.light,
+        border: "2px #c62828 solid",
+        transitionDuration: "0.3s",
+        padding: "10px 20px 10px 20px",
+        "&:hover" : {
+            backgroundColor: "transparent",
+            border: "2px #c62828 solid",
+            color: "#c62828"
+        }
+    }
     
 
 })

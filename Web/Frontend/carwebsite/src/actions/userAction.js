@@ -21,6 +21,23 @@ export const unlock = (booking) => dispatch => {
         }
     })
 }
+export const lock = (booking) => dispatch => {
+    
+    fetch(backend+`/api/cars/${booking.car_id}/lock`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        }
+        
+    })
+    .then(res=> {
+        if (res.status === 200) {
+            dispatch(getBookingsbyUserid(booking.user_id))
+        }
+    })
+}
 export const login = (user) => dispatch => {
     
     fetch(backend+"login", {

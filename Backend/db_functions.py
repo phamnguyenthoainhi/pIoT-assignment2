@@ -69,7 +69,7 @@ def get_cars(mydb):
 def add_car(mydb, data):
     try:
         sql = "INSERT INTO cars \
-        (make, body_type, color, seats, location, cost) VALUES (%s, %s, %s, %s, %s, %s)"
+        (make, body_type, color, seats, location, cost, latitude, longitude) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
         cursor = mydb.cursor()
         cursor.execute(sql, data)
         mydb.commit()
@@ -126,7 +126,7 @@ def remove_car(mydb, data):
 # Edit a car by id
 def edit_car(mydb, data):
     try:
-        sql = "UPDATE cars SET make = %s, body_type = %s, color = %s, seats = %s, location = %s, cost = %s \
+        sql = "UPDATE cars SET make = %s, body_type = %s, color = %s, seats = %s, location = %s, cost = %s, latitude = %s, longitude = %s \
             WHERE car_id = %s "
         cursor = mydb.cursor()
         cursor.execute(sql, data)
@@ -303,7 +303,7 @@ def remove_report(mydb, data):
         print(str(e))
 
 # Edit a report and change its content
-def edit_report(mybd,data):
+def edit_report(mydb,data):
     try:
         sql = "UPDATE reports SET content = %s \
             WHERE report_id = %s"

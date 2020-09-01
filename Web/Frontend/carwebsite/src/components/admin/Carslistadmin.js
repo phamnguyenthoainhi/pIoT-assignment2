@@ -118,7 +118,9 @@ class Carslistadmin extends Component {
                     color: car.car.color, 
                     seats: car.car.seats, 
                     location: car.car.location,
-                    cost: car.car.cost
+                    cost: car.car.cost,
+                    long: car.car.longitude,
+                    lat: car.car.latitude
             })
         } else {
             const car = {
@@ -192,8 +194,11 @@ class Carslistadmin extends Component {
                 color: this.state.color, 
                 seats: this.state.seats, 
                 location: this.state.location,
-                cost: this.state.cost
+                cost: this.state.cost,
+                latitude: parseFloat(this.state.lat),
+                longitude: parseFloat(this.state.long)
             }
+            console.log(car)
             this.props.editCar(car)
         } else {
             const car = {
@@ -201,12 +206,15 @@ class Carslistadmin extends Component {
                 make: this.state.make, 
                 body_type: this.state.body_type,
                 color: this.state.color, 
-                seats: this.state.seats, 
+                seats: parseInt(this.state.seats), 
                 location: this.state.location,
                 cost: this.state.cost,
-                locked: 1
+                locked: 1,
+                latitude: this.state.lat,
+                longitude: this.state.long
             }
 
+        
         this.props.createCar(car)
         }
         
@@ -214,8 +222,7 @@ class Carslistadmin extends Component {
     }
         
     render() {
-        console.log(this.state)
-        // console.log(this.state.cars)
+        console.log(this.state.cars)
         const {classes} = this.props;
         return (
             <div>
@@ -263,7 +270,7 @@ class Carslistadmin extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="location">Location:</label>
-                        <input ref={this.autocompleteInput}  id="autocomplete" placeholder="Enter your address"  required
+                        <input ref={this.autocompleteInput}  id="autocomplete" placeholder="Enter your address"  required fullWidth name='location' value={this.state.location} onChange = {(e) => this.handleChangeSearch(e)}
          type="text"></input>
                         {/* <input type="text" className="form-control"  id="location" name='location' value={this.state.location} onChange= {(e) => this.onChange(e)} required/> */}
                     </div>

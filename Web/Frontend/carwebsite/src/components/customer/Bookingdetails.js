@@ -22,6 +22,7 @@ class Bookingdetails extends Component {
         car_id : "",
         user_id : "",
         status : "",
+        today: ''
         
         
     }
@@ -38,6 +39,29 @@ class Bookingdetails extends Component {
       } else {
         console.log("Failed")
       }
+    }
+    componentDidMount() {
+      var today = new Date()
+      var month = today.getMonth() + 1
+      if (today.getDate() + 1 < 10) {
+        var date = "0"+ (today.getDate()+1)
+      } else {
+        var date = today.getDate() + 1
+      }
+      if (month < 10) {
+        var real_month = "0"+month
+      } else {
+        var real_month = month
+      }
+
+      var string = today.getFullYear()+"-"+real_month+"-"
+      + date
+      +"T00:00"
+      console.log(string)
+      today = today.toString()
+      this.setState({
+        today: string
+      })
     }
 
     close = () => {
@@ -121,6 +145,7 @@ class Bookingdetails extends Component {
         booking_date : this.state.pickuptime,
         return_date : this.state.returntime
       }
+      console.log(booking)
       
       this.props.bookCar(booking)
     } else {
@@ -131,9 +156,8 @@ class Bookingdetails extends Component {
     }
 
     render() {
-      var date = new Date(this.state.pickuptime)
-
-      console.log(date.toString())
+      // var date = new Date(this.state.pickuptime)
+     console.log(this.state.pickuptime)
         const {classes} = this.props;
         return (
             <div>
@@ -143,11 +167,11 @@ class Bookingdetails extends Component {
                 
         <input type="datetime-local" id="meeting-time"
        name="pickuptime" value = {this.state.pickuptime} required
-      //  min="2018-06-07T00:00" max="2018-06-14T00:00" 
+       min={this.state.today} max={this.state.returntime}
        onChange= {(e) => this.onChange(e)}/><br/>
        <input type="datetime-local" id="meeting-time"
        name="returntime" value = {this.state.returntime} required
-      //  min="2018-06-07T00:00" max="2018-06-14T00:00" 
+       min={this.state.pickuptime} max=""
        onChange= {(e) => this.onChange(e)}/>
                 
                 <br/>

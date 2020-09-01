@@ -66,6 +66,7 @@ export const createReport = (report) => dispatch => {
 }
 
 export const editCar = (car) => dispatch => {
+    console.log(car)
     fetch(backend+`api/cars/${car.car_id}`, {
         method: 'PUT',
         headers: {
@@ -78,7 +79,7 @@ export const editCar = (car) => dispatch => {
     })
     .then((res) => {
         if (res.status === 200) {
-            
+            console.log("edit success")
             dispatch(fetchCars())
         }
     })
