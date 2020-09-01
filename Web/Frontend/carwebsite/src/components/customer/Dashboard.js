@@ -74,7 +74,8 @@ class Dashboard extends Component {
                     Booking id : {booking.booking_id}
                     </Typography>
                     <Typography variant="body2" component="p">
-                    Car id : {booking.car_id}
+                    {booking.car.make} || {booking.car.body_type} || {booking.car.color}
+                    
                     </Typography>
                     <Typography variant="body2" component="p">
                     Pickup Date: {this.dateConvert(booking.booking_date)}

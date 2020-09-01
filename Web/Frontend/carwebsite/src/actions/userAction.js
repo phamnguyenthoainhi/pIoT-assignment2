@@ -1,4 +1,4 @@
-import { LOGIN, LOGIN_FAILED, SIGNUP, SIGNUP_FAILED, FETCH_BOOKINGS} from './types'
+import { LOGIN, LOGIN_FAILED, SIGNUP, SIGNUP_FAILED, FETCH_BOOKINGS, FETCH_BOOKING_DATES, FETCH_RETURN_DATES} from './types'
 import {backend} from "./backend"
 import {fetchRentalHistory} from "./adminAction"
 
@@ -160,8 +160,48 @@ export const cancelBooking = (booking) => dispatch => {
                 
             })
             alert("Success Cancel Booking!")
-            dispatch(fetchRentalHistory())
+            dispatch(getBookingsbyUserid(booking.user_id))
         }
         
     })
+}
+export const getBookingDates = (car) => dispatch => {
+    
+    fetch(backend+`api/cars/${car.car_id}/booking_dates`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        }
+    })
+    .then((res) => res.json())
+    .then((booking_dates) => 
+    {
+        dispatch({
+            type: FETCH_BOOKING_DATES,
+            payload: booking_dates
+        })
+    }       
+    )
+}
+export const getReturnDates = (car) => dispatch => {
+    
+    fetch(backend+`api/cars/${car.car_id}/return_dates`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        }
+    })
+    .then((res) => res.json())
+    .then((return_dates) => 
+    {
+        dispatch({
+            type: FETCH_RETURN_DATES,
+            payload: return_dates
+        })
+    }       
+    )
 }

@@ -45,11 +45,12 @@ class Reportedcars extends Component {
       }
 
     componentDidMount() {
-        // this.props.fetchReport()
+        this.props.fetchReport()
         
         
     }
     render() {
+        console.log(this.state.reports)
         const {classes} = this.props;
         return (
             <div>

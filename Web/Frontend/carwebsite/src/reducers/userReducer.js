@@ -37,8 +37,10 @@ export default function (state = initialState, action) {
             
             return {
                 ...state,
+               
                 bookings: action.payload
             }
+        
         default:
             return state;
     }

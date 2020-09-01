@@ -8,31 +8,58 @@ import style from './style';
 // import CardActions from '@material-ui/core/CardActions';
 // import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-
+import DatePicker from "react-datepicker";
 import {bookCar} from '../../actions/carAction'
+import {getBookingDates, getReturnDates} from '../../actions/userAction'
 
 class Bookingdetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
         car: {},
-        pickuptime: '',
-        returntime: '',
+        pickuptime: null,
+        returntime: null,
         booking_id : "",
         car_id : "",
         user_id : "",
         status : "",
-        today: ''
+        today: '',
+        booking_dates: [],
+        return_dates: [],
+        startDate: "",
+        excludeDates: []
         
         
     }
+    this.onChangepickup = this.onChangepickup.bind(this);
+    this.onChangereturn = this.onChangereturn.bind(this);
 }
       componentDidUpdate(prevProps) {
         if(this.props.car !== prevProps.car) {
             this.setState({
                 car: this.props.car
             })
+            this.props.getBookingDates(this.props.car)
+            this.props.getReturnDates(this.props.car)
         }
+        if(this.props.booking_dates !== prevProps.booking_dates) {
+          this.setState({
+              booking_dates: this.props.booking_dates
+          })
+      }
+      if(this.props.return_dates !== prevProps.return_dates) {
+        this.setState({
+            return_dates: this.props.return_dates
+        })
+      }
+        if(this.props.return_dates !== prevProps.return_dates || this.props.booking_dates !== prevProps.booking_dates) {
+          this.setState({
+              return_dates: this.props.return_dates,
+              booking_dates: this.props.booking_dates
+          })
+
+
+    }
         if(this.props.bookingStatus !== prevProps.bookingStatus && this.props.bookingStatus === 'success') {
           this.close()
           alert("Booking Success");
@@ -41,43 +68,36 @@ class Bookingdetails extends Component {
       }
     }
     componentDidMount() {
+      
       var today = new Date()
-      var month = today.getMonth() + 1
-      if (today.getDate() + 1 < 10) {
-        var date = "0"+ (today.getDate()+1)
-      } else {
-        var date = today.getDate() + 1
-      }
-      if (month < 10) {
-        var real_month = "0"+month
-      } else {
-        var real_month = month
-      }
-
-      var string = today.getFullYear()+"-"+real_month+"-"
-      + date
-      +"T00:00"
-      console.log(string)
-      today = today.toString()
       this.setState({
-        today: string
+        today
       })
+
+      
     }
 
     close = () => {
       this.props.handleClose()
     };
-    onChange(e) {
-       
-      console.log(e.target.value)
-      this.setState({
-          [e.target.name] : e.target.value
-      })
+    
+      onChangepickup(date) {
+        
+        this.setState({
+          pickuptime: date
+        })
+      }
+      onChangereturn(date) {
+        
+        this.setState({
+          returntime: date
+        })
+      }
       
-  }
+  // }
 
     book = () => {
-      if (this.state.pickuptime !== undefined & this.state.pickuptime !== '' & this.state.returntime !== undefined & this.state.returntime !== '') {
+      if (this.state.pickuptime !== undefined && this.state.pickuptime !== ''&& this.state.pickuptime !== null && this.state.returntime !== undefined && this.state.returntime !== ''&& this.state.returntime !== null) {
 
      
       var gapi = window.gapi
@@ -137,6 +157,7 @@ class Bookingdetails extends Component {
         })
 
       })
+      
       const booking = {
       
         car_id : this.state.car.car_id,
@@ -153,11 +174,32 @@ class Bookingdetails extends Component {
       alert("Please choose pickup date and return date")
     }
       
-    }
+  }
+    convert = (string_array) => {
+      var date_array = []
+      string_array.forEach(item => 
+        // item = new Date(item);
+        date_array.push(new Date(item))
+        )
+        return date_array
 
+    }
+    mergearray = (arr1, arr2) => {
+      arr1 = this.convert(arr1)
+      arr2 = this.convert(arr2)
+      var arr3 = arr1.concat(arr2)
+      return (arr3)
+    }
+   
     render() {
-      // var date = new Date(this.state.pickuptime)
-     console.log(this.state.pickuptime)
+    //  console.log(this.state.excludeDates)
+    //  this.mergearray(this.state.return_dates, this.state.bookings_dates)
+    //  console.log(this.state.return_dates)
+    //  console.log(this.state.returntime)
+    var a1 = this.state.booking_dates
+    var a2 = this.state.return_dates
+    this.mergearray(a1, a2)
+    
         const {classes} = this.props;
         return (
             <div>
@@ -165,14 +207,37 @@ class Bookingdetails extends Component {
                 <form className={classes.root} noValidate autoComplete="off">
                 <h2>Booking Details</h2>
                 
-        <input type="datetime-local" id="meeting-time"
+        {/* <input type="datetime-local" id="meeting-time"
        name="pickuptime" value = {this.state.pickuptime} required
        min={this.state.today} max={this.state.returntime}
        onChange= {(e) => this.onChange(e)}/><br/>
        <input type="datetime-local" id="meeting-time"
        name="returntime" value = {this.state.returntime} required
        min={this.state.pickuptime} max=""
-       onChange= {(e) => this.onChange(e)}/>
+       onChange= {(e) => this.onChange(e)}/> */}
+       <DatePicker
+      showTimeSelect
+      selected = {this.state.pickuptime}
+      onChange={ this.onChangepickup }
+      name='pickuptime'
+      excludeDates={this.mergearray(a1, a2)}
+      value = {this.state.pickuptime}
+      minDate={this.state.today}
+      maxDate={this.state.returntime}
+      required
+      
+    />
+    <br/>
+    <DatePicker
+      showTimeSelect
+      selected = {this.state.returntime}
+      onChange={ this.onChangereturn }
+      name='pickuptime'
+      excludeDates={this.mergearray(a1, a2)}
+      value = {this.state.returntime}
+      minDate={this.state.pickuptime} 
+      
+    />
                 
                 <br/>
                 <Button variant="contained" color="primary" onClick = {() => this.book()} className={classes.savebtn}>Save</Button>
@@ -184,12 +249,16 @@ class Bookingdetails extends Component {
 }
 const mapDispatchToProps = dispatch => ({
     bookCar: (booking) => dispatch(bookCar(booking)),
+    getBookingDates: (car) => dispatch(getBookingDates(car)),
+    getReturnDates: (car) => dispatch(getReturnDates(car)),
    
   
 })
 
 const mapStateToProps = state => ({
   bookingStatus: state.customerReducer.bookingStatus,
+  booking_dates: state.customerReducer.booking_dates,
+  return_dates: state.customerReducer.return_dates,
 
 });
 
