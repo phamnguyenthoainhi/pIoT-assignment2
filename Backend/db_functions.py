@@ -161,7 +161,7 @@ def unlock_car(mydb, data):
 # Get all cars that are locked
 def get_locked(mydb):
     try:
-        sql = "get * from cars where locked = 1"
+        sql = "select * from cars where locked = 1"
         cursor = mydb.cursor()
         cursor.execute(sql)
         return cursor.fetchall()
@@ -171,7 +171,7 @@ def get_locked(mydb):
 # Get all cars that are unlocked
 def get_unlocked(mydb):
     try:
-        sql = "get * from cars where locked = 0"
+        sql = "select * from cars where locked = 0"
         cursor = mydb.cursor()
         cursor.execute(sql)
         return cursor.fetchall()
