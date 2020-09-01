@@ -10,8 +10,14 @@ class Navigationbar extends Component {
         sessionStorage.removeItem("role")
         
     }
+    // componentDidMount() {
+    //     if (sessionStorage.getItem("id") === null) {
+    //         window.location.replace("http://localhost:3000/");
+    //     }
+    // }
     render() {
         const {classes} = this.props;
+        console.log(sessionStorage.getItem("id"))
         return (
             <div className='navigationbar'>
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -31,7 +37,8 @@ class Navigationbar extends Component {
                                 
                                 </ul>
                                 <form className="form-inline my-2 my-lg-0">
-                                <Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button><br/>
+                                    {sessionStorage.getItem("id") !== null ? (<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button>):(<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Login</Button>)}
+                                {/* <Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button><br/> */}
                                 </form>
                             </div>
                     </nav>

@@ -1,5 +1,26 @@
 import { LOGIN, LOGIN_FAILED, SIGNUP, SIGNUP_FAILED, FETCH_BOOKINGS} from './types'
 import {backend} from "./backend"
+import {fetchRentalHistory} from "./adminAction"
+
+
+
+export const unlock = (booking) => dispatch => {
+    console.log("actionnn")
+    fetch(backend+`/api/cars/${booking.car_id}/unlock`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        }
+        
+    })
+    .then(res=> {
+        if (res.status === 200) {
+            dispatch(getBookingsbyUserid(booking.user_id))
+        }
+    })
+}
 export const login = (user) => dispatch => {
     
     fetch(backend+"login", {
@@ -78,7 +99,7 @@ export const signup = (user) => dispatch => {
 
 
 export const getBookingsbyUserid = (user_id) => dispatch => {
-    console.log("action")
+    
     fetch(backend+`api/users/${user_id}/bookings`, {
         method: 'GET',
         headers: {
@@ -111,7 +132,7 @@ export const cancelBooking = (booking) => dispatch => {
     })
     .then((res) => {
         if(res.status === 200) {
-            alert("Success Cancel Booking!")
+            
             fetch(backend+`api/cars/${booking.car_id}/unlock`, {
                 method: 'PUT',
                 headers: {
@@ -121,6 +142,8 @@ export const cancelBooking = (booking) => dispatch => {
                 }
                 
             })
+            alert("Success Cancel Booking!")
+            dispatch(fetchRentalHistory())
         }
         
     })

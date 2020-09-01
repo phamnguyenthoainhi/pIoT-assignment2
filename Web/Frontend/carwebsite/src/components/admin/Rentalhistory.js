@@ -30,6 +30,7 @@ class Rentalhistory extends Component {
     }
 
     render() {
+        console.log(this.state.rentalhistory)
         const {classes} = this.props;
         return (
             <div>
@@ -46,13 +47,18 @@ class Rentalhistory extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td style={{textAlign: 'center'}}>John</td>
-                        <td style={{textAlign: 'center'}}>Doe</td>
+                        {this.state.rentalhistory ? (
+                            this.state.rentalhistory.map((history) => 
+                            <tr key = {history.id}>
+                        <td style={{textAlign: 'center'}}>{history.user.username}</td>
+                        <td style={{textAlign: 'center'}}>{history.car.make}</td>
                         
-                        <td style={{textAlign: 'center'}}>Doe</td>
-                        <td style={{textAlign: 'center'}}>Doe</td>
+                        <td style={{textAlign: 'center'}}>{history.booking_date}</td>
+                        <td style={{textAlign: 'center'}}>{history.return_date}</td>
                     </tr>
+                            )
+                        ): null}
+                    
                     
                     </tbody>
                 </table>

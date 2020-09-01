@@ -47,12 +47,15 @@ class Carslist extends Component {
     // }
     }
     showDetails = (car) => {
-        
+        if (sessionStorage.getItem("id") === null) {
+            this.props.history.push("/")
+        } else {
         var bookdetails = document.getElementById("bookdetails");
         bookdetails.style.display = 'block'
         this.setState({
             chosenCar: car.car
         })
+    }
         
     }
 

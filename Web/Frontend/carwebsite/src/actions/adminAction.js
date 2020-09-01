@@ -6,7 +6,7 @@ import {backend} from './backend'
 import {fetchCars} from './carAction';
 export const fetchRentalHistory = () => dispatch => {
     
-    fetch('https://jsonplaceholder.typicode.com/posts', {
+    fetch(backend+"api/bookings", {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

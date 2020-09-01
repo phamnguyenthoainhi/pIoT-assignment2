@@ -8,7 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Navigationbar from './Navigationbar';
-import {getBookingsbyUserid, cancelBooking} from '../../actions/userAction';
+import {getBookingsbyUserid, cancelBooking, unlock} from '../../actions/userAction';
 import Grid from '@material-ui/core/Grid';
 class Dashboard extends Component {
     constructor(props) {
@@ -20,9 +20,11 @@ class Dashboard extends Component {
     }
     componentDidMount() {
         
-        if ( sessionStorage.getItem("id") !== undefined) {
+        if ( sessionStorage.getItem("id") !== undefined & sessionStorage.getItem("id") !== '' & sessionStorage.getItem("id") !== null) {
             this.props.getBookingsbyUserid(sessionStorage.getItem("id"))
 
+        } else {
+            this.props.history.push("/")
         }
     }
 
@@ -41,15 +43,19 @@ class Dashboard extends Component {
         return string
     }
     cancelbooking = (booking) => {
-        console.log(booking.booking.booking_id)
+        
         this.props.cancelBooking(booking.booking)
+    }
+    unlock = (booking) => {
+        
+        this.props.unlock(booking.booking)
     }
 
     render() {
         const {classes} = this.props;
         const mydate = new Date("2020-08-30T13:36")
         // console.log(mydate.getDate())
-        
+        console.log(this.state.bookings)
         return (
             <div>
                 <Navigationbar/>
@@ -77,7 +83,7 @@ class Dashboard extends Component {
                     <Button size="small" className={classes.button} onClick= {() => this.cancelbooking({booking})}>Cancel This Booking</Button>
                 </CardActions>
                 <CardActions>
-                    <Button size="small" className={classes.button} >Unlock</Button>
+                    <Button size="small" className={classes.button} onClick= {() => this.unlock({booking})}>Unlock</Button>
                 </CardActions>
             </Card> 
                     </Grid>
@@ -95,6 +101,7 @@ class Dashboard extends Component {
 const mapDispatchToProps = dispatch => ({
     getBookingsbyUserid: (user_id) => dispatch(getBookingsbyUserid(user_id)),
     cancelBooking: (booking_id) => dispatch(cancelBooking(booking_id)),
+    unlock: (booking) => dispatch(unlock(booking)),
    
   
 })
