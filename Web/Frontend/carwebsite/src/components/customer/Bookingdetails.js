@@ -10,7 +10,10 @@ import style from './style';
 import Button from '@material-ui/core/Button';
 import DatePicker from "react-datepicker";
 import {bookCar} from '../../actions/carAction'
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
 import {getBookingDates, getReturnDates} from '../../actions/userAction'
+import {fetchRentalHistory} from '../../actions/adminAction';
 
 class Bookingdetails extends Component {
   constructor(props) {
@@ -27,7 +30,9 @@ class Bookingdetails extends Component {
         booking_dates: [],
         return_dates: [],
         startDate: "",
-        excludeDates: []
+        excludeDates: [],
+        rentalhistory: [],
+        
         
         
     }
@@ -60,6 +65,37 @@ class Bookingdetails extends Component {
 
 
     }
+    if(this.props.rentalhistory !== prevProps.rentalhistory) {
+      this.setState({
+        rentalhistory: this.props.rentalhistory,
+        
+          
+         
+          
+      })
+      var dateArray = []
+      this.props.rentalhistory.forEach(function(booking) {
+        
+      // bookings.forEach(function(booking) {
+        // console.log("test should be 6")
+        var currentDate = new Date(booking.booking_date);
+        var endDate = new Date(booking.return_date);
+        while (currentDate < endDate) {
+          dateArray.push(new Date(currentDate));
+          currentDate.setDate(currentDate.getDate() + 1)
+          
+        }
+        dateArray.push(new Date(endDate))
+        
+        
+
+      })
+      this.setState({
+          excludeDates: dateArray
+        })
+      // console.log(dateArray)
+     
+  }
         if(this.props.bookingStatus !== prevProps.bookingStatus && this.props.bookingStatus === 'success') {
           this.close()
           alert("Booking Success");
@@ -68,7 +104,7 @@ class Bookingdetails extends Component {
       }
     }
     componentDidMount() {
-      
+      this.props.fetchRentalHistory()
       var today = new Date()
       this.setState({
         today
@@ -93,8 +129,27 @@ class Bookingdetails extends Component {
           returntime: date
         })
       }
+
+      getTime = (date) => {
+        var time = []
+        time.push(date.getHours())
+        time.push(date.getMinutes())
+        console.log(time)
+      }
+
+      getDates = (startDate, endDate) => {
+        var dateArray = []
+        var currentDate = startDate;
+        while (currentDate < endDate) {
+          dateArray.push(new Date(currentDate));
+          currentDate.setDate(new Date(currentDate).getDate() + 1)
+          console.log(currentDate)
+        }
+        console.log(dateArray)
+        return dateArray
+      }
       
-  // }
+  
 
     book = () => {
       if (this.state.pickuptime !== undefined && this.state.pickuptime !== ''&& this.state.pickuptime !== null && this.state.returntime !== undefined && this.state.returntime !== ''&& this.state.returntime !== null) {
@@ -177,10 +232,22 @@ class Bookingdetails extends Component {
   }
     convert = (string_array) => {
       var date_array = []
-      string_array.forEach(item => 
+      var time = []
+      
+      // string_array.forEach(item => {
+      //   date_array.push(new Date(item)),
+      //   this.getTime(new Date(item))
+      // }
         // item = new Date(item);
-        date_array.push(new Date(item))
-        )
+       
+      // )
+      string_array.forEach(function (item) {
+        date_array.push(new Date(item));
+        time.push(new Date(item).getHours())
+        time.push(new Date(item).getMinutes())
+    });
+    // console.log(time)
+        
         return date_array
 
     }
@@ -190,15 +257,31 @@ class Bookingdetails extends Component {
       var arr3 = arr1.concat(arr2)
       return (arr3)
     }
+    test = (booking) => {
+      
+      var dateArray = []
+      // bookings.forEach(function(booking) {
+        console.log("test should be 6")
+        var currentDate = new Date(booking.booking_date);
+        var endDate = new Date(booking.return_date);
+        while (currentDate < endDate) {
+          dateArray.push(currentDate);
+          currentDate.setDate(currentDate.getDate() + 1)
+          // console.log(currentDate)
+        }
+        console.log(dateArray)
+        return dateArray
+      }
+    // }
    
     render() {
-    //  console.log(this.state.excludeDates)
-    //  this.mergearray(this.state.return_dates, this.state.bookings_dates)
-    //  console.log(this.state.return_dates)
-    //  console.log(this.state.returntime)
+    // "2020-09-02T16:07"
+      // "2020-09-06T16:07"
     var a1 = this.state.booking_dates
     var a2 = this.state.return_dates
-    this.mergearray(a1, a2)
+    // console.log(this.state.rentalhistory)
+    // this.getDates(new Date("2020-09-02T16:07"), new Date("2020-09-06T16:07"))
+    // this.test(this.state.rentalhistory)
     
         const {classes} = this.props;
         return (
@@ -216,26 +299,44 @@ class Bookingdetails extends Component {
        min={this.state.pickuptime} max=""
        onChange= {(e) => this.onChange(e)}/> */}
        <DatePicker
+       className={classes.dateinput}
       showTimeSelect
       selected = {this.state.pickuptime}
       onChange={ this.onChangepickup }
       name='pickuptime'
-      excludeDates={this.mergearray(a1, a2)}
+      // excludeDates={this.mergearray(a1, a2)}
+      excludeDates={this.state.excludeDates}
       value = {this.state.pickuptime}
       minDate={this.state.today}
       maxDate={this.state.returntime}
+      timeFormat="HH:mm"
+      timeIntervals={60}
+      timeCaption="time"
+      dateFormat="MMMM d, yyyy h:mm aa"
+      placeholderText="Choose pickup time"
+      minTime={setHours(setMinutes(new Date(), 0), 9)}
+      maxTime={setHours(setMinutes(new Date(), 0), 17)}
       required
       
     />
     <br/>
     <DatePicker
+    className={classes.dateinput}
       showTimeSelect
       selected = {this.state.returntime}
       onChange={ this.onChangereturn }
       name='pickuptime'
-      excludeDates={this.mergearray(a1, a2)}
+      excludeDates={this.state.excludeDates}
+     
       value = {this.state.returntime}
       minDate={this.state.pickuptime} 
+      timeFormat="HH:mm"
+      timeIntervals={60}
+      timeCaption="time"
+      dateFormat="MMMM d, yyyy h:mm aa"
+      minTime={setHours(setMinutes(new Date(), 0), 9)}
+      maxTime={setHours(setMinutes(new Date(), 0), 17)}
+      placeholderText="Choose return time"
       
     />
                 
@@ -251,6 +352,7 @@ const mapDispatchToProps = dispatch => ({
     bookCar: (booking) => dispatch(bookCar(booking)),
     getBookingDates: (car) => dispatch(getBookingDates(car)),
     getReturnDates: (car) => dispatch(getReturnDates(car)),
+    fetchRentalHistory: () => dispatch(fetchRentalHistory()),
    
   
 })
@@ -259,6 +361,7 @@ const mapStateToProps = state => ({
   bookingStatus: state.customerReducer.bookingStatus,
   booking_dates: state.customerReducer.booking_dates,
   return_dates: state.customerReducer.return_dates,
+  rentalhistory: state.adminReducer.rentalhistory
 
 });
 

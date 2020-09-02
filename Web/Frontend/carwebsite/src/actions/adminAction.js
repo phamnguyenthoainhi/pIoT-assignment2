@@ -5,7 +5,7 @@ import {
 import {backend} from './backend'
 import {fetchCars} from './carAction';
 export const fetchRentalHistory = () => dispatch => {
-    
+    console.log("fetch rental")
     fetch(backend+"api/bookings", {
         method: 'GET',
         headers: {
@@ -66,7 +66,7 @@ export const createReport = (report) => dispatch => {
 }
 
 export const editCar = (car) => dispatch => {
-    console.log(car)
+    
     fetch(backend+`api/cars/${car.car_id}`, {
         method: 'PUT',
         headers: {

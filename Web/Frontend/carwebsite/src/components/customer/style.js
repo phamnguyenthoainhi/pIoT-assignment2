@@ -94,6 +94,9 @@ const style = (theme) => ({
             border: "2px #c62828 solid",
             color: "#c62828"
         }
+    },
+    dateinput: {
+        width: "250px"
     }
     
 
