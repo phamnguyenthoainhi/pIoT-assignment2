@@ -24,24 +24,24 @@ class Reportedcars extends Component {
         }
     }
     componentDidUpdate(prevProps) {
-        console.log(this.props.reports)
+        // console.log(this.props.reports)
         if(this.props.reports !== prevProps.reports) {
             this.setState({
                 reports: this.props.reports,
-                searchedreports : this.state.reports
-               
+                searchedreports : this.state.reports  
                 
             })
         }
     }
-    displayMarkers = () => {
-        return this.state.stores.map((store, index) => {
-          return <Marker key={index} id={index} position={{
-           lat: store.latitude,
-           lng: store.longitude
+    displayMarkers = (car) => {
+        // return this.state.stores.map((store, index) => {
+          return <Marker key={car.car_id} id={car.car_id} position={{
+           lat: car.latitude,
+           lng: car.longitude
          }}
-         onClick={() => console.log("You clicked me!")} />
-        })
+        //  onClick={() => console.log("You clicked me!")} 
+         />
+        // })
       }
 
     componentDidMount() {
@@ -50,47 +50,40 @@ class Reportedcars extends Component {
         
     }
     render() {
-        console.log(this.state.reports)
+        // console.log(this.state.reports)
         const {classes} = this.props;
         return (
             <div>
                 <Grid container className={classes.root} spacing={2}>
-                    <Grid item xs={6}>
-                    <Card className={classes.root}>
-                    <CardHeader>
-                        Card Header
-                    </CardHeader>
-                    
-                    <CardMedia>
-                    <MapLoader />
-                    </CardMedia>
-
-                </Card>
-                    </Grid>
-                    <Grid item xs={6}>
-                    <Card className={classes.root}>
-                    <CardHeader>
-                        Card Header
-                    </CardHeader>
-                    
-                    <CardMedia>
-                    <MapLoader />
-                    </CardMedia>
-
-                </Card>
-                    </Grid>
+                    {this.state.reports ? (
+                        this.state.reports.map((report) => 
+                        <Grid item xs={6} key={report.report_id}>
+                        <Card className={classes.root}>
+                        <CardHeader>
+                            
+                        </CardHeader>
+                        <CardContent>
+                        Report: {report.report_id}
+                        <br/>
+                        Car: {report.car_id}
+                        <br/>
+                        Content: {report.content}
+                        <MapLoader car={report.car}/>
+                        </CardContent>
+                        
+                        {/* <CardMedia>
+                        
+                        </CardMedia> */}
+    
+                    </Card>
+                        </Grid>
+                        )
+                    ):null}
+                   
                     
                 </Grid>
                
-                {/* <Map
-          google={this.props.google}
-          zoom={8}
-          style={{width: '100%',
-          height: '100%',}}
-          initialCenter={{ lat: 47.444, lng: -122.176}}
-        >
-          {this.displayMarkers()}
-        </Map> */}
+               
 
                 
             </div>
@@ -102,7 +95,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  cars: state.customerReducer.cars,
+  reports: state.engineerReducer.reports,
 
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Reportedcars));

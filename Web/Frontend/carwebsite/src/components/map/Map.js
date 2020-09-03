@@ -7,39 +7,55 @@ class MapLoader extends React.Component{
     super(props);
 
     this.state = {
-      stores: [{lat: 47.49855629475769, lng: -122.14184416996333},
-              {latitude: 47.359423, longitude: -122.021071},
-              {latitude: 47.2052192687988, longitude: -121.988426208496},
-              {latitude: 47.6307081, longitude: -122.1434325},
-              {latitude: 47.3084488, longitude: -122.2140121},
-              {latitude: 47.5524695, longitude: -122.0425407}]
+      car: {}
     }
   }
 
+
+static getDerivedStateFromProps(nextProps, prevState) {
+
+  return {
+    car: nextProps.car
+    
+  };
+}
+
+
   
-  displayMarkers = () => {
-    return this.state.stores.map((store, index) => {
-      return <Marker key={index} id={index} position={{
-       lat: store.latitude,
-       lng: store.longitude
+  displayMarkers = (car) => {
+
+    // return this.state.stores.map((store, index) => {
+      return <Marker key={car.car_id} id={car.car_id} position={{
+       lat: car.latitude,
+       lng: car.longitude
      }}
      onClick={() => console.log("You clicked me!")} />
-    })
+    // })
   }
 
 render(){
-
+// console.log(this.state.car.latitude)
   return(
     <div>
- <Map
+      {/* {this.state.car ? ( */}
+        <iframe
+       width="450"
+       height="250"
+        src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCc23hisVCuVZTq3GNvfJGSWXlMr19feC8
+          &center=${this.state.car.latitude},${this.state.car.longitude}
+          &zoom=15&q=${this.state.car.latitude},${this.state.car.longitude}`}>
+      </iframe>
+      {/* ): null} */}
+      
+      {/* <Map
           google={this.props.google}
-          zoom={8}
-          style={{width: '100%',
+          zoom={15}
+          style={{width: '48%',
           height: '25%',}}
-          initialCenter={{ lat: 47.444, lng: -122.176}}
+          initialCenter={{ lat: this.state.car.latitude, lng: this.state.car.longitude}}
         >
-          {this.displayMarkers()}
-        </Map>
+          {this.displayMarkers(this.state.car)}
+        </Map> */}
     </div>
    )
  }
