@@ -1,6 +1,9 @@
 import { 
     FETCH_RENTAL_CARS, 
-    FETCH_USERS,  EDIT_USER, DELETE_CAR, CREATE_REPORT
+    FETCH_USERS,  
+    // EDIT_USER, 
+    // DELETE_CAR, 
+    // CREATE_REPORT
 } from './types';
 import {backend} from './backend'
 import {fetchCars} from './carAction';

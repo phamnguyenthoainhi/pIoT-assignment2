@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Map, GoogleApiWrapper,  Marker  } from 'google-maps-react';
+// import { GoogleApiWrapper,  Marker  } from 'google-maps-react';
 export default class SearchBox extends Component {
   constructor(props) {
     super(props);

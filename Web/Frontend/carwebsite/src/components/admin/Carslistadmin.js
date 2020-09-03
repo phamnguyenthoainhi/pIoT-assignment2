@@ -7,7 +7,7 @@ import {editCar, deleteCar, createReport } from '../../actions/adminAction'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import { Map, GoogleApiWrapper,  Marker  } from 'google-maps-react';
+import { GoogleApiWrapper  } from 'google-maps-react';
 import Navigationbaradmin from './Navigationbar';
 class Carslistadmin extends Component {
     constructor(props) {
@@ -123,9 +123,7 @@ class Carslistadmin extends Component {
                     lat: car.car.latitude
             })
         } else {
-            const car = {
-
-            }
+            
         }
         
       
@@ -136,6 +134,9 @@ class Carslistadmin extends Component {
         
         var modal = document.getElementById("myModal1");
         modal.style.display = "block";
+        this.setState({
+            reportcontent: ""
+        })
         this.setState({
             reportcarid: car.car.car_id,
             car: car.car

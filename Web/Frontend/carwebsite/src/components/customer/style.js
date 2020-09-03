@@ -45,7 +45,8 @@ const style = (theme) => ({
         border: "none",
         
         boxShadow: "2px 10px 25px #dfe1e2",
-        padding: "10px"
+        padding: "10px",
+        minHeight: "250px"
     },
     bookcarbutton: {
         backgroundColor: theme.color.green.light,
@@ -60,6 +61,11 @@ const style = (theme) => ({
             
             
         }
+    },
+    avatar: {
+        backgroundColor: "whitesmoke",
+        padding: 2
+        
     },
     savebtn: {
         backgroundColor: 'black',
@@ -97,6 +103,20 @@ const style = (theme) => ({
     },
     dateinput: {
         width: "250px"
+    },
+    canelbutton: {
+        backgroundColor: "#c62828",
+        color: theme.color.grey.light,
+        border: "2px #c62828 solid",
+        transitionDuration: "0.3s",
+        padding: "10px 20px 10px 20px",
+        marginTop: "10px",
+        "&:hover" : {
+            backgroundColor: "transparent",
+            border: "2px #c62828 solid",
+            color: "#c62828"
+        }
+       
     }
     
 

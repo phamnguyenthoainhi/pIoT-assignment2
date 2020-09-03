@@ -5,22 +5,21 @@ import style from './style.js';
 import {fetchReport} from '../../actions/engineerAction';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardHeader from '@material-ui/core/CardHeader';
-import { Map, GoogleApiWrapper,  Marker  } from 'google-maps-react';
+import { GoogleApiWrapper,  Marker  } from 'google-maps-react';
 import MapLoader from '../map/Map';
 import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Divider from '@material-ui/core/Divider';
+
+import Avatar from '@material-ui/core/Avatar';
 class Reportedcars extends Component {
     constructor(props) {
         super(props);
         this.state = {
             reports: [],
-            stores: [{lat: 47.49855629475769, lng: -122.14184416996333},
-                {latitude: 47.359423, longitude: -122.021071},
-                {latitude: 47.2052192687988, longitude: -121.988426208496},
-                {latitude: 47.6307081, longitude: -122.1434325},
-                {latitude: 47.3084488, longitude: -122.2140121},
-                {latitude: 47.5524695, longitude: -122.0425407}]
         }
     }
     componentDidUpdate(prevProps) {
@@ -50,24 +49,89 @@ class Reportedcars extends Component {
         
     }
     render() {
-        // console.log(this.state.reports)
+        
         const {classes} = this.props;
         return (
             <div>
-                <Grid container className={classes.root} spacing={2}>
+                <Grid container className={classes.root} spacing={3}>
                     {this.state.reports ? (
                         this.state.reports.map((report) => 
-                        <Grid item xs={6} key={report.report_id}>
-                        <Card className={classes.root}>
-                        <CardHeader>
-                            
-                        </CardHeader>
+                        <Grid item lg={6} md= {12} xs={12} key={report.report_id}>
+                        <Card className={classes.card}>
+                        <List className={classes.list}>
+                            <ListItem>
+                                <ListItemAvatar>
+                                <Avatar className={classes.avatar}>
+                                    <img src="https://image.flaticon.com/icons/svg/744/744465.svg" width="90%" height="90%" alt="Logo" style={{paddingTop :"0px"}}/>
+
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary="Car Information"  />
+                               
+                            </ListItem>
+                            <Divider variant="inset" component="li" />
+                            <ListItem>
+                                <ListItemAvatar>
+                               
+                                </ListItemAvatar>
+                                <ListItemText  secondary={`Car Make: ${report.car.make}`} />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemAvatar>
+                               
+                                </ListItemAvatar>
+                                <ListItemText  secondary={`Car Body Type: ${report.car.make}`} />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemAvatar>
+                               
+                                </ListItemAvatar>
+                                <ListItemText  secondary={`Color: ${report.car.make}`} />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemAvatar>
+                               
+                                </ListItemAvatar>
+                                <ListItemText  secondary={`Seats: ${report.car.make}`} />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemAvatar>
+                               
+                                </ListItemAvatar>
+                                <ListItemText  secondary={`Location: ${report.car.make}`} />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemAvatar>
+                               
+                                </ListItemAvatar>
+                                <ListItemText  secondary={`Cost/hour: ${report.car.make}`} />
+                            </ListItem>
+                            <Divider variant="inset" component="li" />
+                            <ListItem>
+                                <ListItemAvatar>
+                                <Avatar className={classes.avatar}>
+                                    <img src="https://image.flaticon.com/icons/svg/3448/3448362.svg" width="90%" height="90%" alt="Logo" style={{paddingTop :"0px"}}/>
+
+                                    </Avatar>
+                                </ListItemAvatar>
+                                
+                                <ListItemText primary="Report Information"  />
+                               
+                            </ListItem>
+                            <ListItem>
+                                <ListItemAvatar>
+                               
+                                </ListItemAvatar>
+                                <ListItemText  secondary={`Problem Description: ${report.content}`} />
+                            </ListItem>
+                        </List>
+                        
                         <CardContent>
-                        Report: {report.report_id}
+                        {/* Report: {report.report_id}
                         <br/>
                         Car: {report.car_id}
                         <br/>
-                        Content: {report.content}
+                        Content: {report.content} */}
                         <MapLoader car={report.car}/>
                         </CardContent>
                         

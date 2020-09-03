@@ -28,6 +28,13 @@ class Rentalhistory extends Component {
         
         
     }
+    dateConvert = (date) => {
+        const mydate = new Date(date)
+        const string = mydate.getDate() + "-" + mydate.getMonth() + "-" + mydate.getFullYear() 
+        // + " " + mydate.getHours()+ ":" + mydate.getMinutes()
+        
+        return string
+    }
 
     render() {
         console.log(this.state.rentalhistory)
@@ -39,22 +46,32 @@ class Rentalhistory extends Component {
                  <table className="table">
                     <thead>
                     <tr>
-                        <th style={{width: '25%', textAlign: 'center', color: "#66827A"}}>Username</th>
-                        <th style={{width: '25%', textAlign: 'center', color: "#66827A"}}>Car Name</th>
+                        <th style={{width: '30%', textAlign: 'center', color: "#66827A"}}>Customer</th>
+                        <th style={{width: '30%', textAlign: 'center', color: "#66827A"}}>Car</th>
                         
-                        <th style={{width: '25%', textAlign: 'center', color: "#66827A"}}>Pickup Date</th>
-                        <th style={{width: '25%', textAlign: 'center', color: "#66827A"}}>Drop-off Date</th>
+                        <th style={{width: '20%', textAlign: 'center', color: "#66827A"}}>Pickup Date</th>
+                        <th style={{width: '20%', textAlign: 'center', color: "#66827A"}}>Drop-off Date</th>
                     </tr>
                     </thead>
                     <tbody>
                         {this.state.rentalhistory ? (
                             this.state.rentalhistory.map((history) => 
-                            <tr key = {history.id}>
-                        <td style={{textAlign: 'center'}}>{history.user.username}</td>
-                        <td style={{textAlign: 'center'}}>{history.car.make}</td>
+                            <tr key = {history.history_id}>
+                        <td style={{textAlign: 'center'}}>
+                            {history.user.username}<br/>
+                            {history.user.email}
+                            </td>
+                        <td style={{textAlign: 'center'}}>
+                            {history.car.make}<br/>
+                            {history.car.body_type}<br/>
+                            {history.car.color}<br/>
+                            {history.car.seats}<br/>
+                            {history.car.location}<br/>
+                            {history.car.cost}<br/>
+                        </td>
                         
-                        <td style={{textAlign: 'center'}}>{history.booking_date}</td>
-                        <td style={{textAlign: 'center'}}>{history.return_date}</td>
+                        <td style={{textAlign: 'center'}}>{this.dateConvert(history.booking_date)}</td>
+                        <td style={{textAlign: 'center'}}>{this.dateConvert(history.return_date)}</td>
                     </tr>
                             )
                         ): null}

@@ -1,7 +1,11 @@
 import { 
     FETCH_RENTAL_CARS, 
-    FETCH_CARS,
-    FETCH_USERS, CREATE_CAR, EDIT_CAR, EDIT_USER, DELETE_CAR
+    // FETCH_CARS,
+    FETCH_USERS, 
+    // CREATE_CAR, 
+    // EDIT_CAR, 
+    // EDIT_USER, 
+    // DELETE_CAR
 } from '../actions/types';
 
 const initialState = {

@@ -275,13 +275,7 @@ class Bookingdetails extends Component {
     // }
    
     render() {
-    // "2020-09-02T16:07"
-      // "2020-09-06T16:07"
-    var a1 = this.state.booking_dates
-    var a2 = this.state.return_dates
-    // console.log(this.state.rentalhistory)
-    // this.getDates(new Date("2020-09-02T16:07"), new Date("2020-09-06T16:07"))
-    // this.test(this.state.rentalhistory)
+  
     
         const {classes} = this.props;
         return (
@@ -290,14 +284,7 @@ class Bookingdetails extends Component {
                 <form className={classes.root} noValidate autoComplete="off">
                 <h2>Booking Details</h2>
                 
-        {/* <input type="datetime-local" id="meeting-time"
-       name="pickuptime" value = {this.state.pickuptime} required
-       min={this.state.today} max={this.state.returntime}
-       onChange= {(e) => this.onChange(e)}/><br/>
-       <input type="datetime-local" id="meeting-time"
-       name="returntime" value = {this.state.returntime} required
-       min={this.state.pickuptime} max=""
-       onChange= {(e) => this.onChange(e)}/> */}
+      
        <DatePicker
        className={classes.dateinput}
       showTimeSelect

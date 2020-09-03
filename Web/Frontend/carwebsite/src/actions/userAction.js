@@ -1,6 +1,6 @@
 import { LOGIN, LOGIN_FAILED, SIGNUP, SIGNUP_FAILED, FETCH_BOOKINGS, FETCH_BOOKING_DATES, FETCH_RETURN_DATES} from './types'
 import {backend} from "./backend"
-import {fetchRentalHistory} from "./adminAction"
+// import {fetchRentalHistory} from "./adminAction"
 
 
 
