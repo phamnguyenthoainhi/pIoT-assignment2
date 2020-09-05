@@ -279,9 +279,9 @@ class Bookingdetails extends Component {
     
         const {classes} = this.props;
         return (
-            <div>
+            <div className={classes.formroot}>
 
-                <form className={classes.root} noValidate autoComplete="off">
+                <form  noValidate autoComplete="off">
                 <h2>Booking Details</h2>
                 
       

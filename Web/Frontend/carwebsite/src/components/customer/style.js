@@ -102,7 +102,9 @@ const style = (theme) => ({
         }
     },
     dateinput: {
-        width: "250px"
+        width: "500px",
+        marginBottom : "20px",
+        padding: "5px"
     },
     canelbutton: {
         backgroundColor: "#c62828",
@@ -117,7 +119,10 @@ const style = (theme) => ({
             color: "#c62828"
         }
        
-    }
+    },
+
+  
+
     
 
 })

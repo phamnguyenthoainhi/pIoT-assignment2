@@ -1,4 +1,6 @@
 from gcloud_db import *
+from flask import Flask
+from flask_mail import Mail, Message
 from db_functions import *
 import json
 from classes import *
@@ -7,10 +9,17 @@ from db_functions import db_write
 from gcloud_db import create_connection
 from utils import generate_salt, generate_hash, validate_user_input, validate_user, registered_email_check
 from flask_cors import CORS, cross_origin
-from flask import Flask
 app = Flask(__name__)
 CORS(app)
+
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'carsharepIoT@gmail.com'
+app.config['MAIL_PASSWORD'] = 'a123456789!'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 @app.route('/')
 def hello_world():
     return 'Index'
@@ -260,6 +269,18 @@ def addReport():
 
     lastid = add_report(mydb,data)
     if (lastid is not None):
+        engineers = get_engineers(mydb)
+        if (engineers is not None):
+            with app.app_context():
+                 with mail.connect() as conn:
+                    for user in engineers:
+                        message = 'A new car report has been added. Please check your dashboard for more information!'
+                        subject = "Hello Engineer, %s" % user
+                        msg = Message(recipients=[user],
+                                    body=message,
+                                    subject=subject, sender = 'carsharepIoT@gmail.com')
+
+                        conn.send(msg)
         return "Success"
     return Response("Bad request", status=400)
 

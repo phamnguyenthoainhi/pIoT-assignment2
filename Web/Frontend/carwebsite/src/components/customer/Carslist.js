@@ -104,8 +104,12 @@ class Carslist extends Component {
                         className={classes.textField} fullWidth 
                         onChange={(e) => this.handleChangeSearch(e)}
                         value={this.state.searchinput}
-                        />
-                        <div id= "bookdetails" style={{"display": "none"}} >
+                        /> 
+                        <div id= "bookdetails" style={{"display": "none",
+                                                        "backgroundColor": "white",
+                                                        "paddingTop": "30px",
+                                                        "paddingBottom": "30px",
+                                                        "marginTop":"40px"}}  >
                             
                         <Bookingdetails car={this.state.chosenCar} handleClose={this.handleClose}/> </div>
                         

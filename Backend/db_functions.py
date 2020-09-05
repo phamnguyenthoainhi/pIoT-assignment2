@@ -315,7 +315,22 @@ def edit_report(mydb,data):
     except mysql.connector.Error as e:
         print(str(e))
 
+# Get all engineers
+def get_engineers(mydb): 
+    try:
+        sql = """ SELECT email FROM users WHERE role = "Engineer" """
+        cursor = mydb.cursor()
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        engineer = []
+        for result in results:
+            engineer.append(result[0])
+        return engineer
+    except mysql.connector.Error as e:
+        print(str(e))
+
 # mydb = create_connection()
+# print(get_engineers(mydb))
 # print(get_car(mydb, (2,)))
 # print(car_booking_dates(mydb, (1,)))
 # print(car_return_dates(mydb, (1,)))
