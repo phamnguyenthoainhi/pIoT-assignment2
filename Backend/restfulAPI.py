@@ -1,6 +1,7 @@
 from gcloud_db import *
 from db_functions import *
 import json
+from collections import Counter
 from classes import *
 from flask import Blueprint, request, Response, jsonify
 from db_functions import db_write
@@ -14,6 +15,39 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route('/')
 def hello_world():
     return 'Index'
+
+# Get 5 cars with the most bookings, returns array of tuple(car_id, number of bookings) 
+@app.route("/api/cars/mostbookings", methods=['POST'])
+@cross_origin()
+def most_bookings():
+    mydb = create_connection()
+    allBookings = get_bookings(mydb)
+    occurences = []
+    for booking in allBookings:
+        occurences.append(booking[1])
+    c = Counter(occurences)
+    return json.dumps(tuple(c.most_common(5)))
+
+# Get 5 cars with the least bookings, returns array of tuple(car_id, number of bookings)
+@app.route("/api/cars/leastbookings", methods=['POST'])
+@cross_origin()
+def least_bookings():
+    mydb = create_connection()
+    allBookings = get_bookings(mydb)
+    occurences = []
+    for booking in allBookings:
+        occurences.append(booking[1])
+    c = Counter(occurences)
+    return json.dumps(tuple(c.most_common()[:-6:-1]))
+
+# Get 5 cars with the most revenue, returns array of tuple(car_id, total revenue)
+@app.route("/api/cars/mostrevenues", methods=['POST'])
+@cross_origin()
+def most_revenues():
+    mydb = create_connection()
+    allBookings = get_bookings(mydb)
+    return "OK"
+
 
 
 # View user's rental history
