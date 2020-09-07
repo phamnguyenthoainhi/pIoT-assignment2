@@ -35,7 +35,8 @@ def insertBLOB(name, photo):
     try:
         connection = mariadb.connect(host='localhost',
                                              database='faceImage',
-                                             user='root')
+                                             user='fushan',
+                                             password='fushan')
 
         cursor = connection.cursor()
         sql_insert_blob_query = """ INSERT INTO user
@@ -60,7 +61,7 @@ def insertBLOB(name, photo):
 
         
 
-insertBLOB("Elonmusk23", "/home/pi/Desktop/elonmusk.jpeg")
+insertBLOB("shanhuhu", "/home/pi/Desktop/Assignment_2/SmartCCTV-Camera/profiles/Shan.jpg")
 
 # insertBLOB(2, "Scott", "D:\Python\Articles\my_SQL\images\scott_photo.png",
 #            "D:\Python\Articles\my_SQL\images\scott_bioData.txt")
