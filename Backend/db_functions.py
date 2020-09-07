@@ -202,7 +202,7 @@ def car_return_dates(mydb, data):
 def add_booking(mydb,data):
     try:
         sql = "INSERT INTO bookings \
-        (car_id, user_id, status, booking_date, return_date) VALUES (%s, %s, %s, %s, %s)"
+        (car_id, user_id, status, booking_date, return_date, price) VALUES (%s, %s, %s, %s, %s, %s)"
         cursor = mydb.cursor()
         cursor.execute(sql, data)
         mydb.commit()
@@ -214,7 +214,7 @@ def add_booking(mydb,data):
 # Edit a booking with id
 def edit_booking(mydb, data):
     try:
-        sql = "UPDATE bookings SET status = %s, booking_date = %s, return_date = %s\
+        sql = "UPDATE bookings SET status = %s, booking_date = %s, return_date = %s, price = %s\
             WHERE booking_id = %s"
         cursor = mydb.cursor()
         cursor.execute(sql, data)

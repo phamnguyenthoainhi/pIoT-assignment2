@@ -87,26 +87,28 @@ class Booking():
     status = str
     booking_date = str
     return_date = str
+    price = int
 
 
     car = Car
     user = User
     
 
-    def __init__(self, booking_id, car_id, user_id, status, booking_date, return_date):
+    def __init__(self, booking_id, car_id, user_id, status, booking_date, return_date, price):
         self.booking_id = booking_id
         self.car_id = car_id
         self.user_id = user_id
         self.status = status
         self.booking_date = booking_date
         self.return_date = return_date
+        self.price = price
         
         # Relationship
         self.car = Car()
         self.user = None
     def reprJSON(self):
-        return dict(booking_id=self.booking_id, car_id=self.car_id, user_id=self.user_id, status=self.status, booking_date=self.booking_date, return_date=self.return_date, car=self.car, user=self.user)
-    
+        return dict(booking_id=self.booking_id, car_id=self.car_id, user_id=self.user_id, status=self.status, booking_date=self.booking_date, return_date=self.return_date, car=self.car, user=self.user, price=self.price)
+        
 
 
 # car = Car(1,"make", "body type", "color", 4, "location", 100)
