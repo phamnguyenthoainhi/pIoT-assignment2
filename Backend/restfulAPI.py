@@ -46,7 +46,24 @@ def least_bookings():
 def most_revenues():
     mydb = create_connection()
     allBookings = get_bookings(mydb)
-    return "OK"
+    occurences = []
+    results = {}
+    for booking in allBookings:
+        if booking[1] in results:
+            # print(results[booking[1]])
+            # print(booking[6])
+            _ = results[booking[1]] + booking[6]
+            results[booking[1]] =_
+            #results.update({booking[1]: _})
+            # print("hello")
+        else:
+            results[booking[1]] = booking[6]
+            # print("key exists")
+    actualResults = []
+    for result in sorted(results, key=results.get, reverse = True):
+        actualResults.append((result, results[result]))
+    # print(actualResults)
+    return json.dumps(tuple(actualResults))
 
 
 
@@ -58,7 +75,7 @@ def rentalHistoryUser(user_id):
     bookings = bookings_history_u(mydb, (user_id,))
     result = []
     for booking in bookings:
-        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
+        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5], booking[6])
         car = get_car(mydb, (booking[1],))
         carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
         _.car = carObject
@@ -165,7 +182,7 @@ def getBookings():
     bookings = get_bookings(mydb)
     result = []
     for booking in bookings:
-        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
+        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5], booking[6])
         car = get_car(mydb, (booking[1],))
         carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
         _.car = carObject
@@ -231,7 +248,7 @@ def rentalHistory(car_id):
     carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
     result = []
     for booking in bookings:
-        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5])
+        _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5], booking[6])
         _.car = carObject
         user = get_user(mydb, (booking[2],))
         userObject = User(booking[2], user[0][0], user[0][1])

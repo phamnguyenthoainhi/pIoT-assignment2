@@ -100,7 +100,8 @@ def createtable_bookings(mydb):
                                                   FOREIGN KEY (car_id) REFERENCES cars(car_id), \
                                                   FOREIGN KEY (user_id) REFERENCES users(user_id), \
                                                   booking_date VARCHAR(255), \
-                                                  return_date VARCHAR(255) \
+                                                  return_date VARCHAR(255), \
+                                                  price FLOAT \
                                                   )")
       return True
 
