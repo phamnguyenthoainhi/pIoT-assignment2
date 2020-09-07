@@ -32,6 +32,7 @@ class Bookingdetails extends Component {
         startDate: "",
         excludeDates: [],
         rentalhistory: [],
+        total : 0
         
         
         
@@ -100,7 +101,7 @@ class Bookingdetails extends Component {
           this.close()
           alert("Booking Success");
       } else {
-        console.log("Failed")
+        
       }
     }
     componentDidMount() {
@@ -134,7 +135,7 @@ class Bookingdetails extends Component {
         var time = []
         time.push(date.getHours())
         time.push(date.getMinutes())
-        console.log(time)
+        
       }
 
       getDates = (startDate, endDate) => {
@@ -145,7 +146,7 @@ class Bookingdetails extends Component {
           currentDate.setDate(new Date(currentDate).getDate() + 1)
           console.log(currentDate)
         }
-        console.log(dateArray)
+        
         return dateArray
       }
       
@@ -213,17 +214,22 @@ class Bookingdetails extends Component {
 
       })
       
+      var total = this.calculateTotal(this.state.pickuptime, this.state.returntime, this.state.car.cost)
+      
       const booking = {
       
         car_id : this.state.car.car_id,
         user_id : parseInt(sessionStorage.getItem('id')),
         status: "Booked",
         booking_date : this.state.pickuptime,
-        return_date : this.state.returntime
+        return_date : this.state.returntime,
+        total : total
       }
-      console.log(booking)
       
-      this.props.bookCar(booking)
+      
+      
+      console.log(booking)
+      // this.props.bookCar(booking)
     } else {
       console.log(this.state.pickupdate)
       alert("Please choose pickup date and return date")
@@ -234,48 +240,30 @@ class Bookingdetails extends Component {
       var date_array = []
       var time = []
       
-      // string_array.forEach(item => {
-      //   date_array.push(new Date(item)),
-      //   this.getTime(new Date(item))
-      // }
-        // item = new Date(item);
-       
-      // )
       string_array.forEach(function (item) {
         date_array.push(new Date(item));
         time.push(new Date(item).getHours())
         time.push(new Date(item).getMinutes())
     });
-    // console.log(time)
         
         return date_array
 
     }
-    mergearray = (arr1, arr2) => {
-      arr1 = this.convert(arr1)
-      arr2 = this.convert(arr2)
-      var arr3 = arr1.concat(arr2)
-      return (arr3)
+    calculateTotal = (startDate, endDate, cost) => {
+      var startdate = new Date(startDate).getDate()
+      var startmonth = new Date(startDate).getMonth()
+      var enddate = new Date(endDate).getDate()
+      var datecount = Math.round((new Date(endDate)-new Date(startDate))/(1000*60*60*24));
+      cost = parseInt(cost)
+      var total = cost * datecount
+      return total
     }
-    test = (booking) => {
-      
-      var dateArray = []
-      // bookings.forEach(function(booking) {
-        console.log("test should be 6")
-        var currentDate = new Date(booking.booking_date);
-        var endDate = new Date(booking.return_date);
-        while (currentDate < endDate) {
-          dateArray.push(currentDate);
-          currentDate.setDate(currentDate.getDate() + 1)
-          // console.log(currentDate)
-        }
-        console.log(dateArray)
-        return dateArray
-      }
-    // }
+
+
    
     render() {
-  
+
+      // this.calculateTotal (this.state.pickuptime, this.state.returntime, this.state.car.cost)
     
         const {classes} = this.props;
         return (
@@ -291,7 +279,7 @@ class Bookingdetails extends Component {
       selected = {this.state.pickuptime}
       onChange={ this.onChangepickup }
       name='pickuptime'
-      // excludeDates={this.mergearray(a1, a2)}
+      
       excludeDates={this.state.excludeDates}
       value = {this.state.pickuptime}
       minDate={this.state.today}
