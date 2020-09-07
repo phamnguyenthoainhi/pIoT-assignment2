@@ -271,7 +271,7 @@ class Carslistadmin extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="location">Location:</label>
-                        <input ref={this.autocompleteInput}  id="autocomplete" placeholder="Enter your address"  required fullWidth name='location' value={this.state.location} onChange = {(e) => this.handleChangeSearch(e)}
+                        <input ref={this.autocompleteInput}  id="autocomplete" placeholder="Enter your address"  required name='location' value={this.state.location} onChange = {(e) => this.handleChangeSearch(e)}
          type="text"></input>
                         {/* <input type="text" className="form-control"  id="location" name='location' value={this.state.location} onChange= {(e) => this.onChange(e)} required/> */}
                     </div>

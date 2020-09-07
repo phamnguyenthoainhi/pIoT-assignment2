@@ -26,7 +26,7 @@ def hello_world():
     return 'Index'
 
 # Get 5 cars with the most bookings, returns array of tuple(car_id, number of bookings) 
-@app.route("/api/cars/mostbookings", methods=['POST'])
+@app.route("/api/cars/mostbookings", methods=['GET'])
 @cross_origin()
 def most_bookings():
     mydb = create_connection()
@@ -38,7 +38,7 @@ def most_bookings():
     return json.dumps(tuple(c.most_common(5)))
 
 # Get 5 cars with the least bookings, returns array of tuple(car_id, number of bookings)
-@app.route("/api/cars/leastbookings", methods=['POST'])
+@app.route("/api/cars/leastbookings", methods=['GET'])
 @cross_origin()
 def least_bookings():
     mydb = create_connection()
@@ -50,7 +50,7 @@ def least_bookings():
     return json.dumps(tuple(c.most_common()[:-6:-1]))
 
 # Get 5 cars with the most revenue, returns array of tuple(car_id, total revenue)
-@app.route("/api/cars/mostrevenues", methods=['POST'])
+@app.route("/api/cars/mostrevenues", methods=['GET'])
 @cross_origin()
 def most_revenues():
     mydb = create_connection()
@@ -212,8 +212,8 @@ def addBooking():
     status = request.json['status']
     booking_date = request.json['booking_date']
     return_date = request.json['return_date']
-
-    data = [car_id, user_id, status, booking_date, return_date]
+    price = request.json['price']
+    data = [car_id, user_id, status, booking_date, return_date, price]
 
     lastid = add_booking(mydb,data)
     if (lastid is not None):

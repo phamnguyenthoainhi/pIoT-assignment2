@@ -18,7 +18,7 @@ import Rentalhistory from './components/admin/Rentalhistory';
 import Userslist from './components/admin/Userslist';
 import Reportedcars from './components/engineer/Reportedcars';
 import MapLoader from './components/map/Map';
-
+import DashboardManager from './components/manager/DashboardManager';
 import SearchBox from './components/map/SearchBox';
 class App extends Component{
   render () {
@@ -37,10 +37,9 @@ class App extends Component{
       <Route exact path={'/admin/history'} render={(props) => <Rentalhistory {...props} />} />
       <Route exact path={'/admin/users'} render={(props) => <Userslist {...props} />} />
       <Route exact path={'/engineer/reports'} render={(props) => <Reportedcars {...props} />} />
-      <Route exact path={'/map'} render={(props) => <MapLoader {...props} />} />
+      <Route exact path={'/manager/dashboard'} render={(props) => <DashboardManager {...props} />} />
       
    
-      <Route exact path={'/test1'} render={(props) => <SearchBox {...props} />} />
 
       </ThemeProvider>
         

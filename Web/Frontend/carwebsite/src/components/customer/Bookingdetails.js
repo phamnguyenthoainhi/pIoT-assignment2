@@ -108,8 +108,11 @@ class Bookingdetails extends Component {
       this.props.fetchRentalHistory()
       var today = new Date()
       this.setState({
-        today
+        today,
+        pickuptime: null,
+        returntime: null
       })
+     
 
       
     }
@@ -223,13 +226,19 @@ class Bookingdetails extends Component {
         status: "Booked",
         booking_date : this.state.pickuptime,
         return_date : this.state.returntime,
-        total : total
+        price : total
       }
       
       
       
       console.log(booking)
-      // this.props.bookCar(booking)
+      this.props.bookCar(booking)
+      this.setState({
+        
+        pickuptime: null,
+        returntime: null
+      })
+      
     } else {
       console.log(this.state.pickupdate)
       alert("Please choose pickup date and return date")
