@@ -24,7 +24,8 @@ def most_bookings():
     allBookings = get_bookings(mydb)
     occurences = []
     for booking in allBookings:
-        occurences.append(booking[1])
+        carMake = get_car(mydb, (booking[1],))[0][1]
+        occurences.append(carMake)
     c = Counter(occurences)
     return json.dumps(tuple(c.most_common(5)))
 
@@ -36,7 +37,8 @@ def least_bookings():
     allBookings = get_bookings(mydb)
     occurences = []
     for booking in allBookings:
-        occurences.append(booking[1])
+        carMake = get_car(mydb, (booking[1],))[0][1]
+        occurences.append(carMake)
     c = Counter(occurences)
     return json.dumps(tuple(c.most_common()[:-6:-1]))
 
@@ -49,15 +51,16 @@ def most_revenues():
     occurences = []
     results = {}
     for booking in allBookings:
-        if booking[1] in results:
+        carMake = get_car(mydb, (booking[1],))[0][1]
+        if carMake in results:
             # print(results[booking[1]])
             # print(booking[6])
-            _ = results[booking[1]] + booking[6]
-            results[booking[1]] =_
+            _ = results[carMake] + booking[6]
+            results[carMake] =_
             #results.update({booking[1]: _})
             # print("hello")
         else:
-            results[booking[1]] = booking[6]
+            results[carMake] = booking[6]
             # print("key exists")
     actualResults = []
     for result in sorted(results, key=results.get, reverse = True):
@@ -65,7 +68,7 @@ def most_revenues():
     # print(actualResults)
     return json.dumps(tuple(actualResults))
 
-
+# Get top revenues by month
 
 # View user's rental history
 @app.route("/api/users/<int:user_id>/bookings", methods=['GET'])
