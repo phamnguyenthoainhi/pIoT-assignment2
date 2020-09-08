@@ -146,7 +146,6 @@ class DashboardManager extends Component {
                     
                     <div style={{ textAlign:'center'}}>
                     <h3 className={classes.charttitle}>Makes of car</h3>
-                    
                     {console.log(this.state.carmakelist)}
                     {this.state.carmakelist.length !== 0 ? (
                         <Chart
@@ -154,17 +153,8 @@ class DashboardManager extends Component {
                         height={'500px'}
                         chartType="BarChart"
                         loader={<div>Loading Chart</div>}
-                        
-//                         data={[
-//                             ["Car Make", "Number of Car Makes"],
-// ["make 1", 2],
-// ["make 2", 1],
-// ["make 3", 1],
-// ["make 4", 1],
-// ["make 5", 1],
-// ["make 6", 1]
-//                         ]}
-                        data={[this.state.carmakelist]}
+                        data={this.state.carmakelist}
+                       
                         options={{
                             title: '',
                             chartArea: { width: '50%' },
@@ -173,43 +163,47 @@ class DashboardManager extends Component {
                             minValue: 0,
                             },
                             vAxis: {
-                            title: 'City',
+                            title: 'Car Make',
                             },
                         }}
-                        // For tests
-                        rootProps={{ 'data-testid': '1' }}
+                        
+                        style={{ margin:'0 auto'}}
                         />
                     ): null}
-                        {/* <Chart
-                        width={'800px'}
-                        height={'500px'}
-                        chartType="BarChart"
-                        loader={<div>Loading Chart</div>}
-                        
-//                         data={[
-//                             ["Car Make", "Number of Car Makes"],
-// ["make 1", 2],
-// ["make 2", 1],
-// ["make 3", 1],
-// ["make 4", 1],
-// ["make 5", 1],
-// ["make 6", 1]
-//                         ]}
-                        data={[this.loopdata()]}
-                        options={{
-                            title: '',
-                            chartArea: { width: '50%' },
-                            hAxis: {
-                            title: '',
-                            minValue: 0,
-                            },
-                            vAxis: {
-                            title: 'City',
-                            },
-                        }}
-                        // For tests
-                        rootProps={{ 'data-testid': '1' }}
-                        /> */}
+                    </div>
+                    <div style={{ textAlign:'center'}}>
+                    <h3 className={classes.charttitle}>Revenue in this year</h3>
+                    <Chart
+  width={'600px'}
+  height={'400px'}
+  chartType="LineChart"
+  loader={<div>Loading Chart</div>}
+  data={[
+    ['x', 'dogs'],
+    [0, 0],
+    [1, 10],
+    [2, 23],
+    [3, 17],
+    [4, 18],
+    [5, 9],
+    [6, 11],
+    [7, 27],
+    [8, 33],
+    [9, 40],
+    [10, 32],
+    [11, 35],
+  ]}
+  options={{
+    hAxis: {
+      title: 'Time',
+    },
+    vAxis: {
+      title: 'Popularity',
+    },
+  }}
+  rootProps={{ 'data-testid': '1' }}
+  style={{ margin:'0 auto'}}
+/>
                     </div>
                 
 
@@ -218,15 +212,12 @@ class DashboardManager extends Component {
         )
     }
 }
+
 const mapDispatchToProps = dispatch => ({
     fetchMostRevenues: () => dispatch(fetchMostRevenues()),
     fetchLeastBookings: () => dispatch(fetchLeastBookings()),
     fetchMostBookings: () => dispatch(fetchMostBookings()),
-    // fetchCarMakes
     fetchCarMakes: () => dispatch(fetchCarMakes()),
-    
-   
-  
 })
 
 const mapStateToProps = state => ({
