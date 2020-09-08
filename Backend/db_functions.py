@@ -329,7 +329,19 @@ def get_engineers(mydb):
     except mysql.connector.Error as e:
         print(str(e))
 
-# mydb = create_connection()
+def count_carmake(mydb):
+    try:
+        sql = """ select cars.make, COUNT(*) from cars group by cars.make; """
+        cursor = mydb.cursor()
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        return results
+        
+    except mysql.connector.Error as e:
+        print(str(e))
+        
+mydb = create_connection()
+count_carmake(mydb)
 # print(get_engineers(mydb))
 # print(get_car(mydb, (2,)))
 # print(car_booking_dates(mydb, (1,)))

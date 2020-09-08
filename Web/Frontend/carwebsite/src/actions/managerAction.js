@@ -1,4 +1,4 @@
-import { FETCH_MOST_BOOKINGS, FETCH_LEAST_BOOKINGS, FETCH_MOST_REVENUES } from './types';
+import { FETCH_MOST_BOOKINGS, FETCH_LEAST_BOOKINGS, FETCH_MOST_REVENUES,  FETCH_CARMAKE} from './types';
 import {backend} from './backend';
 
 export const fetchMostBookings = () => dispatch => {
@@ -23,6 +23,27 @@ export const fetchMostBookings = () => dispatch => {
     )
 }
 
+export const fetchCarMakes = () => dispatch => {
+    
+    fetch(backend+'api/cars/countmake', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        },
+        
+    })
+    .then((res) => res.json())
+    .then((carmakes) => 
+    {
+        dispatch({
+            type: FETCH_CARMAKE,
+            payload: carmakes
+        })
+    }       
+    )
+}
 export const fetchLeastBookings = () => dispatch => {
     
     fetch(backend+'api/cars/leastbookings', {

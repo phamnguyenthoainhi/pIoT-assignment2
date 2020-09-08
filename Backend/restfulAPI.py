@@ -6,7 +6,6 @@ import json
 from collections import Counter
 from classes import *
 from flask import Blueprint, request, Response, jsonify
-from db_functions import db_write
 from gcloud_db import create_connection
 from utils import generate_salt, generate_hash, validate_user_input, validate_user, registered_email_check
 from flask_cors import CORS, cross_origin
@@ -55,7 +54,7 @@ def least_bookings():
 def most_revenues():
     mydb = create_connection()
     allBookings = get_bookings(mydb)
-    occurences = []
+    # occurences = []
     results = {}
     for booking in allBookings:
         if booking[1] in results:
@@ -73,6 +72,18 @@ def most_revenues():
         actualResults.append((result, results[result]))
     # print(actualResults)
     return json.dumps(tuple(actualResults))
+
+@app.route("/api/cars/countmake", methods=['GET'])
+@cross_origin()
+def count_carmake_api():
+    mydb = create_connection()
+    countmake = count_carmake(mydb)
+    
+    for number in countmake:
+        print(number)
+        print(type(number))
+    return json.dumps(countmake)
+    
 
 
 
