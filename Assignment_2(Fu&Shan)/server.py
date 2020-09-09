@@ -2,18 +2,17 @@ import socket
 import numpy as np
 import encodings
 
-HOST = '192.168.0.2'  # Standard loopback interface address (localhost)
+HOST = '192.168.43.230'  # Standard loopback interface address (localhost)
 PORT = 8080        # Port to listen on (non-privileged ports are > 1023)
 
 
-def random_data():
-
-    x1 = np.random.randint(0, 55, None)         # Dummy temperature
-    y1 = np.random.randint(0, 45, None)         # Dummy humidigy
-    my_sensor = "{},{}".format(x1,y1)
-    return my_sensor                            # return data seperated by comma
 
 
+accountDict = {
+  "Shan": "456789",
+  "Hoai": "222555",
+  "Fu": "123456"
+}
 
 
 def my_server():
@@ -21,33 +20,45 @@ def my_server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print("Server Started waiting for client to connect ")
         s.bind((HOST, PORT))
-        s.listen(5)
+        s.listen(5)     #maximun 5 devices
         conn, addr = s.accept()
 
         with conn:
             print('Connected by', addr)
             while True:
                 print("listening")
-                data = conn.recv(1024).decode('utf-8')
+                data = conn.recv(1024).decode('utf-8')   #receive the data and decode Data Sample: "Data Shan 123456" 
                 # print(data)
                 parts = data.split(' ')
                 data = parts[0]
                 print(parts)
+                if str(parts[0]) == "Data":
+                    account = parts[1]
+                    password = parts[2]
+                    print(account + password)
 
-                if str(data) == "Data":
+                    if str(data) == "Data":
+                        my_data = ""
+                        for acc, passw in accountDict.items():
+                            if acc == account:
+                                if passw == password:
+                                    my_data = "Account verified"    
+                                else:
+                                    my_data = "Access Denied"
 
-                    print("Ok Sending data ")
+                        
 
-                    # my_data = random_data()
-                    my_data = "Account verified"
-                    x_encoded_data = my_data.encode('utf-8')
+                        print("Ok Sending data back ")
 
-                    conn.sendall(x_encoded_data)
+                        # my_data = random_data()
+                        print(my_data)
+                        x_encoded_data = my_data.encode('utf-8')
 
-                elif  str(data) == "Quit":
-                    print("shutting down server ")
-                    break
+                        conn.sendall(x_encoded_data)
 
+                # elif str(data) == "Quit":
+                #     print("shutting down server ")
+                #     break
 
                 if not data:
                     break
