@@ -16,6 +16,28 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def hello_world():
     return 'Index'
 
+# Insert photo
+@app.route("/api/insertphoto", methods=['POST'])
+@cross_origin()
+def insert_photo():
+    mydb = create_connection()
+    user_id = request.json["user_id"]
+    username = request.json["username"]
+    photo = request.json["photo"]
+    lastid = insertBLOB(mydb, user_id, username, photo)
+    if (lastid is not None):
+        return "Success"
+    return Response("Record missing, please add full record", status=400)
+
+# Delete photo
+@app.route("/api/photos/<int:photo_id>", methods=['DELETE'])
+@cross_origin()
+def delete_photo(photo_id):
+    
+    if (lastid is not None):
+        return "Success"
+    return Response("Record missing, please add full record", status=400)
+
 # Get 5 cars with the most bookings, returns array of tuple(car_id, number of bookings) 
 @app.route("/api/cars/mostbookings", methods=['POST'])
 @cross_origin()

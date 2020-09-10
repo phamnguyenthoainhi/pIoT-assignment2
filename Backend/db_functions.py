@@ -1,5 +1,29 @@
 import mysql.connector
 from gcloud_db import create_connection
+import sys
+
+def convertToBinaryData(filename):
+    # Convert digital data to binary format
+    with open(filename, 'rb') as file:
+        binaryData = file.read()
+    return binaryData
+
+def insertBLOB(mydb, user_id, name, photo):
+    try:
+        cursor = mydb.cursor()
+        sql_insert_blob_query = """ INSERT INTO photos
+                          (user_id, username, photo) VALUES (%s,%s,%s)"""
+        empPicture = convertToBinaryData(photo)
+        insert_blob_tuple = (user_id, name, empPicture)
+        cursor.execute(sql_insert_blob_query, insert_blob_tuple)
+        cursor.commit()
+        return("Success")
+    except mysql.connector.Error as error:
+        return("Failed inserting BLOB data into MySQL table {}".format(error))
+
+def delete_photo(mydb, photo_id):
+    
+    return "Success"
 
 
 # Get car by id
