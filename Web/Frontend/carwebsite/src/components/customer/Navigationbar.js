@@ -10,11 +10,12 @@ class Navigationbar extends Component {
         sessionStorage.removeItem("role")
         
     }
-    // componentDidMount() {
-    //     if (sessionStorage.getItem("id") === null) {
-    //         window.location.replace("http://localhost:3000/");
-    //     }
-    // }
+    componentDidMount() {
+        if (sessionStorage.getItem("id") === null) {
+            this.props.history.push("/")
+            
+        }
+    }
     render() {
         const {classes} = this.props;
         console.log(sessionStorage.getItem("id"))

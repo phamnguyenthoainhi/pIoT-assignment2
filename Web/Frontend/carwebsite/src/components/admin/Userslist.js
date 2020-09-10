@@ -108,7 +108,7 @@ class Userslist extends Component {
         return (
             <div>
                 
-                <Navigationbaradmin/>
+                <Navigationbaradmin {...this.props}/>
                 <div className={classes.carlistcontainer}>
                 <TextField 
                 variant='outlined'

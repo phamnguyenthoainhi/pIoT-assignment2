@@ -13,7 +13,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
-
+import Button from '@material-ui/core/Button';
+import { Link } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 class Reportedcars extends Component {
     constructor(props) {
@@ -32,6 +33,11 @@ class Reportedcars extends Component {
             })
         }
     }
+    logout = () => {
+        sessionStorage.removeItem("id")
+        sessionStorage.removeItem("role")
+        
+    }
     displayMarkers = (car) => {
         // return this.state.stores.map((store, index) => {
           return <Marker key={car.car_id} id={car.car_id} position={{
@@ -44,6 +50,10 @@ class Reportedcars extends Component {
       }
 
     componentDidMount() {
+        if (sessionStorage.getItem("id") === null) {
+            
+            this.props.history.push("/")
+        }
         this.props.fetchReport()
         
         
@@ -53,6 +63,32 @@ class Reportedcars extends Component {
         const {classes} = this.props;
         return (
             <div>
+                <div className='navigationbar'>
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul className="navbar-nav mr-auto">
+                                <li className="nav-item active">
+                                {/* <a className="nav-link" href="/customer/cars"></a> */}
+                                </li>
+                                <li className="nav-item active">
+                                    {/* <a className="nav-link" href="/customer/dashboard">Dashboard</a> */}
+                                    
+                                </li>
+                                
+                                </ul>
+                                <form className="form-inline my-2 my-lg-0">
+                                    {sessionStorage.getItem("id") !== null ? (<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button>):(<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Login</Button>)}
+                                {/* <Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button><br/> */}
+                                </form>
+                            </div>
+                    </nav>
+                </div>
+                {/* {sessionStorage.getItem('role')} */}
+                <div>
                 <Grid container className={classes.root} spacing={3}>
                     {this.state.reports ? (
                         this.state.reports.map((report) => 
@@ -146,6 +182,7 @@ class Reportedcars extends Component {
                    
                     
                 </Grid>
+                </div>
                
                
 

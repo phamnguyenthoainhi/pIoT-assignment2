@@ -7,12 +7,13 @@ const style = (theme) => ({
     },
     root: {
         
-        padding : "100px"
+        padding : "100px 200px 0 200px",
+        
     },
     
     buttonLogin: {
         marginBottom: "100px",
-        fontSize: '25px',
+        fontSize: '18px',
         paddingTop: "5%",
         paddingBottom: "5%",
         backgroundColor: "black",

@@ -178,7 +178,7 @@ class Signup extends Component {
             <div className={classes.container}>
                 
                 <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.onSubmit(e)}>
-                <h2 className={classes.logintitle}>Sign Up</h2>
+                <h2 className={classes.logintitle}>Create an account</h2>
                 {this.state.error}
                 <TextField 
                 variant='outlined'

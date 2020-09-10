@@ -227,7 +227,7 @@ class Carslistadmin extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <Navigationbaradmin />
+                <Navigationbaradmin {...this.props} />
                 <div className={classes.carlistcontainer}>
                 <TextField 
                 variant='outlined'

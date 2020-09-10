@@ -2,20 +2,13 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
 import style from './style';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+
 import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
+
 import {fetchMostBookings, fetchLeastBookings, fetchMostRevenues, fetchCarMakes} from '../../actions/managerAction';
 import Grid from '@material-ui/core/Grid';
 import Chart from "react-google-charts";
+import { Link } from "react-router-dom";
 class DashboardManager extends Component {
     constructor(props) {
         super(props);
@@ -31,10 +24,22 @@ class DashboardManager extends Component {
         }
     }
     componentDidMount() {
+        if (sessionStorage.getItem("id") === null) {
+            
+            this.props.history.push("/")
+        }
         this.props.fetchMostBookings()
         this.props.fetchLeastBookings()
         this.props.fetchMostRevenues()
         this.props.fetchCarMakes()
+        
+        
+        
+    }
+    logout = () => {
+        sessionStorage.removeItem("id")
+        sessionStorage.removeItem("role")
+        
     }
 
     componentDidUpdate(prevProps) {
@@ -84,6 +89,32 @@ class DashboardManager extends Component {
         const {classes} = this.props;
 
         return (
+            <div>
+<div className='navigationbar'>
+                    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul className="navbar-nav mr-auto">
+                                <li className="nav-item active">
+                                {/* <a className="nav-link" href="/customer/cars"></a> */}
+                                </li>
+                                <li className="nav-item active">
+                                    {/* <a className="nav-link" href="/customer/dashboard">Dashboard</a> */}
+                                    
+                                </li>
+                                
+                                </ul>
+                                <form className="form-inline my-2 my-lg-0">
+                                    {sessionStorage.getItem("id") !== null ? (<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button>):(<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Login</Button>)}
+                                {/* <Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button><br/> */}
+                                </form>
+                            </div>
+                    </nav>
+                </div>
+            
             <div style={{ margin:'0 auto'}}>
                     <Grid container className={classes.root} spacing={0}>
                         <Grid item lg={6}>
@@ -208,6 +239,7 @@ class DashboardManager extends Component {
                 
 
                 
+            </div>
             </div>
         )
     }

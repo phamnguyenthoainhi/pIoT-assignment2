@@ -86,7 +86,7 @@ class Dashboard extends Component {
         console.log(this.state.bookings)
         return (
             <div>
-                <Navigationbar/>
+                <Navigationbar {...this.props}/>
                
                 <Grid container className={classes.root} spacing={3}>
                 {this.state.bookings ? 

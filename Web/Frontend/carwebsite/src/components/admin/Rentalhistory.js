@@ -41,7 +41,7 @@ class Rentalhistory extends Component {
         const {classes} = this.props;
         return (
             <div>
-                <Navigationbaradmin />
+                <Navigationbaradmin {...this.props}/>
                 <div className={classes.historycontainer}>
                  <table className="table">
                     <thead>

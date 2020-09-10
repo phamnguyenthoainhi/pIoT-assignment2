@@ -10,11 +10,13 @@ class Navigationbaradmin extends Component {
         sessionStorage.removeItem("role")
         
     }
-       componentDidMount() {
+    componentDidMount() {
         if (sessionStorage.getItem("id") === null) {
-            window.location.replace("http://localhost:3000/");
+            this.props.history.push("/")
+            // window.location.replace("http://localhost:3000/");
         }
     }
+    
     render() {
         const {classes} = this.props;
         return (
