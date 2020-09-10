@@ -9,21 +9,21 @@ Shan - <br/>
 ---
 ### Web Application
 #### Frontend: Built using ReactJS/Redux framework
-##### Available Script
+#### Available Script
 npm install: install all dependencies/packages <br/>
 npm start: start the frontend <br/>
 npm test: run all the unit tests <br/>
-##### Available Accounts to login
-Customer: <br/>
+#### Available Accounts to login
+**Customer:** <br/>
     username: Customer <br/>
     password: 123456<br/>
-Admin:<br/>
+**Admin:**<br/>
     username: Admin<br/>
     password: 123456<br/>
-Manager:<br/>
+**Manager:**<br/>
     username: Manager <br/>
     password: 123456<br/>
-Engineer:<br/>
+**Engineer:**<br/>
     username: Engineer<br/>
     password: 123456<br/>
 
