@@ -17,7 +17,7 @@ def hello_world():
     return 'Index'
 
 # Insert photo
-@app.route("/api/insertphoto", methods=['POST'])
+@app.route("/api/photos", methods=['POST'])
 @cross_origin()
 def insert_photo():
     mydb = create_connection()
@@ -33,7 +33,7 @@ def insert_photo():
 @app.route("/api/photos/<int:photo_id>", methods=['DELETE'])
 @cross_origin()
 def delete_photo(photo_id):
-    
+
     if (lastid is not None):
         return "Success"
     return Response("Record missing, please add full record", status=400)
