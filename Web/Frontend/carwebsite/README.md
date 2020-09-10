@@ -6,14 +6,13 @@ Fu - <br/>
 Shan - <br/>
 # Car-share System
 ## Project Structure
+---
 ### Web Application
 #### Frontend: Built using ReactJS/Redux framework
----
 ##### Available Script
 npm install: install all dependencies/packages <br/>
 npm start: start the frontend <br/>
 npm test: run all the unit tests <br/>
----
 ##### Available Accounts to login
 Customer: <br/>
     username: Customer <br/>
@@ -27,8 +26,9 @@ Manager:<br/>
 Engineer:<br/>
     username: Engineer<br/>
     password: 123456<br/>
-___
+
 #### Backend: Built using Flask framework
+------
 ### IOT:
 ## Project Instructions
 
