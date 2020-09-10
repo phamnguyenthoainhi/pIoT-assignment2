@@ -27,9 +27,25 @@ class Signup extends Component {
     
     getBase64 = (file, callback) => {
         const reader = new FileReader();
+        // var newfile = file
+        // newfile.name = 'nhi'
+        console.log(file)
+        // newfile.name
         reader.readAsDataURL(file);
         reader.onload = function () {
             const base64result = reader.result.split(',')[1];
+            // const byteCharacters = atob(base64result);
+            // const byteNumbers = new Array(byteCharacters.length);
+            // var i = 0
+            // byteCharacters.forEach(b => {
+            //     byteNumbers[i] = byteCharacters.charCodeAt(i);
+            //     i += 1
+            // })
+            // const byteArray = new Uint8Array(byteNumbers);
+            // const blob = new Blob([byteArray], {type: contentType});
+             
+           
+            
             callback(base64result)
         };
        
@@ -37,24 +53,71 @@ class Signup extends Component {
         console.log('Error: ', error);
         };
      };
+     binEncode(data) {
+        var binArray = []
+        var datEncode = "";
+
+        
+        data.forEach((a)=> {
+            binArray.push(a.charCodeAt(0).toString(2));
+            
+        })
+        // for (i=0; i < data.length; i++) {
+             
+        // } 
+        binArray.forEach((b) => {
+            var pad = padding_left(b, '0', 8);
+            datEncode += pad + ' '; 
+        })
+       
+        function padding_left(s, c, n) { if (! s || ! c || s.length >= n) {
+            return s;
+        }
+        var max = (n - s.length)/c.length;
+        for (var i = 0; i < max; i++) {
+            s = c + s; } return s;
+        }
+        console.log(binArray);
+    }
+
      handleSignup = (encodedImage) => {
-         const user = {
-             email : this.state.signupemail,
-             password: this.state.signuppassword,
-             confirm_password: this.state.signupconfirmpassword,
-             username: this.state.signupusername,
-             img: encodedImage,
-             role: 'Customer'
+         if (this.state.signupemail.includes("@")) {
+            const user = {
+                email : this.state.signupemail,
+                password: this.state.signuppassword,
+                confirm_password: this.state.signupconfirmpassword,
+                username: this.state.signupusername,
+                // img: this.state.img,
+                img: encodedImage,
+                role: 'Customer'
+            }
+            console.log(user)
+            // this.props.signup(user)
+         } else {
+            this.setState ({
+                emailerror: "Please input email format"
+            })
          }
-         console.log(user)
-         this.props.signup(user)
+         
      }
 
+
      chooseFile = event => {
-        this.setState({
-            img: event.target.files[0],
-            uploadImageComplete: true
-        })
+         console.log(this.state.signupusername)
+         if (this.state.signupusername === '' || this.state.signupusername === null || this.state.signupusername === undefined) {
+             alert("Please input username before upload image")
+         } else {
+            var renamed_file = new File([event.target.files[0]], `${this.state.signupusername}.jpg`, {type: "image/jpeg", lastModified: new Date()})
+    
+            this.setState({
+                img: renamed_file,
+                uploadImageComplete: true
+            })
+           
+            
+         }
+        
+        
     };
 
     componentDidUpdate(prevProps) {
@@ -92,14 +155,21 @@ class Signup extends Component {
     onSubmit(e) {
     
         e.preventDefault();
-        if (!(this.state.img === '' || this.state.img === null || this.state.img === undefined)) {
-            this.getBase64(this.state.img, this.handleSignup)
-
+        if (!(this.state.signupusername === '' || this.state.signupusername === null || this.state.signupusername === undefined)) {
+            if (!(this.state.img === '' || this.state.img === null || this.state.img === undefined)) {
+                this.getBase64(this.state.img, this.handleSignup)
+    
+            } else {
+                this.setState({
+                    error: "Please add your images"
+                })
+            }
         } else {
             this.setState({
-                error: "Please add your images"
+                error: "Please input your username before uploading image"
             })
         }
+        
         
     }
     render() {
@@ -113,20 +183,6 @@ class Signup extends Component {
                 <TextField 
                 variant='outlined'
                 type="text"
-                name="signupemail"
-                placeholder="Email"
-                className={classes.textField} fullWidth 
-                helperText = {this.state.emailerror}
-                // error = {!!this.state.loginFormError.emailError}
-                id="signupemail" value = {this.state.signupemail}
-               
-                onChange= {(e) => this.onChange(e)}
-                
-                />
-                <br/>
-                <TextField 
-                variant='outlined'
-                type="text"
                 fullWidth
                 name="signupusername"
                 placeholder="Username"
@@ -135,7 +191,24 @@ class Signup extends Component {
                 value = {this.state.signupusername}
                 id="signupusername"
                 onChange= {(e) => this.onChange(e)}
+                required
                 />
+                <br/>
+                <TextField 
+                variant='outlined'
+                type="text"
+                name="signupemail"
+                placeholder="Email"
+                className={classes.textField} fullWidth 
+                helperText = {this.state.emailerror}
+                // error = {!!this.state.loginFormError.emailError}
+                id="signupemail" value = {this.state.signupemail}
+               
+                onChange= {(e) => this.onChange(e)}
+                required
+                />
+                
+                
                 <TextField 
                 variant='outlined'
                 type="text"
@@ -147,6 +220,7 @@ class Signup extends Component {
                 value = {this.state.signuppassword}
                 id="signuppassword"
                 onChange= {(e) => this.onChange(e)}
+                required
                 />
                 <TextField 
                 variant='outlined'
@@ -159,6 +233,7 @@ class Signup extends Component {
                 value = {this.state.signupconfirmpassword}
                 id="signupconfirmpassword"
                 onChange= {(e) => this.onChange(e)}
+                required
                 />
                 {this.state.uploadImageComplete ? 
             (<p>Image Uploaded</p>)
@@ -167,7 +242,7 @@ class Signup extends Component {
                 variant='outlined'
                 className={classes.buttonFile}
                 startIcon={<ImageIcon />}  >
-                <input type="file" accept="image/*" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
+                <input type="file" accept="image/jpeg" id='file' style={{display:'none'}} name='image'  onChange={this.chooseFile}/>
                 <label htmlFor='file' className={classes.label} >
                     Upload image
                 </label>

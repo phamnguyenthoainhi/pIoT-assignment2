@@ -379,16 +379,16 @@ def register_user():
     user_password = request.json["password"]
     user_confirm_password = request.json["confirm_password"]
     user_role = request.json["role"]
-    username = request.json['username']
+    user_name = request.json['username']
     if user_password == user_confirm_password and validate_user_input(
-        "authentication", email=user_email, password=user_password
-    ) and registered_email_check(email=user_email):
+        "authentication", username=user_name, password=user_password
+    ) and registered_email_check(username=user_name):
         password_salt = generate_salt()
         password_hash = generate_hash(user_password, password_salt)
         mydb = create_connection()
         if db_write(mydb, 
             """INSERT INTO users (username, email, password_salt, password_hash, role) VALUES (%s, %s, %s, %s, %s)""",
-            (username, user_email, password_salt, password_hash, user_role)
+            (user_name, user_email, password_salt, password_hash, user_role)
         ):
             # Registration Successful
             return Response(status=201)
@@ -398,11 +398,11 @@ def register_user():
     elif user_password != user_confirm_password:
         return Response("Password does not match", status=401)
     elif validate_user_input(
-        "authentication", email=user_email, password=user_password
+        "authentication", username=user_name, password=user_password
     ) is False:
         return Response("Input is not valid", status=401)
-    elif registered_email_check(email=user_email) is False:
-        return Response("Email is already registered", status=401)
+    elif registered_email_check(username=user_name) is False:
+        return Response("Username is already registered", status=401)
 
     else:
         # Registration Failed
@@ -411,15 +411,15 @@ def register_user():
 @app.route("/login", methods=["POST"])
 @cross_origin()
 def login_user():
-    user_email = request.json["email"]
+    user_name = request.json["username"]
     user_password = request.json["password"]
 
-    user_token = validate_user(user_email, user_password)
+    user_token = validate_user(user_name, user_password)
     print("USER_TOKEN "+ str(user_token))
     if user_token != 1 and user_token != 2 :
         return jsonify({"jwt_token": user_token[0], "role": user_token[1], "user_id": user_token[2]})
     elif user_token == 1:
-        return Response("Email is not registered", status=401)
+        return Response("Username is not registered", status=401)
     elif user_token == 2:
         return Response("Wrong Password", status=401)
         

@@ -156,8 +156,12 @@ class Bookingdetails extends Component {
   
 
     book = () => {
-      if (this.state.pickuptime !== undefined && this.state.pickuptime !== ''&& this.state.pickuptime !== null && this.state.returntime !== undefined && this.state.returntime !== ''&& this.state.returntime !== null) {
-
+      
+      console.log(this.state.returntime)
+      if (this.state.pickuptime !== null && this.state.returntime !== null) {
+        // console.log("not null")
+        var pickupTime = this.state.pickuptime.toISOString()
+        var returnTime = this.state.returntime.toISOString()
      
       var gapi = window.gapi
       var CLIENT_ID = "1011886611099-3tpug8k9tksko69s2s7bns0q74a9vkeg.apps.googleusercontent.com"
@@ -174,7 +178,7 @@ class Bookingdetails extends Component {
           discoveryDocs: DISCOVERY_DOCS,
           scope: SCOPES,
         })
-        gapi.client.load('calendar', 'v3', () => console.log('bam!'))
+        gapi.client.load('calendar', 'v3', () => console.log(''))
         gapi.auth2.getAuthInstance().signIn()
         .then(() => 
         {
@@ -183,11 +187,11 @@ class Bookingdetails extends Component {
           'location': this.state.car.location,
           'description': 'Unlock a car',
           'start': {
-            'dateTime': new Date(this.state.pickuptime),
+            'dateTime': pickupTime,
             'timeZone': 'America/Los_Angeles'
           },
           'end': {
-            'dateTime': new Date(this.state.returntime),
+            'dateTime': returnTime,
             'timeZone': 'America/Los_Angeles'
           },
           'recurrence': [
@@ -273,7 +277,11 @@ class Bookingdetails extends Component {
     render() {
 
       // this.calculateTotal (this.state.pickuptime, this.state.returntime, this.state.car.cost)
-    
+      // console.log("2020-09-09T09:00:00-07:00" == new Date())
+      // if (this.state.pickuptime !== null) {
+      //   console.log(this.state.pickuptime.toISOString())
+
+      // }
         const {classes} = this.props;
         return (
             <div className={classes.formroot}>

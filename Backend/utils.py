@@ -23,7 +23,7 @@ def generate_hash(plain_password, password_salt):
 
 def validate_user_input(input_type, **kwargs):
     if input_type == "authentication":
-        if len(kwargs["email"]) <= 255 and len(kwargs["password"]) <= 255:
+        if len(kwargs["username"]) <= 255 and len(kwargs["password"]) <= 255:
             return True
         else:
             return False
@@ -37,9 +37,9 @@ def generate_jwt_token(content):
     print("TOKEN "+ str(token))
     return token
 
-def registered_email_check(email):
+def registered_email_check(username):
     mydb = create_connection()
-    input_email = db_read(mydb, """SELECT * FROM users Where email = %s""", (email,))
+    input_email = db_read(mydb, """SELECT * FROM users Where username = %s""", (username,))
     print("-------------------")
     print(input_email)
     if len(input_email) == 0:
@@ -48,9 +48,9 @@ def registered_email_check(email):
         return False
 
 
-def validate_user(email, password):
+def validate_user(username, password):
     mydb = create_connection()
-    current_user = db_read(mydb, """SELECT * FROM users WHERE email = %s""", (email,))
+    current_user = db_read(mydb, """SELECT * FROM users WHERE username = %s""", (username,))
     print(current_user)
     if len(current_user) == 1:
         

@@ -67,6 +67,7 @@ export const login = (user) => dispatch => {
         if (res.status === 401) {
             
             res.text().then(function(data) {
+                console.log(data)
                 dispatch({
                     type: LOGIN_FAILED,
                     payload: data

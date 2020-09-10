@@ -19,15 +19,15 @@ class Login extends Component {
         }
     }
     componentDidUpdate(prevProps) {
-        console.log(this.props.loginsuccess)
+        
         if(this.props.loginsuccess !== prevProps.loginsuccess & this.props.loginsuccess === 'success') {
             this.setState ({
                 success: true
             })
         }
-        if(this.props.login_message !== prevProps.login_message & this.props.login_message === 'Email is not registered') {
+        if(this.props.login_message !== prevProps.login_message & this.props.login_message === 'Username is not registered') {
             this.setState ({
-                emailerror: "Email is not registered"
+                emailerror: "Username is not registered"
             })
         }
         if(this.props.login_message !== prevProps.login_message & this.props.login_message === 'Wrong Password') {
@@ -49,7 +49,7 @@ class Login extends Component {
     
         e.preventDefault();
         const user = {
-            email: this.state.loginemail,
+            username: this.state.loginemail,
             password: this.state.loginpassword
         }
         // console.log(user)
@@ -57,6 +57,7 @@ class Login extends Component {
     }
     render() {
         const {classes} = this.props;
+        
         return (
             <div className={classes.container}>
                 
@@ -66,7 +67,7 @@ class Login extends Component {
                 variant='outlined'
                 type="text"
                 name="loginemail"
-                placeholder="Email"
+                placeholder="Username"
                 className={classes.textField} fullWidth 
                 helperText = {this.state.emailerror}
                 id="loginEmail"
@@ -77,7 +78,7 @@ class Login extends Component {
                 <br/>
                 <TextField 
                 variant='outlined'
-                type="text"
+                type="password"
                 fullWidth
                 name="loginpassword"
                 placeholder="Password"
