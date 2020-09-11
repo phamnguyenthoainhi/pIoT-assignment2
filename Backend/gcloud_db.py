@@ -15,7 +15,7 @@ def create_connection():
         mydb = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",
+            password="1234",
             database="car_share"
         )
         print("CONNECTING DATABASE...")
@@ -97,8 +97,8 @@ def createtable_bookings(mydb):
                                                   car_id INT, \
                                                   user_id INT, \
                                                   status ENUM('Pending', 'Booked', 'Canceled'), \
-                                                  FOREIGN KEY (car_id) REFERENCES cars(car_id), \
-                                                  FOREIGN KEY (user_id) REFERENCES users(user_id), \
+                                                  FOREIGN KEY (car_id) REFERENCES cars(car_id) ON DELETE CASCADE, \
+                                                  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE, \
                                                   booking_date VARCHAR(255), \
                                                   return_date VARCHAR(255), \
                                                   price FLOAT \
@@ -119,8 +119,8 @@ def createtable_reports(mydb):
                                                   car_id INT, \
                                                   user_id INT, \
                                                   content VARCHAR(255),\
-                                                  FOREIGN KEY (car_id) REFERENCES cars(car_id), \
-                                                  FOREIGN KEY (user_id) REFERENCES users(user_id), \
+                                                  FOREIGN KEY (car_id) REFERENCES cars(car_id) ON DELETE CASCADE, \
+                                                  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE, \
                                                   report_date VARCHAR(255) \
                                                   )")
       return True
@@ -139,7 +139,7 @@ def createtable_photos(mydb):
                                                     user_id INT, \
                                                     username VARCHAR(255),\
                                                     photo LONGBLOB,\
-                                                    FOREIGN KEY (user_id) REFERENCES users(user_id) \
+                                                    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE \
                                                     )")
         return True
 

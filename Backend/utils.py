@@ -51,7 +51,9 @@ def registered_email_check(username):
         return False
 
 def convertPhoto(photo, username, user_id):
-    path = '/Users/abc/Desktop/IOT/backend/'
+    # path = '/Users/abc/Desktop/IOT/backend/'
+    path = '../'
+    
     imgdata = base64.b64decode(photo)
     filename = path + username + '.jpg'
     with open(filename, 'wb') as f:
