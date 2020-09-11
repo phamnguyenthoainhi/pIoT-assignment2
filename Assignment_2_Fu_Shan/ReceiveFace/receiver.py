@@ -48,7 +48,7 @@ try:
                                              password='fushan')
 
     cursor = connection.cursor()
-    sql_fetch_blob_query = """SELECT * from user"""
+    sql_fetch_blob_query = """SELECT * from user""" #users
 
     cursor.execute(sql_fetch_blob_query)
     record = cursor.fetchall()
