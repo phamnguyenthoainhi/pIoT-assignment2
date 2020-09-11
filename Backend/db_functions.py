@@ -17,6 +17,7 @@ def insertBLOB(mydb, user_id, name, photo):
         print("INSERT INTO PHOTOS......")
         print(insert_blob_tuple)
         print(cursor.lastrowid)
+        mydb.commit()
         return cursor.lastrowid
     except mysql.connector.Error as error:
         print(str(error))

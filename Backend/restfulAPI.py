@@ -28,9 +28,9 @@ def hello_world():
 @app.route("/api/photos/<int:user_id>", methods=['POST'])
 @cross_origin()
 def insert_photo(user_id):
-    # print(request.json)
-    # mydb = create_connection()
-    # user_id = request.json["user_id"]
+    print(request.json)
+    mydb = create_connection()
+    user_id = request.json["user_id"]
     username = request.json["username"]
     photo = request.json["photo"]
     success = convertPhoto(photo, username, user_id)
@@ -44,7 +44,7 @@ def insert_photo(user_id):
 @cross_origin()
 def delete_photo_api(photo_id):
     mydb = create_connection()
-    lastid = delete_photo(mydb, photo_id)
+    lastid = delete_photo(mydb, (photo_id,))
     if (lastid is not None):
         return "Success"
     return Response("Record missing, please add full record", status=400)
