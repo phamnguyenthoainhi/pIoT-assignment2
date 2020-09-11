@@ -53,32 +53,7 @@ class Signup extends Component {
         console.log('Error: ', error);
         };
      };
-     binEncode(data) {
-        var binArray = []
-        var datEncode = "";
 
-        
-        data.forEach((a)=> {
-            binArray.push(a.charCodeAt(0).toString(2));
-            
-        })
-        // for (i=0; i < data.length; i++) {
-             
-        // } 
-        binArray.forEach((b) => {
-            var pad = padding_left(b, '0', 8);
-            datEncode += pad + ' '; 
-        })
-       
-        function padding_left(s, c, n) { if (! s || ! c || s.length >= n) {
-            return s;
-        }
-        var max = (n - s.length)/c.length;
-        for (var i = 0; i < max; i++) {
-            s = c + s; } return s;
-        }
-        console.log(binArray);
-    }
 
      handleSignup = (encodedImage) => {
          if (this.state.signupemail.includes("@")) {

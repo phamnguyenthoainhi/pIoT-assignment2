@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
-// import { Link } from "react-router-dom";
+
 import style from './style';
-// import TextField from '@material-ui/core/TextField';
-// import Card from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
-// import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import DatePicker from "react-datepicker";
 import {bookCar} from '../../actions/carAction'
@@ -263,9 +259,7 @@ class Bookingdetails extends Component {
 
     }
     calculateTotal = (startDate, endDate, cost) => {
-      var startdate = new Date(startDate).getDate()
-      var startmonth = new Date(startDate).getMonth()
-      var enddate = new Date(endDate).getDate()
+      
       var datecount = Math.round((new Date(endDate)-new Date(startDate))/(1000*60*60*24));
       cost = parseInt(cost)
       var total = cost * datecount
