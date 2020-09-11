@@ -119,7 +119,7 @@ export const deleteCar = (car) => dispatch => {
     })
     .then((res) => {
         if (res.status === 200) {
-            console.log("ok ok")
+            
             dispatch(fetchCars())
         }
     })

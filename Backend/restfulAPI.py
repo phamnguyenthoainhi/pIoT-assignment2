@@ -7,7 +7,7 @@ from collections import Counter
 from classes import *
 from flask import Blueprint, request, Response, jsonify
 from gcloud_db import create_connection
-from utils import generate_salt, generate_hash, validate_user_input, validate_user, registered_email_check
+from utils import *
 from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 CORS(app)
@@ -23,6 +23,31 @@ mail = Mail(app)
 @app.route('/')
 def hello_world():
     return 'Index'
+
+# Insert photo
+@app.route("/api/photos/<int:user_id>", methods=['POST'])
+@cross_origin()
+def insert_photo(user_id):
+    # print(request.json)
+    # mydb = create_connection()
+    # user_id = request.json["user_id"]
+    username = request.json["username"]
+    photo = request.json["photo"]
+    success = convertPhoto(photo, username, user_id)
+    # lastid = insertBLOB(mydb, user_id, username, photo)
+    if (success is not None):
+        return "Success"
+    return Response("Record missing, please add full record", status=400)
+
+# Delete photo
+@app.route("/api/photos/<int:photo_id>", methods=['DELETE'])
+@cross_origin()
+def delete_photo_api(photo_id):
+    mydb = create_connection()
+    lastid = delete_photo(mydb, photo_id)
+    if (lastid is not None):
+        return "Success"
+    return Response("Record missing, please add full record", status=400)
 
 # Get 5 cars with the most bookings, returns array of tuple(car_id, number of bookings) 
 @app.route("/api/cars/mostbookings", methods=['GET'])
@@ -376,7 +401,6 @@ def rmReport(report_id):
 
 @app.route("/register", methods=["POST"])
 @cross_origin()
-
 def register_user():
     user_email = request.json["email"]
     user_password = request.json["password"]
@@ -389,12 +413,14 @@ def register_user():
         password_salt = generate_salt()
         password_hash = generate_hash(user_password, password_salt)
         mydb = create_connection()
-        if db_write(mydb, 
+        lastrowid = db_write(mydb, 
             """INSERT INTO users (username, email, password_salt, password_hash, role) VALUES (%s, %s, %s, %s, %s)""",
-            (user_name, user_email, password_salt, password_hash, user_role)
-        ):
+            (user_name, user_email, password_salt, password_hash, user_role))
+        
+        if lastrowid is not None:
+        
             # Registration Successful
-            return Response(status=201)
+            return Response(str(lastrowid), status=201)
         else:
             # Registration Failed
             return Response(status=409)

@@ -110,12 +110,6 @@ def createtable_bookings(mydb):
       return False
 
 def createtable_reports(mydb):
-  """
-  Create a table named datab1 in assignment1 database
-  Parameters:
-      mydb: a MySQLConnection object
-  Returns: true if the query excecutes sucessfully, false if there is error
-  """
   try:
       cursor = mydb.cursor()
       cursor.execute("CREATE TABLE IF NOT EXISTS reports( \
@@ -134,6 +128,24 @@ def createtable_reports(mydb):
   except mysql.connector.Error as e:
       print(str(e))
       return False
+    
+def createtable_photos(mydb):
+    try:
+        cursor = mydb.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS photos( \
+                                                    photo_id INT \
+                                                    auto_increment \
+                                                    PRIMARY KEY, \
+                                                    user_id INT, \
+                                                    username VARCHAR(255),\
+                                                    photo LONGBLOB,\
+                                                    FOREIGN KEY (user_id) REFERENCES users(user_id) \
+                                                    )")
+        return True
+
+    except mysql.connector.Error as e:
+        print(str(e))
+        return False
 
 
 
@@ -142,3 +154,4 @@ createtable_cars(mydb)
 createtable_users(mydb)
 createtable_bookings(mydb)
 createtable_reports(mydb)
+createtable_photos(mydb)

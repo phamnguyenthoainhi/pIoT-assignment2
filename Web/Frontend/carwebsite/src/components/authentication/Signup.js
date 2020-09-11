@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import style from './style';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {signup} from "../../actions/userAction";
+import {signup, addPhoto} from "../../actions/userAction";
 import ImageIcon from '@material-ui/icons/Image';
 class Signup extends Component {
     constructor(props) {
@@ -88,11 +88,16 @@ class Signup extends Component {
                 confirm_password: this.state.signupconfirmpassword,
                 username: this.state.signupusername,
                 // img: this.state.img,
-                img: encodedImage,
+                // img: encodedImage,
                 role: 'Customer'
             }
+            const photo = {
+                username: this.state.signupusername,
+                photo: encodedImage
+            }
             console.log(user)
-            // this.props.signup(user)
+            console.log(photo)
+            this.props.signup(user, photo)
          } else {
             this.setState ({
                 emailerror: "Please input email format"
@@ -127,9 +132,9 @@ class Signup extends Component {
                 success: true
             })
         }
-        if(this.props.signup_message !== prevProps.signup_message & this.props.signup_message === 'Email is already registered') {
+        if(this.props.signup_message !== prevProps.signup_message & this.props.signup_message === 'Username is already registered') {
             this.setState ({
-                emailerror: "Email is already registered"
+                emailerror: "Username is already registered"
             })
         }
         if(this.props.signup_message !== prevProps.signup_message & this.props.signup_message === 'Password does not match') {
@@ -187,7 +192,7 @@ class Signup extends Component {
                 name="signupusername"
                 placeholder="Username"
                 className={classes.textField}
-                
+                helperText = {this.state.emailerror}
                 value = {this.state.signupusername}
                 id="signupusername"
                 onChange= {(e) => this.onChange(e)}
@@ -200,7 +205,7 @@ class Signup extends Component {
                 name="signupemail"
                 placeholder="Email"
                 className={classes.textField} fullWidth 
-                helperText = {this.state.emailerror}
+                
                 // error = {!!this.state.loginFormError.emailError}
                 id="signupemail" value = {this.state.signupemail}
                
@@ -263,9 +268,9 @@ class Signup extends Component {
     }
 }
 const mapDispatchToProps = dispatch => ({
-    signup: (user) => dispatch(signup(user)),
+    signup: (user, photo) => dispatch(signup(user, photo)),
+    addPhoto: (user, photo) => dispatch(addPhoto(user, photo)),
    
-  
 })
 
 const mapStateToProps = state => ({

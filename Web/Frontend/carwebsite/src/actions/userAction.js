@@ -67,7 +67,7 @@ export const login = (user) => dispatch => {
         if (res.status === 401) {
             
             res.text().then(function(data) {
-                console.log(data)
+                
                 dispatch({
                     type: LOGIN_FAILED,
                     payload: data
@@ -81,7 +81,8 @@ export const login = (user) => dispatch => {
      
 }
 
-export const signup = (user) => dispatch => {
+export const signup = (user, photo) => dispatch => {
+    console.log(photo)
     fetch(backend+"register", {
         method: 'POST',
         headers: {
@@ -93,7 +94,48 @@ export const signup = (user) => dispatch => {
         
     })
     .then ((res) => {
-        console.log(res.status)
+        if (res.status === 201) {
+            
+            
+            console.log(photo)
+            res.text().then(function(data) {
+                console.log(photo)
+                dispatch(addPhoto(parseInt(data), photo))
+
+               
+            
+              })
+            
+
+        } else if (res.status === 401) {
+           
+            res.text().then(function(data) {
+                
+                dispatch({
+                    type: SIGNUP_FAILED,
+                    payload: data
+                })
+            
+              })
+        }
+        
+    })    
+}
+export const addPhoto = (user_id, photo) => dispatch => {
+    
+    console.log(photo)
+    fetch(backend+`api/photos/${user_id}`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+        },
+        body: JSON.stringify(photo)
+        
+    })
+    .then ((res) => {
+
         if (res.status === 201) {
             dispatch({
                 type: SIGNUP,
@@ -110,6 +152,13 @@ export const signup = (user) => dispatch => {
                 })
             
               })
+        }
+        else if (res.status === 200) {
+            dispatch({
+                type: SIGNUP,
+                payload: 'success'
+            })
+
         }
         
     })    
