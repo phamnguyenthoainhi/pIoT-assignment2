@@ -114,7 +114,7 @@ def count_carmake_api():
     
 
 # Get revenues by month in a year
-@app.route("/api/monthlyrevenues", methods=['POST'])
+@app.route("/api/monthlyrevenues", methods=['GET'])
 @cross_origin()
 def monthlyRevenues():
     mydb = create_connection()

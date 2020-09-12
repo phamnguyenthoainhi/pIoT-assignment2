@@ -15,7 +15,7 @@ def create_connection():
         mydb = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="1234",
+            password="",
             database="car_share"
         )
         print("CONNECTING DATABASE...")
