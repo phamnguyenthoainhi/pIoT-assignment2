@@ -113,7 +113,27 @@ def count_carmake_api():
     return json.dumps(countmake)
     
 
-
+# Get revenues by month in a year
+@app.route("/api/monthlyrevenues", methods=['POST'])
+@cross_origin()
+def monthlyRevenues():
+    mydb = create_connection()
+    results = {}
+    allBookings = get_bookings(mydb)
+    for booking in allBookings:
+        month = booking[-2].split("-")[1]
+        price = booking[-1]
+        if month in results:
+            _ = results[month] + price
+            results[month] = _
+        else:
+            results[month] = price 
+    actualResults = []
+    for result in sorted(results):
+        actualResults.append((result, results[result]))
+    # print(actualResults)
+    return json.dumps(tuple(actualResults))        
+    # return json.dumps(result)
 
 # View user's rental history
 @app.route("/api/users/<int:user_id>/bookings", methods=['GET'])
