@@ -96,6 +96,7 @@ class Bookingdetails extends Component {
         if(this.props.bookingStatus !== prevProps.bookingStatus && this.props.bookingStatus === 'success') {
           this.close()
           alert("Booking Success");
+          this.props.fetchRentalHistory()
       } else {
         
       }
@@ -231,7 +232,7 @@ class Bookingdetails extends Component {
       
       
       
-      console.log(booking)
+      
       this.props.bookCar(booking)
       this.setState({
         
