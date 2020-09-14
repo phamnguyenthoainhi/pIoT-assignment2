@@ -18,14 +18,14 @@ def readBLOB(emp_id, photo):
     #     #                                      password='fushan')
 
         
-    sql_fetch_blob_query = """SELECT * from user where id = %s"""
+    sql_fetch_blob_query = """SELECT * from photos where photo_id = %s"""
 
     cursor.execute(sql_fetch_blob_query, (emp_id,))
     record = cursor.fetchall()
     for row in record:
         print("Id = ", row[0], )
-        print("Username = ", row[1])
-        image = row[2]
+        print("Username = ", row[2])
+        image = row[3]
         print("Storing employee image and bio-data on disk \n")
         write_file(image, photo)
 
@@ -42,19 +42,24 @@ def readBLOB(emp_id, photo):
 #          "D:\Python\Articles\my_SQL\query_output\scott_bioData.txt")
 
 try:
-    connection = mariadb.connect(host='localhost',
-                                             database='faceImage',
-                                             user='fushan',
-                                             password='fushan')
+    # connection = mariadb.connect(host='localhost',
+    #                                          database='faceImage',
+    #                                          user='fushan',
+    #                                          password='fushan')
+    connection = mariadb.connect(host='35.221.215.154',
+                                             database='car_share',
+                                             user='root',
+                                             password='1234')
 
     cursor = connection.cursor()
-    sql_fetch_blob_query = """SELECT * from user""" #users
+    # sql_fetch_blob_query = """SELECT * from user"""
+    sql_fetch_blob_query = """SELECT * from photos"""
 
     cursor.execute(sql_fetch_blob_query)
     record = cursor.fetchall()
     number = len(record)
 
-    sql_fetchnames_query = """SELECT username from user"""
+    sql_fetchnames_query = """SELECT username from photos"""
     cursor.execute(sql_fetchnames_query)
     names = cursor.fetchall()
 

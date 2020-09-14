@@ -4,8 +4,8 @@ import threading
 import time
 
 
-HOST = '192.168.0.2'  # The server's hostname or IP address
-PORT = 8080        # The port used by the server
+HOST = '192.168.43.143'  # The server's hostname or IP address
+PORT = 8082       # The port used by the server
 
 
 def process_data_from_server(x):
@@ -41,10 +41,11 @@ def my_client():
         # print("connecting")
         # my = input("Enter command ")
         
-        name = getName()
-        pw = getPW()
-
-        acc = "Data " + name + " " + pw
+        # name = getName()
+        # pw = getPW()
+        name = "fu"
+        pw = "123456"
+        acc = "Data " + name + " " + pw  + " 1"#car id
         # print("current account value:" + acc)
         if pw != "":
             # acc = "Data Hoai 2225565 Quit"
@@ -57,12 +58,12 @@ def my_client():
             
             answer = data
             print("server response:" + answer)
-            if answer == "Account verified":
-                setResponse("pass")
-            elif answer == "Access Denied":
-                setResponse("denied")
+        #     if answer == "Account verified":
+        #         setResponse("pass")
+        #     elif answer == "Access Denied":
+        #         setResponse("denied")
 
-        clearPassword()
+        # clearPassword()
 
             
 
