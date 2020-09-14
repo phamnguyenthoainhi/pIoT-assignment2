@@ -85,7 +85,7 @@ class Signup extends Component {
      chooseFile = event => {
          console.log(this.state.signupusername)
          if (this.state.signupusername === '' || this.state.signupusername === null || this.state.signupusername === undefined) {
-             alert("Please input username before upload image")
+             alert("Please input username before uploading image")
          } else {
             var renamed_file = new File([event.target.files[0]], `${this.state.signupusername}.jpg`, {type: "image/jpeg", lastModified: new Date()})
     
@@ -146,7 +146,7 @@ class Signup extends Component {
             }
         } else {
             this.setState({
-                error: "Please input your username before uploading image"
+                error: "Input should not be empty. Please try again"
             })
         }
         
@@ -159,7 +159,7 @@ class Signup extends Component {
                 
                 <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.onSubmit(e)}>
                 <h2 className={classes.logintitle}>Create an account</h2>
-                {this.state.error}
+                <p style={{ color: "#66827A"}}>{this.state.error}</p>
                 <TextField 
                 variant='outlined'
                 type="text"
@@ -191,7 +191,7 @@ class Signup extends Component {
                 
                 <TextField 
                 variant='outlined'
-                type="text"
+                type="password"
                 fullWidth
                 name="signuppassword"
                 placeholder="Password"
@@ -204,7 +204,7 @@ class Signup extends Component {
                 />
                 <TextField 
                 variant='outlined'
-                type="text"
+                type="password"
                 fullWidth
                 name="signupconfirmpassword"
                 placeholder="Confirm Password"

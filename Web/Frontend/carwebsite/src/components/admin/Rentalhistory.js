@@ -46,32 +46,32 @@ class Rentalhistory extends Component {
                  <table className="table">
                     <thead>
                     <tr>
-                        <th style={{width: '30%', textAlign: 'center', color: "#66827A"}}>Customer</th>
-                        <th style={{width: '30%', textAlign: 'center', color: "#66827A"}}>Car</th>
+                        <th style={{width: '25%', textAlign: 'left', color: "#66827A"}}>Customer</th>
+                        <th style={{width: '40%', textAlign: 'left', color: "#66827A"}}>Car</th>
                         
-                        <th style={{width: '20%', textAlign: 'center', color: "#66827A"}}>Pickup Date</th>
-                        <th style={{width: '20%', textAlign: 'center', color: "#66827A"}}>Drop-off Date</th>
+                        <th style={{width: '15%', textAlign: 'left', color: "#66827A"}}>Pickup Date</th>
+                        <th style={{width: '15%', textAlign: 'left', color: "#66827A"}}>Drop-off Date</th>
                     </tr>
                     </thead>
                     <tbody>
                         {this.state.rentalhistory ? (
                             this.state.rentalhistory.map((history) => 
                             <tr key = {history.history_id}>
-                        <td style={{textAlign: 'center'}}>
+                        <td style={{textAlign: 'left'}}>
                             {history.user.username}<br/>
                             {history.user.email}
                             </td>
-                        <td style={{textAlign: 'center'}}>
-                            {history.car.make}<br/>
-                            {history.car.body_type}<br/>
-                            {history.car.color}<br/>
-                            {history.car.seats}<br/>
-                            {history.car.location}<br/>
-                            {history.car.cost}<br/>
+                        <td style={{textAlign: 'left'}}>
+                            <b style={{ color: "#93ABA5"}}>Car Make:</b> {history.car.make}<br/>
+                            <b style={{ color: "#93ABA5"}}>Body Type:</b> {history.car.body_type}<br/>
+                            <b style={{ color: "#93ABA5"}}>Color:</b> {history.car.color}<br/>
+                            <b style={{ color: "#93ABA5"}}>Seats: </b>{history.car.seats}<br/>
+                            <b style={{ color: "#93ABA5"}}>Location:</b> {history.car.location}<br/>
+                            <b style={{ color: "#93ABA5"}}>Cost/hour: </b>{history.car.cost}<br/>
                         </td>
                         
-                        <td style={{textAlign: 'center'}}>{this.dateConvert(history.booking_date)}</td>
-                        <td style={{textAlign: 'center'}}>{this.dateConvert(history.return_date)}</td>
+                        <td style={{textAlign: 'left'}}>{this.dateConvert(history.booking_date)}</td>
+                        <td style={{textAlign: 'left'}}>{this.dateConvert(history.return_date)}</td>
                     </tr>
                             )
                         ): null}

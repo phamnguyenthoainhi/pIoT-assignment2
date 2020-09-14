@@ -298,11 +298,11 @@ class Carslistadmin extends Component {
                         <table className="table">
                     <thead>
                     <tr>
-                        <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Make</th>
-                        <th style={{width: '15%', textAlign: 'center', color: "#66827A"}}>Body Type</th>
-                        <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Colour</th>
-                        <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Seats</th>
-                        <th style={{width: '20%', textAlign: 'center', color: "#66827A"}}>Location</th>
+                        <th style={{width: '10%', textAlign: 'left', color: "#66827A"}}>Make</th>
+                        <th style={{width: '15%', textAlign: 'left', color: "#66827A"}}>Body Type</th>
+                        <th style={{width: '10%', textAlign: 'left', color: "#66827A"}}>Colour</th>
+                        <th style={{width: '10%', textAlign: 'left', color: "#66827A"}}>Seats</th>
+                        <th style={{width: '20%', textAlign: 'left', color: "#66827A"}}>Location</th>
                         <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Cost per hour</th>
                         
                         <th style={{width: '25%', textAlign: 'center', color: "#66827A"}}></th>
@@ -313,13 +313,13 @@ class Carslistadmin extends Component {
                        ( <tbody>
                     {this.state.searchedCars.map((car) => 
                     <tr key={car.car_id}>
-                        <td style={{textAlign: 'center'}}>{car.make}</td>
-                        <td style={{textAlign: 'center'}}>{car.body_type}</td>
-                        <td style={{textAlign: 'center'}}>{car.color}</td>
-                        <td style={{textAlign: 'center'}}>{car.seats}</td>
-                        <td style={{textAlign: 'center'}}>{car.location}</td>
-                        <td style={{textAlign: 'center'}}>{car.cost}</td>
-                        <td style={{textAlign: 'center'}}>
+                        <td style={{textAlign: 'left'}}>{car.make}</td>
+                        <td style={{textAlign: 'left'}}>{car.body_type}</td>
+                        <td style={{textAlign: 'left'}}>{car.color}</td>
+                        <td style={{textAlign: 'left'}}>{car.seats}</td>
+                        <td style={{textAlign: 'left'}}>{car.location}</td>
+                        <td style={{textAlign: 'left'}}>{car.cost}</td>
+                        <td style={{textAlign: 'right'}}>
                             <Button variant="outlined" color="default" onClick={() => this.openreport({car})} >Report</Button>
                             <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit({car})}   >EDIT</Button>
                             <Button variant="outlined" color="secondary" onClick={() => this.delete({car})}>DELETE</Button>
