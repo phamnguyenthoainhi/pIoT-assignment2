@@ -1,10 +1,11 @@
-import { FETCH_MOST_BOOKINGS, FETCH_LEAST_BOOKINGS, FETCH_MOST_REVENUES, FETCH_CARMAKE } from '../actions/types';
+import { FETCH_MOST_BOOKINGS, FETCH_LEAST_BOOKINGS, FETCH_MOST_REVENUES, FETCH_CARMAKE, FETCH_MONTHLY_REVENUES } from '../actions/types';
 
 const initialState = {
     mostbookings : [],
     leastbookings: [],
     revenues: [],
-    carmakes: []
+    carmakes: [],
+    monthlyrevenues: []
    
 }
 export default function (state = initialState, action) {
@@ -23,16 +24,22 @@ export default function (state = initialState, action) {
             }
         case FETCH_MOST_REVENUES:
     
-        return {
-            ...state,
-            revenues: action.payload
-        }
+            return {
+                ...state,
+                revenues: action.payload
+            }
         case FETCH_CARMAKE:
     
-        return {
-            ...state,
-            carmakes: action.payload
-        }
+            return {
+                ...state,
+                carmakes: action.payload
+            }
+        case FETCH_MONTHLY_REVENUES:
+    
+            return {
+                ...state,
+                monthlyrevenues: action.payload
+            }
         
         default:
             return state;

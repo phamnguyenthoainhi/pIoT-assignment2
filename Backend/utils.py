@@ -64,7 +64,6 @@ def convertPhoto(photo, username, user_id):
         success = insertBLOB(mydb, user_id, username, photobinary)
         print(success)
         if (success is not None):
-            
             if os.path.exists(path+username+".jpg"):
                 os.remove(path+username+".jpg")
                 return "Success"

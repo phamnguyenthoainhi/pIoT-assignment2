@@ -367,7 +367,7 @@ def get_engineers(mydb):
 
 def count_carmake(mydb):
     try:
-        sql = """ select cars.make, COUNT(*) from cars group by cars.make; """
+        sql = """ SELECT c.make, count(*) FROM cars AS c, bookings AS b Where b.car_id = c.car_id group by c.make; """
         cursor = mydb.cursor()
         cursor.execute(sql)
         results = cursor.fetchall()

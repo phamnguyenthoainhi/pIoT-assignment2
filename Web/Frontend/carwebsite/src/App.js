@@ -17,9 +17,8 @@ import Carslistadmin from './components/admin/Carslistadmin';
 import Rentalhistory from './components/admin/Rentalhistory';
 import Userslist from './components/admin/Userslist';
 import Reportedcars from './components/engineer/Reportedcars';
-import MapLoader from './components/map/Map';
 import DashboardManager from './components/manager/DashboardManager';
-import SearchBox from './components/map/SearchBox';
+
 class App extends Component{
   render () {
     const theme = createMuiTheme(themeFile);

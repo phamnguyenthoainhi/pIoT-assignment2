@@ -5,7 +5,7 @@ import style from './style';
 
 import Button from '@material-ui/core/Button';
 
-import {fetchMostBookings, fetchLeastBookings, fetchMostRevenues, fetchCarMakes} from '../../actions/managerAction';
+import {fetchMostBookings, fetchLeastBookings, fetchMostRevenues, fetchCarMakes, fetchMonthlyRevenues} from '../../actions/managerAction';
 import Grid from '@material-ui/core/Grid';
 import Chart from "react-google-charts";
 import { Link } from "react-router-dom";
@@ -19,7 +19,8 @@ class DashboardManager extends Component {
             carmakes: [],
             revenuelist: [],
             bookedlist: [],
-            carmakelist: []
+            carmakelist: [],
+            monthlyrevenues: []
             
         }
     }
@@ -32,6 +33,7 @@ class DashboardManager extends Component {
         this.props.fetchLeastBookings()
         this.props.fetchMostRevenues()
         this.props.fetchCarMakes()
+        this.props.fetchMonthlyRevenues()
         
         
         
@@ -79,7 +81,17 @@ class DashboardManager extends Component {
                 carmakes: this.props.carmakes,
                 carmakelist: list
             })
-        }    
+        }
+        if(this.props.monthlyrevenues !== prevProps.monthlyrevenues) {
+            let list = [['x', 'Revenues']]
+            this.props.monthlyrevenues.forEach((revenue) => 
+                list.push([revenue[0], parseInt(revenue[1])])
+            )
+            this.setState({
+                monthlyrevenues: list
+                
+            })
+        }      
     }
 
 
@@ -177,7 +189,7 @@ class DashboardManager extends Component {
                     
                     <div style={{ textAlign:'center'}}>
                     <h3 className={classes.charttitle}>Makes of car</h3>
-                    {console.log(this.state.carmakelist)}
+                    
                     {this.state.carmakelist.length !== 0 ? (
                         <Chart
                         width={'800px'}
@@ -202,40 +214,32 @@ class DashboardManager extends Component {
                         />
                     ): null}
                     </div>
-                    <div style={{ textAlign:'center'}}>
-                    <h3 className={classes.charttitle}>Revenue in this year</h3>
-                    <Chart
-  width={'600px'}
-  height={'400px'}
-  chartType="LineChart"
-  loader={<div>Loading Chart</div>}
-  data={[
-    ['x', 'dogs'],
-    [0, 0],
-    [1, 10],
-    [2, 23],
-    [3, 17],
-    [4, 18],
-    [5, 9],
-    [6, 11],
-    [7, 27],
-    [8, 33],
-    [9, 40],
-    [10, 32],
-    [11, 35],
-  ]}
-  options={{
-    hAxis: {
-      title: 'Time',
-    },
-    vAxis: {
-      title: 'Popularity',
-    },
-  }}
-  rootProps={{ 'data-testid': '1' }}
-  style={{ margin:'0 auto'}}
-/>
+                    
+                        <div style={{ textAlign:'center'}}>
+                            <h3 className={classes.charttitle}>Revenue in this year</h3>
+                            {console.log(this.state.monthlyrevenues)}
+                            {this.state.monthlyrevenues.length !== 0 ? (
+                            <Chart
+                                width={'800px'}
+                                height={'500px'}
+                                chartType="LineChart"
+                                loader={<div>Loading Chart</div>}
+                                data={this.state.monthlyrevenues}
+                                options={{
+                                    hAxis: {
+                                    title: 'Months',
+                                    },
+                                    vAxis: {
+                                    title: 'Revenues',
+                                    },
+                                }}
+                                rootProps={{ 'data-testid': '1' }}
+                                style={{ margin:'0 auto'}}
+                                />
+                                 ):null}
                     </div>
+                   
+                    
                 
 
                 
@@ -250,6 +254,7 @@ const mapDispatchToProps = dispatch => ({
     fetchLeastBookings: () => dispatch(fetchLeastBookings()),
     fetchMostBookings: () => dispatch(fetchMostBookings()),
     fetchCarMakes: () => dispatch(fetchCarMakes()),
+    fetchMonthlyRevenues: () => dispatch(fetchMonthlyRevenues()),
 })
 
 const mapStateToProps = state => ({
@@ -257,7 +262,8 @@ const mapStateToProps = state => ({
     mostbookings: state.managerReducer.mostbookings,
     leastbookings: state.managerReducer.leastbookings,
     revenues: state.managerReducer.revenues,
-    carmakes: state.managerReducer.carmakes
+    carmakes: state.managerReducer.carmakes,
+    monthlyrevenues: state.managerReducer.monthlyrevenues
 
 });
 

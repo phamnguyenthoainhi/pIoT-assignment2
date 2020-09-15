@@ -6,7 +6,7 @@ def create_connection():
         mydb = mysql.connector.connect(
             host="35.221.215.154",
             user="root",
-            password="1234",
+            password="",
             database="car_share"
         )
         print("Connecting database....")
