@@ -2,24 +2,25 @@ import mysql.connector
 
 def create_connection():
     mydb = None
-    # try:
-    #     mydb = mysql.connector.connect(
-    #         host="34.105.54.90",
-    #         user="root",
-    #         password="1234",
-    #         database="car_share"
-    #     )
-    #     return mydb
-
     try:
         mydb = mysql.connector.connect(
-            host="localhost",
+            host="35.221.215.154",
             user="root",
             password="1234",
             database="car_share"
         )
-        print("CONNECTING DATABASE...")
+        print("Connecting database....")
         return mydb
+
+    # try:
+    #     mydb = mysql.connector.connect(
+    #         host="localhost",
+    #         user="root",
+    #         password="1234",
+    #         database="car_share"
+    #     )
+    #     print("CONNECTING DATABASE...")
+    #     return mydb
 
     except mysql.connector.Error as e:
         print(e)
