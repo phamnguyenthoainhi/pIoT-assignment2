@@ -116,31 +116,31 @@ class Dashboard extends Component {
                                 <ListItemAvatar>
                                
                                 </ListItemAvatar>
-                                <ListItemText  secondary={`Car Body Type: ${booking.car.make}`} />
+                                <ListItemText  secondary={`Car Body Type: ${booking.car.body_type}`} />
                             </ListItem>
                             <ListItem>
                                 <ListItemAvatar>
                                
                                 </ListItemAvatar>
-                                <ListItemText  secondary={`Color: ${booking.car.make}`} />
+                                <ListItemText  secondary={`Color: ${booking.car.color}`} />
                             </ListItem>
                             <ListItem>
                                 <ListItemAvatar>
                                
                                 </ListItemAvatar>
-                                <ListItemText  secondary={`Seats: ${booking.car.make}`} />
+                                <ListItemText  secondary={`Seats: ${booking.car.seats}`} />
                             </ListItem>
                             <ListItem>
                                 <ListItemAvatar>
                                
                                 </ListItemAvatar>
-                                <ListItemText  secondary={`Location: ${booking.car.make}`} />
+                                <ListItemText  secondary={`Location: ${booking.car.location}`} />
                             </ListItem>
                             <ListItem>
                                 <ListItemAvatar>
                                
                                 </ListItemAvatar>
-                                <ListItemText  secondary={`Cost/hour: ${booking.car.make}`} />
+                                <ListItemText  secondary={`Cost/hour: ${booking.car.cost}`} />
                             </ListItem>
                             <ListItem>
                                     <ListItemAvatar>

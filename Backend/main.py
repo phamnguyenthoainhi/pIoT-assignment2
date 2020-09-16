@@ -9,6 +9,8 @@ from flask import Blueprint, request, Response, jsonify
 from gcloud_db import create_connection
 from utils import *
 from flask_cors import CORS, cross_origin
+
+
 app = Flask(__name__)
 CORS(app)
 
@@ -19,7 +21,9 @@ app.config['MAIL_USERNAME'] = 'carsharepIoT@gmail.com'
 app.config['MAIL_PASSWORD'] = 'a123456789!'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
+
 mail = Mail(app)
+
 @app.route('/')
 def hello_world():
     return 'Index'
@@ -30,7 +34,7 @@ def hello_world():
 def insert_photo(user_id):
     print(request.json)
     mydb = create_connection()
-    user_id = request.json["user_id"]
+    
     username = request.json["username"]
     photo = request.json["photo"]
     success = convertPhoto(photo, username, user_id)
@@ -513,5 +517,5 @@ def editUser(user_id):
  
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='127.0.0.1', port=8081)
 

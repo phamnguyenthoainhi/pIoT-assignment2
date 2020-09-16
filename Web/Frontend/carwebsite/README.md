@@ -1,9 +1,9 @@
 COSC2790 - Programming Internet of Things <br/>
 Authors:<br/>
 Pham Nguyen Thoai Nhi - s3695349<br/>
-Hoai - <br/>
-Fu - <br/>
-Shan - <br/>
+Le Pham Ngoc Hoai - s3636085<br/>
+Tseng Chia Fu - s3634996 <br/>
+Lee Ping Shan - s3635413<br/>
 # Car-share System
 ## Project Structure
 ---
@@ -30,6 +30,7 @@ npm test: run all the unit tests <br/>
 #### Backend: Built using Flask framework
 ------
 ### IOT:
+
 ## Project Instructions
 
 ## Project Management

@@ -1,0 +1,7 @@
+runtime: python38
+entrypoint: gunicorn -b :8081 -w 2 main:app
+env_variables:
+  CLOUD_SQL_USERNAME: root
+  CLOUD_SQL_PASSWORD: 1234
+  CLOUD_SQL_DATABASE_NAME: car_share
+  CLOUD_SQL_CONNECTION_NAME: iot-assignment2-286206:asia-east2:iot-programming-asntwo

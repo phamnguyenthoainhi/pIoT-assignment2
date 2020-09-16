@@ -97,9 +97,9 @@ export const signup = (user, photo) => dispatch => {
         if (res.status === 201) {
             
             
-            console.log(photo)
+            
             res.text().then(function(data) {
-                console.log(photo)
+                
                 dispatch(addPhoto(parseInt(data), photo))
 
                
