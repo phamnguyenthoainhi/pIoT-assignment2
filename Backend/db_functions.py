@@ -383,3 +383,11 @@ def count_carmake(mydb):
         
     except mysql.connector.Error as e:
         print(str(e))
+        
+# mydb = create_connection()
+# print(unlock_car(mydb, (1,)))
+# count_carmake(mydb)
+# print(get_engineers(mydb))
+# print(get_car(mydb, (2,)))
+# print(car_booking_dates(mydb, (1,)))
+# print(car_return_dates(mydb, (1,)))
