@@ -20,7 +20,7 @@ class Login extends Component {
         }
     }
     componentDidUpdate(prevProps) {
-        
+        console.log(this.props)
         if(this.props.loginsuccess !== prevProps.loginsuccess & this.props.loginsuccess === 'success') {
             this.setState ({
                 success: true

@@ -1,6 +1,6 @@
 const style = (theme) => ({
     root: {
-        backgroundColor: theme.color.green.lightest,
+        backgroundColor: '#d8e6e2',
         padding: "40px"
     },
     avatar: {
@@ -19,5 +19,9 @@ const style = (theme) => ({
             
         }
     },
+    card: {
+        boder: "1px black solid",
+        // backgroundColor: theme.color.green.lightest,
+    }
 })
 export default style;

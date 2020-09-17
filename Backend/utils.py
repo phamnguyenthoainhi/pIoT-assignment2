@@ -5,8 +5,9 @@ from db_functions import *
 from gcloud_db import create_connection
 import base64
 import os
-
-
+import pathlib
+# path = str(pathlib.Path(__file__).parent.absolute()) + "/"
+# print(str(path))
 def generate_salt():
     salt = os.urandom(16)
     print("SALT: " + str(salt.hex()))
@@ -52,17 +53,16 @@ def registered_email_check(username):
 
 def convertPhoto(photo, username, user_id):
     # path = '/Users/abc/Desktop/IOT/backend/'
-    path = '../'
+    path = str(pathlib.Path(__file__).parent.absolute()) + "/"
     
     imgdata = base64.b64decode(photo)
-    filename = path + username + '.jpg'
+    filename = path +username + '.jpg'
     with open(filename, 'wb') as f:
         f.write(imgdata)
     with open(filename, mode='rb') as file:
         photobinary = file.read()
         mydb = create_connection()
         success = insertBLOB(mydb, user_id, username, photobinary)
-        print(success)
         if (success is not None):
             if os.path.exists(path+username+".jpg"):
                 os.remove(path+username+".jpg")

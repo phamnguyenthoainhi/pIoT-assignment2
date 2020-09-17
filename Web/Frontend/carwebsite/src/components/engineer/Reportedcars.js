@@ -93,7 +93,7 @@ class Reportedcars extends Component {
                     {this.state.reports ? (
                         this.state.reports.map((report) => 
                         <Grid item lg={6} md= {12} xs={12} key={report.report_id}>
-                        <Card className={classes.card}>
+                        <Card className={classes.card} variant="outlined">
                         <List className={classes.list}>
                             <ListItem>
                                 <ListItemAvatar>

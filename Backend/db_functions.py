@@ -174,8 +174,12 @@ def edit_car(mydb, data):
 # Lock a car by id
 def lock_car(mydb, data):
     try:
+        check = "SELECT * FROM cars WHERE car_id = %s"
         sql = "UPDATE cars SET locked = 1 WHERE car_id = %s"
         cursor = mydb.cursor()
+        cursor.execute(check, data)
+        if not cursor.fetchall():
+            return None
         cursor.execute(sql, data)
         mydb.commit()
         return cursor.lastrowid
@@ -185,8 +189,12 @@ def lock_car(mydb, data):
 # Unlock a car by id
 def unlock_car(mydb, data):
     try:
+        check = "SELECT car_id FROM cars WHERE car_id = %s"
         sql = "UPDATE cars SET locked = 0 WHERE car_id = %s"
         cursor = mydb.cursor()
+        cursor.execute(check, data)
+        if not cursor.fetchall():
+            return None
         cursor.execute(sql, data)
         mydb.commit()
         return cursor.lastrowid
@@ -375,10 +383,3 @@ def count_carmake(mydb):
         
     except mysql.connector.Error as e:
         print(str(e))
-        
-mydb = create_connection()
-count_carmake(mydb)
-# print(get_engineers(mydb))
-# print(get_car(mydb, (2,)))
-# print(car_booking_dates(mydb, (1,)))
-# print(car_return_dates(mydb, (1,)))

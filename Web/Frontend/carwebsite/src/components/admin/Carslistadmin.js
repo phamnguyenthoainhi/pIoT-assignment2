@@ -9,6 +9,11 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import { GoogleApiWrapper  } from 'google-maps-react';
 import Navigationbaradmin from './Navigationbar';
+import IconButton from '@material-ui/core/IconButton';
+import ReportRoundedIcon from '@material-ui/icons/ReportRounded';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import ErrorIcon from '@material-ui/icons/Error';
 class Carslistadmin extends Component {
     constructor(props) {
         super(props);
@@ -298,14 +303,16 @@ class Carslistadmin extends Component {
                         <table className="table">
                     <thead>
                     <tr>
-                        <th style={{width: '10%', textAlign: 'left', color: "#66827A"}}>Make</th>
+                        <th style={{width: '11%', textAlign: 'left', color: "#66827A"}}>Make</th>
                         <th style={{width: '15%', textAlign: 'left', color: "#66827A"}}>Body Type</th>
                         <th style={{width: '10%', textAlign: 'left', color: "#66827A"}}>Colour</th>
                         <th style={{width: '10%', textAlign: 'left', color: "#66827A"}}>Seats</th>
                         <th style={{width: '20%', textAlign: 'left', color: "#66827A"}}>Location</th>
-                        <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Cost per hour</th>
+                        <th style={{width: '10%', textAlign: 'center', color: "#66827A"}}>Cost/hour</th>
                         
-                        <th style={{width: '25%', textAlign: 'center', color: "#66827A"}}></th>
+                        <th style={{width: '8%', textAlign: 'center', color: "#66827A"}}></th>
+                        <th style={{width: '8%', textAlign: 'center', color: "#66827A"}}></th>
+                        <th style={{width: '8%', textAlign: 'center', color: "#66827A"}}></th>
                     </tr>
                     </thead>
                     
@@ -318,11 +325,51 @@ class Carslistadmin extends Component {
                         <td style={{textAlign: 'left'}}>{car.color}</td>
                         <td style={{textAlign: 'left'}}>{car.seats}</td>
                         <td style={{textAlign: 'left'}}>{car.location}</td>
-                        <td style={{textAlign: 'left'}}>{car.cost}</td>
+                        <td style={{textAlign: 'center'}}>${car.cost}</td>
                         <td style={{textAlign: 'right'}}>
-                            <Button variant="outlined" color="default" onClick={() => this.openreport({car})} >Report</Button>
-                            <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit({car})}   >EDIT</Button>
-                            <Button variant="outlined" color="secondary" onClick={() => this.delete({car})}>DELETE</Button>
+                           
+                        <Button
+                            variant="contained"
+                            
+                            className={classes.button}
+                            startIcon={<ErrorIcon />}
+                            className={classes.adminreportbutton}
+                            color="default" onClick={() => this.openreport({car})}
+                            >
+                                Report
+                            </Button>
+                           
+                        </td>
+                        <td style={{textAlign: 'right'}}>
+                            <Button
+                            variant="contained"
+                            
+                            className={classes.button}
+                            startIcon={<EditIcon />}
+                            className={classes.admineditbutton}
+                            onClick={() => this.delete({car})}
+                            onClick={() => this.openedit({car})}
+                            >
+                                Edit
+                            </Button>
+                        </td>
+                        <td style={{textAlign: 'right'}}>
+                            {/* <div> */}
+                            <Button
+                            variant="contained"
+                            
+                            className={classes.button}
+                            startIcon={<DeleteIcon />}
+                            className={classes.admindeletebutton}
+                            onClick={() => this.delete({car})}
+                            >
+                                Delete
+                            </Button>
+                            {/* </div> */}
+                       
+                            {/* <Button variant="outlined" color="default" onClick={() => this.openreport({car})} >Report</Button> */}
+                            {/* <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit({car})}   >EDIT</Button>
+                            <Button variant="outlined" color="secondary" onClick={() => this.delete({car})}>DELETE</Button> */}
                         </td>
                        
                     </tr>

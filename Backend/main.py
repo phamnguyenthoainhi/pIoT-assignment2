@@ -167,11 +167,15 @@ def getCars():
     cars = get_cars(mydb)
     result = []
     for car in cars:
-        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6], car[7], car[8], car[9])
+        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6], int(car[7]), car[8], car[9])
+        print(type(_.locked))
         result.append(_)
     
     result = tuple(result)
+    print(type(result))
+   
     return json.dumps(result, cls = ComplexEncoder)
+    # return {'A':'B', 'C':'D'}
 
 #Add a car
 @app.route("/api/cars", methods=['POST'])
@@ -517,5 +521,5 @@ def editUser(user_id):
  
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=8081)
+    app.run(host='0.0.0.0')
 

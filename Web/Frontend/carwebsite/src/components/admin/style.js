@@ -67,6 +67,55 @@ const style = (theme) => ({
     },
     historycontainer: {
         padding: "20px 50px 20px 50px"
+    },
+    admindeletebutton: {
+        // marginBottom: "100px",
+        fontSize: '14px',
+        // paddingTop: "5%",
+        // paddingBottom: "5%",
+        backgroundColor: "transparent",
+        textAlign: 'center',
+        color: '#b71c1c',
+        transitionDuration : "0.2s",
+        border: "1px #b71c1c solid",
+        boxShadow: "none",
+        "&:hover" : {
+            backgroundColor: "#b71c1c",
+            color: 'white'
+        }
+    },
+    admineditbutton: {
+       
+        
+        fontSize: '14px',
+      
+        backgroundColor: "transparent",
+        textAlign: 'center',
+        color: '#66827A',
+        transitionDuration : "0.2s",
+        border: "1px #66827A solid",
+        boxShadow: "none",
+        "&:hover" : {
+            backgroundColor: theme.color.green.light,
+            color: 'white',
+            
+        }
+    },
+    adminreportbutton: {
+        // marginBottom: "100px",
+        fontSize: '14px',
+        // paddingTop: "5%",
+        // paddingBottom: "5%",
+        backgroundColor: "transparent",
+        textAlign: 'center',
+        color: 'black',
+        transitionDuration : "0.2s",
+        border: "1px black solid",
+        boxShadow: "none",
+        "&:hover" : {
+            backgroundColor: "black",
+            color: 'white'
+        }
     }
 })
 export default style;
