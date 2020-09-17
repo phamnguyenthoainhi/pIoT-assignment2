@@ -2,6 +2,14 @@ import mysql.connector
 from gcloud_db import create_connection
 import sys
 
+def bytes_to_int(bytes):
+    result = 0
+
+    for b in bytes:
+        result = result * 256 + int(b)
+
+    return result
+
 def convertToBinaryData(filename):
     # Convert digital data to binary format
     with open(filename, 'rb') as file:
