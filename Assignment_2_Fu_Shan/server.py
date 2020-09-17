@@ -3,7 +3,7 @@ import numpy as np
 import encodings
 
 HOST = '192.168.0.2'  # Standard loopback interface address (localhost)
-PORT = 8080        # Port to listen on (non-privileged ports are > 1023)
+PORT = 8086     # Port to listen on (non-privileged ports are > 1023)
 
 
 
@@ -11,7 +11,7 @@ PORT = 8080        # Port to listen on (non-privileged ports are > 1023)
 accountDict = {
   "Shan": "456789",
   "Hoai": "222555",
-  "Fu": "123456"
+  "fu": "123456"
 }
 
 
@@ -38,7 +38,7 @@ def my_server():
                     print(account + password)
 
                     if str(data) == "Data":
-                        my_data = ""
+                        my_data = "No match"
                         for acc, passw in accountDict.items():
                             if acc == account:
                                 if passw == password:
@@ -47,9 +47,9 @@ def my_server():
                                     my_data = "Access Denied"
 
                         print("Ok Sending data back ")
-
-                        # my_data = random_data()
                         print(my_data)
+                        # my_data = random_data()
+                        
                         x_encoded_data = my_data.encode('utf-8')
 
                         conn.sendall(x_encoded_data)

@@ -10,6 +10,8 @@ import camera
 from selenium import webdriver
 from client import my_client, start_client
 import sys
+import threading
+import signal
 
 app = Flask(__name__)
 #app = Flask(__name__, template_folder='/var/www/html/templates')
@@ -28,6 +30,11 @@ def setName(match):
 
 def setPassword(pw):
     globals.password = pw
+
+def signal_handler(signal, frame):
+  sys.exit(0)
+
+
 
 def gen(cameraa):
     
@@ -48,22 +55,25 @@ def gen(cameraa):
                 #     sys.stdout.write( ".(Timeout:15 seconds)" + str(i))
                 #     sys.stdout.flush()
                 #     time.sleep(1)
-                
+                setName(match)
             
                 setPassword(password)
+                
 
                 time.sleep(5)
                 
 
                 response = globals.accessResponse
-                print("current response:" + response)
+                print("Current Response status:" + response)
                 if response == "pass":
                     globals.result = not globals.result
                     globals.run = False
-                    print(globals.result)
+                    print("Access granted: Car Unlocked")
+                    print("Press Ctrl + C to use other sevices")
                     break
+                    
                 else:
-                    print("rip, continue scanning....")
+                    print("Access Denied, continue scanning...")
                     cameraa.skip_frame()
                    
                 # if password == "duma":
@@ -97,12 +107,21 @@ def open_browser():
     driver.get("http://0.0.0.0:5000/")
     time.sleep(2)
 
-
-globals.init()
-if __name__ == '__main__':
+def run_facial_recognition():
+    
     while globals.run:
-        my_client()
-        Timer(1, open_browser).start();
-        app.run(host='0.0.0.0', debug=True, threaded=True)
+        
+        threading.Timer(11, my_client).start()
+        Timer(1, open_browser).start()
+        app.run(host='0.0.0.0')
+        
+
+# globals.init()
+# if __name__ == '__main__':
+#     while globals.run:
+#         threading.Timer(11, my_client).start()
+#         print("con2")
+#         Timer(1, open_browser).start();
+#         app.run(host='0.0.0.0', debug=True, threaded=True)
     
 
