@@ -139,10 +139,10 @@ class Userslist extends Component {
                  <table className="table">
                     <thead>
                     <tr>
-                        <th style={{width: '40%', textAlign: 'center', color: "#66827A"}}>Username</th>
-                        <th style={{width: '40%', textAlign: 'center', color: "#66827A"}}>Email</th>
+                        <th style={{width: '40%', textAlign: 'left', color: "#66827A"}}>Username</th>
+                        <th style={{width: '40%', textAlign: 'left', color: "#66827A"}}>Email</th>
                         
-                        <th style={{width: '20%', textAlign: 'center', color: "#66827A"}}></th>
+                        <th style={{width: '20%', textAlign: 'left', color: "#66827A"}}></th>
                         <th style={{width: '20%', textAlign: 'center', color: "#66827A"}}></th>
                     </tr>
                     </thead>
@@ -152,22 +152,22 @@ class Userslist extends Component {
                             
                             this.state.searcheduser.map((user) => 
                             <tr key={user.user_id}>
-                        <td style={{textAlign: 'center'}}>{user.username}</td>
-                        <td style={{textAlign: 'center'}}>{user.email}</td>
+                        <td style={{textAlign: 'left'}}>{user.username}</td>
+                        <td style={{textAlign: 'left'}}>{user.email}</td>
                         
-                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
-                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="secondary" className={classes.deleteuser} onClick={() => this.delete({user})}>DELETE</Button></td>
+                        <td style={{textAlign: 'left'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
+                        <td style={{textAlign: 'right'}}><Button variant="outlined" color="secondary" className={classes.deleteuser} onClick={() => this.delete({user})}>DELETE</Button></td>
                     </tr>
                             )
                         ): (
                             this.state.users.map((user) => 
                             
                             <tr>
-                        <td style={{textAlign: 'center'}}>{user.username}</td>
-                        <td style={{textAlign: 'center'}}>{user.email}</td>
+                        <td style={{textAlign: 'left'}}>{user.username}</td>
+                        <td style={{textAlign: 'left'}}>{user.email}</td>
                         
-                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
-                        <td style={{textAlign: 'center'}}><Button variant="outlined" color="secondary" className={classes.deleteuser} onClick={() => this.delete({user})}>DELETE</Button></td>
+                        <td style={{textAlign: 'left'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
+                        <td style={{textAlign: 'right'}}><Button variant="outlined" color="secondary" className={classes.deleteuser} onClick={() => this.delete({user})}>DELETE</Button></td>
                     </tr>)
                             )}
                     

@@ -15,7 +15,8 @@ class Login extends Component {
             emailerror: '',
             passworderror: '',
             loginemail: '',
-            loginpassword: ''
+            loginpassword: '',
+            generalerror: ''
         }
     }
     componentDidUpdate(prevProps) {
@@ -48,12 +49,19 @@ class Login extends Component {
     onSubmit(e) {
     
         e.preventDefault();
-        const user = {
-            username: this.state.loginemail,
-            password: this.state.loginpassword
+        if (this.state.loginemail === '' ||this.state.loginpassword === '' ) {
+            this.setState({
+                generalerror: "Email or password is invalid. Please try again"
+            })
+        } else {
+            const user = {
+                username: this.state.loginemail,
+                password: this.state.loginpassword
+            }
+            // console.log(user)
+            this.props.login(user)
         }
-        // console.log(user)
-        this.props.login(user)
+        
     }
     render() {
         const {classes} = this.props;
@@ -63,6 +71,7 @@ class Login extends Component {
                 
                 <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.onSubmit(e)}>
                 <h2 className={classes.logintitle}>Hello again !</h2>
+                <p style={{ color: "#66827A"}}>{this.state.generalerror}</p>
                 <TextField 
                 variant='outlined'
                 type="text"
