@@ -78,7 +78,7 @@ class VideoCamera(object):
             for face_encoding in face_encodings:
                 # See if the face is a match for the known face(s)
                 matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-                name = "Unknown"
+                # name = "Unknown"
                 
                 # print(globals.name)
                 
@@ -90,11 +90,11 @@ class VideoCamera(object):
                 if matches[best_match_index]:
                     name = known_person[best_match_index]
                 # print(name)    
-                setName(name)
+                    setName(name)
                     
                 #print(face_locations)
-                face_names.append(name)
-                name_gui = name    
+                    face_names.append(name)
+                    name_gui = name    
         process_this_frame = not process_this_frame
         
             
