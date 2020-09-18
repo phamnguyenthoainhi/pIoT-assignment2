@@ -41,3 +41,7 @@ npm test: run all the unit tests <br/>
 ### Github repository
 
 ### Github Project
+<img width="931" alt="Screen Shot 2020-09-18 at 09 35 27" src="https://user-images.githubusercontent.com/40556441/93582058-26557200-f9cc-11ea-9855-f9f1a08c8fe0.png">
+**Current Network Graph**
+<img width="1436" alt="Screen Shot 2020-09-18 at 16 31 09" src="https://user-images.githubusercontent.com/40556441/93582255-67e61d00-f9cc-11ea-9573-913e3d1c54e9.png">
+**Current Commits**
