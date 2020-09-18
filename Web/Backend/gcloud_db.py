@@ -44,12 +44,15 @@ def create_connection():
     #     return mydb
 
     try:
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="car_share"
-        )
+        unix_socket = '/cloudsql/{}'.format(db_connection_name)
+        mydb = pymysql.connect(user=db_user, password=db_password,
+                            unix_socket=unix_socket, db=db_name)
+        # mydb = mysql.connector.connect(
+        #     host="35.220.177.82",
+        #     user="root",
+        #     password="1234",
+        #     database="car_share"
+        # )
         print("CONNECTING DATABASE...")
         return mydb
 
