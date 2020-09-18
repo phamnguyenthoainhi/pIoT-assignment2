@@ -2,3 +2,5 @@
 backend/Backend/__pycache__/*
 backend/__pycache__
 Backend/__pycache__/
+.idea
+.vscode
