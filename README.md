@@ -38,13 +38,14 @@ npm test: run all the unit tests <br/>
 
 ## Project Management
 ### Github repository
-#### Current Project 
-<img width="1440" alt="Screen Shot 2020-09-18 at 16 35 04" src="https://user-images.githubusercontent.com/40556441/93582856-3e79c100-f9cd-11ea-86a1-e22062bc0f56.png">
-
-### Github Project
 #### Current Network Graph
 <img width="907" alt="Screen Shot 2020-09-18 at 09 35 27" src="https://user-images.githubusercontent.com/40556441/93583920-c3190f00-f9ce-11ea-9188-cd87785222c6.png">
 
 #### Current Commits
 <img width="1436" alt="Screen Shot 2020-09-18 at 16 31 09" src="https://user-images.githubusercontent.com/40556441/93582255-67e61d00-f9cc-11ea-9573-913e3d1c54e9.png">
+
+
+### Github Project
+#### Current Project 
+<img width="1440" alt="Screen Shot 2020-09-18 at 16 35 04" src="https://user-images.githubusercontent.com/40556441/93582856-3e79c100-f9cd-11ea-86a1-e22062bc0f56.png">
 
