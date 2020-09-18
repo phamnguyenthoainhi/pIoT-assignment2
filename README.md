@@ -99,8 +99,6 @@ To use facial recognition unlocker, press 4 to start the face scanning program, 
 
 The face recognition system works only on faces that have been registered via Car Share's website, and the registered users must have also booked the corresponding car they want to unlock.
 ---
-## Project Instructions
----
 ## Project Management
 ### Github repository
 
