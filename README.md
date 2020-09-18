@@ -5,8 +5,8 @@ Le Pham Ngoc Hoai - s3636085<br/>
 Tseng Chia Fu - s3634996 <br/>
 Lee Ping Shan - s3635413<br/>
 # Car-share System
-## Project Structure
 ---
+## Project Structure
 ### Web Application
 #### Frontend: Built using ReactJS/Redux framework
 **Frontend Link**:  https://car-share-289705.df.r.appspot.com/
@@ -31,11 +31,11 @@ npm test: run all the unit tests <br/>
 
 #### Backend: Built using Flask framework
 
-------
+
 ### IOT:
-
+---
 ## Project Instructions
-
+---
 ## Project Management
 ### Github repository
 
@@ -48,4 +48,5 @@ npm test: run all the unit tests <br/>
 ### Project
 
 <img width="1440" alt="Screen Shot 2020-09-18 at 16 35 04" src="https://user-images.githubusercontent.com/40556441/93582856-3e79c100-f9cd-11ea-86a1-e22062bc0f56.png">
+---
 
