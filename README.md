@@ -86,8 +86,7 @@ Sample Engineer QR Codes:
 
 <img width="1440" alt="Sample 3" src="https://scontent.fsgn2-2.fna.fbcdn.net/v/t1.15752-0/p280x280/119422850_691322738132576_7643445337821270048_n.jpg?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=tp7rKzAgjsoAX9hznFn&_nc_ht=scontent.fsgn2-2.fna&tp=6&oh=09937b594a68741344f7b57a4a30febf&oe=5F8BA3EB">
 
-<img width="1440" alt="Sample 4" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/119469970_355281458944509_7060815091840533936_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=11V-dmeCy4EAX8JD6Sg&_nc_ht=scontent.fsgn2-6.fna&oh=6a093ee9631dd1553e84ddf3a320c997&oe=5F8A81D7
-">
+<img width="1440" alt="Sample 4" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/119469970_355281458944509_7060815091840533936_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=11V-dmeCy4EAX8JD6Sg&_nc_ht=scontent.fsgn2-6.fna&oh=6a093ee9631dd1553e84ddf3a320c997&oe=5F8A81D7">
 
 #### Bluetooth Scanner: 
 To use Bluetooth Scanner, press 1 to initiate the scanning sequence, when the engineer registered mobile device is detected in the vicinity, the car will be unlocked.
