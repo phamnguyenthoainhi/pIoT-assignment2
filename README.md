@@ -48,5 +48,4 @@ npm test: run all the unit tests <br/>
 ### Project
 
 <img width="1440" alt="Screen Shot 2020-09-18 at 16 35 04" src="https://user-images.githubusercontent.com/40556441/93582856-3e79c100-f9cd-11ea-86a1-e22062bc0f56.png">
----
 
