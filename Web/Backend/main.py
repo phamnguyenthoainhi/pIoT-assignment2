@@ -149,7 +149,7 @@ def rentalHistoryUser(user_id):
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5], booking[6])
         car = get_car(mydb, (booking[1],))
-        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
+        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], bytes_to_int(car[0][7]), car[0][8], car[0][9])
         _.car = carObject
         user = get_user(mydb, (booking[2],))
         userObject = User(booking[2], user[0][0], user[0][1])
@@ -158,24 +158,24 @@ def rentalHistoryUser(user_id):
     result = tuple(result)
     return json.dumps(result, cls = ComplexEncoder) 
 
-
 # Get all cars
 @app.route("/api/cars", methods=['GET'])
 @cross_origin()
 def getCars():
+    
     mydb = create_connection()
+    
     cars = get_cars(mydb)
+    print(cars)
     result = []
     for car in cars:
-        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6], int(car[7]), car[8], car[9])
-        print(type(_.locked))
+        
+        _ = Car(car[0], car[1], car[2], car[3], car[4], car[5], car[6], bytes_to_int(car[7]), car[8], car[9])
         result.append(_)
     
     result = tuple(result)
-    print(type(result))
-   
+    print(result)
     return json.dumps(result, cls = ComplexEncoder)
-    # return {'A':'B', 'C':'D'}
 
 #Add a car
 @app.route("/api/cars", methods=['POST'])
@@ -260,7 +260,7 @@ def getBookings():
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5], booking[6])
         car = get_car(mydb, (booking[1],))
-        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
+        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], bytes_to_int(car[0][7]), car[0][8], car[0][9])
         _.car = carObject
         user = get_user(mydb, (booking[2],))
         userObject = User(booking[2], user[0][0], user[0][1])
@@ -321,7 +321,7 @@ def rentalHistory(car_id):
     mydb = create_connection()
     bookings = bookings_history(mydb, (car_id,))
     car = get_car(mydb, (car_id,))
-    carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
+    carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], bytes_to_int(car[0][7]), car[0][8], car[0][9])
     result = []
     for booking in bookings:
         _ = Booking(booking[0], booking[1], booking[2], booking[3], booking[4], booking[5], booking[6])
@@ -366,7 +366,7 @@ def getReports():
     for report in reports:
         _ = Report(report[0], report[1], report[2], report[3], report[4])
         car = get_car(mydb, (report[1], ))
-        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], car[0][7], car[0][8], car[0][9])
+        carObject = Car(car[0][0], car[0][1], car[0][2], car[0][3], car[0][4], car[0][5], car[0][6], bytes_to_int(car[0][7]), car[0][8], car[0][9])
         _.car = carObject
         result.append(_)
     result = tuple(result)
@@ -521,5 +521,7 @@ def editUser(user_id):
  
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
-
+    
+    app.run(debug=True, host='127.0.0.1', port=8081)
+# if __name__ == '__main__':
+#     app.run()

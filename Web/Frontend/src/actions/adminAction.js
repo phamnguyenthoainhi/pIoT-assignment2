@@ -7,6 +7,8 @@ import {
 } from './types';
 import {backend} from './backend'
 import {fetchCars} from './carAction';
+
+// backend = "https://iot-assignment2-286206.df.r.appspot.com/"
 export const fetchRentalHistory = () => dispatch => {
     console.log("fetch rental")
     fetch(backend+"api/bookings", {

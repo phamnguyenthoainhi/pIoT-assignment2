@@ -2,6 +2,15 @@ import mysql.connector
 from gcloud_db import create_connection
 import sys
 
+def bytes_to_int(bytes):
+    result = 0
+    if type(bytes) == int:
+        return bytes
+    for b in bytes:
+        result = result * 256 + int(b)
+
+    return result
+
 def convertToBinaryData(filename):
     # Convert digital data to binary format
     with open(filename, 'rb') as file:
@@ -383,11 +392,3 @@ def count_carmake(mydb):
         
     except mysql.connector.Error as e:
         print(str(e))
-        
-# mydb = create_connection()
-# print(unlock_car(mydb, (1,)))
-# count_carmake(mydb)
-# print(get_engineers(mydb))
-# print(get_car(mydb, (2,)))
-# print(car_booking_dates(mydb, (1,)))
-# print(car_return_dates(mydb, (1,)))

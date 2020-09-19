@@ -48,6 +48,7 @@ def create_connection():
         mydb = pymysql.connect(user=db_user, password=db_password,
                             unix_socket=unix_socket, db=db_name)
         # mydb = mysql.connector.connect(
+        #     # host="localhost",
         #     host="35.220.177.82",
         #     user="root",
         #     password="1234",
@@ -240,9 +241,9 @@ def createtable_photos(mydb):
 
 
 
-mydb = create_connection()
-createtable_cars(mydb)
-createtable_users(mydb)
-createtable_bookings(mydb)
-createtable_reports(mydb)
-createtable_photos(mydb)
+# mydb = create_connection()
+# createtable_cars(mydb)
+# createtable_users(mydb)
+# createtable_bookings(mydb)
+# createtable_reports(mydb)
+# createtable_photos(mydb)

@@ -45,7 +45,7 @@ class DashboardManager extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        
+        console.log(this.props.mostbookings)
         if(this.props.mostbookings !== prevProps.mostbookings) {
             let list = [['Car', 'Booked Times']]
             this.props.mostbookings.forEach((booking) => 

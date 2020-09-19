@@ -2,7 +2,7 @@ import { LOGIN, LOGIN_FAILED, SIGNUP, SIGNUP_FAILED, FETCH_BOOKINGS, FETCH_BOOKI
 import {backend} from "./backend"
 // import {fetchRentalHistory} from "./adminAction"
 
-
+// backend = 'https://iot-assignment2-286206.df.r.appspot.com/'
 
 export const unlock = (booking) => dispatch => {
     console.log("actionnn")
