@@ -31,30 +31,30 @@ npm test: run all the unit tests <br/>
     password: 123456<br/>
 #### Available Functions
 Users: <br/>
-- Login/Register with username and password
-- Logout
+-Login/Register with username and password
+-Logout
 <br/>
 Admin: <br/>
-- View car rental history
-- Search users and cars
-- Add, remove and modify information of users and cars
-- Report car with issue, then the engineer can find and fix the problem
+-View car rental history
+-Search users and cars
+-Add, remove and modify information of users and cars
+-Report car with issue, then the engineer can find and fix the problem
 <br/>
 Engineer: <br/>
-- Check the reported car’s location in the web page
+-Check the reported car’s location in the web page
 <br/>
 Manager: <br/>
-- See all the charts about the business status
+-See all the charts about the business status
 <br/>
 Customers: <br/>
-- Book a car
-- Cancel a booking
-- Search for a car
+-Book a car
+-Cancel a booking
+-Search for a car
 <br/>
 System:<br/>
-- Send email to engineer when a report is created
-- Add a event to user Google Calendar when book a car
-- Display the location of the car in Google Map
+-Send email to engineer when a report is created
+-Add a event to user Google Calendar when book a car
+-Display the location of the car in Google Map
 
 #### Backend: Built using Flask framework
 
