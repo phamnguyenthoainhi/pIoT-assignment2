@@ -2,7 +2,6 @@ from db_functions import *
 from gcloud_db import create_connection
 from utils import *
 import socket
-import socket
 import numpy as np
 import encodings
 
@@ -49,15 +48,9 @@ def my_server():
                             my_data = "Invalid. Please try again"
                         if message == 1:
                             my_data = "Access Denied. Wrong Password"
-
-                        # if message == 2:
-                        #     my_data = ""
-
                         if message == 0:
-                            
                             my_data = "Access Granted"
                         if message == 3:
-                            
                             my_data = "Access Denied. You have not booked"
 
                         else:
@@ -68,40 +61,32 @@ def my_server():
 
                         conn.sendall(x_encoded_data)
 
-                # elif str(data) == "Quit":
-                #     print("shutting down server ")
-                #     break
-
                 if not data:
                     break
                 else:
                     pass
 
+# Function to validate user
 def validate_user_terminal(username, password, car_id):
     mydb = create_connection()
+    # Check if user has been registered or not
     current_user = db_read(mydb, """SELECT * FROM users WHERE username = %s""", (username,))
-    print(current_user)
     if len(current_user) == 1:
-        
         saved_password_hash = current_user[0][4]
         saved_password_salt = current_user[0][3]
-        # role = current_user[0][5]
         password_hash = generate_hash(password, saved_password_salt)
-
+        # check if input password matches saved password
         if password_hash == saved_password_hash:
             user_id = current_user[0][0]
             mydb = create_connection()
             lastid = unlock_car(mydb, (car_id,))
-            
+            # car has been unlocked
             if (lastid is not None):
-            
-            #bookings_history_u(mydb,user_id)
-            #print(bookings_history)
-            # jwt_token = generate_jwt_token({"id": user_id})
                 return 0
+            # car id is not exist   
             else:
                 return 3
-            # return [jwt_token, role, user_id]
+        # wrong password
         else:
             return 1
 
@@ -112,11 +97,3 @@ if __name__ == '__main__':
    while 1:
         my_server()
         
-
-
-
-#print(validate_user_terminal("manager", "123456"))
-# mydb = create_connection()
-# print(unlock_car(mydb, (2,)))
-# HOST = ""
-# curl -d '{"email": "phamnguyenthoainhi@gmail.com", "password": "123456", "confirm_password": "123456", "role": "Customer", "username":"manager"}' -H "Content-Type: application/json" -X POST http:/0.0.0.0:5000/register

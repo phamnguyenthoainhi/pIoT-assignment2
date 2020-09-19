@@ -4,40 +4,34 @@ import {connect} from "react-redux";
 import style from './style.js';
 import {fetchRentalHistory} from '../../actions/adminAction';
 import Navigationbaradmin from './Navigationbar';
+
 class Rentalhistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
             rentalhistory: [],
-            
         }
     }
+
     componentDidUpdate(prevProps) {
         if(this.props.rentalhistory !== prevProps.rentalhistory) {
             this.setState({
                 rentalhistory: this.props.rentalhistory,
-                
-               
-                
             })
         }
     }
 
     componentDidMount() {
         this.props.fetchRentalHistory()
-        
-        
     }
+
     dateConvert = (date) => {
         const mydate = new Date(date)
         const string = mydate.getDate() + "-" + mydate.getMonth() + "-" + mydate.getFullYear() 
-        // + " " + mydate.getHours()+ ":" + mydate.getMinutes()
-        
         return string
     }
 
     render() {
-        console.log(this.state.rentalhistory)
         const {classes} = this.props;
         return (
             <div>
@@ -75,8 +69,6 @@ class Rentalhistory extends Component {
                     </tr>
                             )
                         ): null}
-                    
-                    
                     </tbody>
                 </table>
                 </div>
@@ -86,11 +78,10 @@ class Rentalhistory extends Component {
 }
 const mapDispatchToProps = dispatch => ({
     fetchRentalHistory: () => dispatch(fetchRentalHistory()),
-   
 })
 
 const mapStateToProps = state => ({
   rentalhistory: state.adminReducer.rentalhistory,
-
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Rentalhistory));

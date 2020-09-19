@@ -3,7 +3,8 @@ import {
 } from './types';
 
 import {backend} from './backend'
-// backend = "https://iot-assignment2-286206.df.r.appspot.com/"
+
+// Function to fetch all reports
 export const fetchReport = () => dispatch => {
     console.log("actionnnnn")
     fetch(backend+"api/reports", {

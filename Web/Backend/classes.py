@@ -88,12 +88,9 @@ class Booking():
     booking_date = str
     return_date = str
     price = int
-
-
     car = Car
     user = User
     
-
     def __init__(self, booking_id, car_id, user_id, status, booking_date, return_date, price):
         self.booking_id = booking_id
         self.car_id = car_id
@@ -109,15 +106,3 @@ class Booking():
     def reprJSON(self):
         return dict(booking_id=self.booking_id, car_id=self.car_id, user_id=self.user_id, status=self.status, booking_date=self.booking_date, return_date=self.return_date, car=self.car, user=self.user, price=self.price)
         
-
-
-# car = Car(1,"make", "body type", "color", 4, "location", 100)
-# print(car.reprJSON())
-# report = Report(1, 1, 1, "a", "a")
-# report.car = car
-# print(json.dumps(report.reprJSON(), cls=ComplexEncoder))
-
-# booking = Booking(1,1,1,"Pending","date","return")
-# booking.car = report
-# print(type(booking.car))
-# print(json.dumps(booking.reprJSON(), cls=ComplexEncoder))

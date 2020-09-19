@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { GoogleApiWrapper,  Marker  } from 'google-maps-react';
 export default class SearchBox extends Component {
   constructor(props) {
     super(props);
@@ -17,11 +16,7 @@ export default class SearchBox extends Component {
 
   handlePlaceChanged(){
     const place = this.autocomplete.getPlace();
-    console.log(place.geometry.location.lat())
-    // this.props.onPlaceLoaded(place);
   }
-
-
 
   render() {
     return (

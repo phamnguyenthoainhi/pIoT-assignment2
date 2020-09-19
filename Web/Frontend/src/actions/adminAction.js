@@ -1,14 +1,11 @@
 import { 
     FETCH_RENTAL_CARS, 
     FETCH_USERS,  
-    // EDIT_USER, 
-    // DELETE_CAR, 
-    // CREATE_REPORT
 } from './types';
 import {backend} from './backend'
 import {fetchCars} from './carAction';
 
-// backend = "https://iot-assignment2-286206.df.r.appspot.com/"
+// Function to fetch all rentail history
 export const fetchRentalHistory = () => dispatch => {
     console.log("fetch rental")
     fetch(backend+"api/bookings", {
@@ -30,8 +27,8 @@ export const fetchRentalHistory = () => dispatch => {
     }       
     )
 }
+// Function to fetch all users
 export const fetchUsers = () => dispatch => {
-    
     fetch(backend+"api/users", {
         method: 'GET',
         headers: {
@@ -51,6 +48,7 @@ export const fetchUsers = () => dispatch => {
     }       
     )
 }
+// Function to create a new report
 export const createReport = (report) => dispatch => {
    
     fetch(backend+'api/reports', {
@@ -70,8 +68,8 @@ export const createReport = (report) => dispatch => {
     })
 }
 
+// Function to edit a car
 export const editCar = (car) => dispatch => {
-    
     fetch(backend+`api/cars/${car.car_id}`, {
         method: 'PUT',
         headers: {
@@ -90,6 +88,7 @@ export const editCar = (car) => dispatch => {
     })
 }
 
+// Function to edit a user
 export const editUser = (user) => dispatch => {
     fetch(backend+`api/users/${user.user_id}`, {
         method: 'PUT',
@@ -108,6 +107,7 @@ export const editUser = (user) => dispatch => {
     })
 }
 
+// Function to delete a car
 export const deleteCar = (car) => dispatch => {
     fetch(backend+`api/cars/${car.car_id}`, {
         method: 'DELETE',
@@ -127,6 +127,7 @@ export const deleteCar = (car) => dispatch => {
     })
 }
 
+// Function to delete a user
 export const deleteUser = (user) => dispatch => {
     fetch(backend+`api/users/${user.user_id}`, {
         method: 'DELETE',

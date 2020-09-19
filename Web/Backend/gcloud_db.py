@@ -7,116 +7,20 @@ db_user = "root"
 db_password = '1234'
 db_name = 'car_share'
 db_connection_name = 'iot-assignment2-286206:asia-east2:iot-programming-asntwo'
-# mydb = mysql.connector.connect(
-        #     host="35.220.177.82",
-        #     user="root",
-        #     password="1234",
-        #     database="car_share"
-        # )
-        # unix_socket = '/cloudsql/{}'.format(db_connection_name)
-        # mydb = pymysql.connect(user="root", password="1234",
-        #                             unix_socket=unix_socket, db="car_share")
-        # mydb = sqlalchemy.create_engine(
-        
-        #     sqlalchemy.engine.url.URL(
-        #         drivername="mysql+pymysql",
-        #         username='root',  # e.g. "my-database-user"
-        #         password='1234',  # e.g. "my-database-password"
-        #         database='car_share',  # e.g. "my-database-name"
-        #         query={
-        #             "unix_socket": "{}/{}".format(
-        #                 "/cloudsql",  # e.g. "/cloudsql"
-        #                 "iot-assignment2-286206:asia-east2:iot-programming-asntwo")  # i.e "<PROJECT-NAME>:<INSTANCE-REGION>:<INSTANCE-NAME>"
-        #         }
-        #     )
 
-        # )      
+# create connection with the cloud database
 def create_connection():
     mydb = None
-    # try:
-    #     mydb = mysql.connector.connect(
-    #         host="35.221.215.154",
-    #         user="root",
-    #         password="1234",
-    #         database="car_share"
-    #     )
-    #     print("Connecting database....")
-    #     return mydb
-
     try:
         unix_socket = '/cloudsql/{}'.format(db_connection_name)
         mydb = pymysql.connect(user=db_user, password=db_password,
                             unix_socket=unix_socket, db=db_name)
-        # mydb = mysql.connector.connect(
-        #     # host="localhost",
-        #     host="35.220.177.82",
-        #     user="root",
-        #     password="1234",
-        #     database="car_share"
-        # )
         print("CONNECTING DATABASE...")
         return mydb
 
     except mysql.connector.Error as e:
-        print(e)
-
-        # if os.environ.get('GAE_ENV') == 'standard':
-                # If deployed, use the local socket interface for accessing Cloud SQL
-        # unix_socket = '/cloudsql/{}'.format(db_connection_name)
-        # mydb = pymysql.connect(user=db_user, password=db_password,
-        #                     unix_socket=unix_socket, db=db_name)
-        # else:
-               
-        #     host = '127.0.0.1'
-        #     mydb = pymysql.connect(user=db_user, password=db_password,
-        #                         host=host, db=db_name)
-        # mydb = sqlalchemy.create_engine(
-        # # Equivalent URL:
-        # # mysql+pymysql://<db_user>:<db_pass>@/<db_name>?unix_socket=<socket_path>/<cloud_sql_instance_name>
-        #     sqlalchemy.engine.url.URL(
-        #         drivername="mysql+pymysql",
-        #         username='root',  # e.g. "my-database-user"
-        #         password='1234',  # e.g. "my-database-password"
-        #         database='car_share',  # e.g. "my-database-name"
-        #         query={
-        #             "unix_socket": '/cloudsql/{}'.format(db_connection_name)
-        #         }
-        #     )
-        # # ... Specify additional properties here.
-
-        # )        
+        print(e)      
         
-    # try:
-    #     mydb = mysql.connector.connect(
-    #         host="34.105.54.90",
-    #         user="root",
-    #         password="1234",
-    #         database="car_share"
-    #     )
-    #     return mydb
-
-    # try:
-        # mydb = mysql.connector.connect(
-        #     host="localhost",
-        #     user="root",
-        #     password="",
-        #     database="car_share"
-        # )
-        # mydb = mysql.connector.connect(
-        #     host="35.221.215.154",
-        #     user="root",
-        #     password="1234",
-        #     database="car_share"
-        # )
-        # mydb = pymysql.connect(host='35.221.215.154',
-        #                      user='root',
-        #                      password='1234',
-        #                      db='car_share')
-        
-
-    
-
-
 
 def createtable_cars(mydb):
     """
@@ -238,12 +142,3 @@ def createtable_photos(mydb):
     except mysql.connector.Error as e:
         print(str(e))
         return False
-
-
-
-# mydb = create_connection()
-# createtable_cars(mydb)
-# createtable_users(mydb)
-# createtable_bookings(mydb)
-# createtable_reports(mydb)
-# createtable_photos(mydb)

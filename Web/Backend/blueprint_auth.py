@@ -5,10 +5,10 @@ from gcloud_db import create_connection
 from utils import generate_salt, generate_hash, validate_user_input, validate_user
 authentication = Blueprint("authentication", __name__)
 
+# Register a user with username and password
 @authentication.route("/register", methods=["POST"])
 def register_user():
     user_email = request.json["email"]
-    
     user_password = request.json["password"]
     user_confirm_password = request.json["confirm_password"]
 
@@ -31,15 +31,16 @@ def register_user():
         # Registration Failed
         return Response(status=400)
 
+# Login user with username and password
 @authentication.route("/login", methods=["POST"])
 def login_user():
     user_email = request.json["email"]
     user_password = request.json["password"]
-
     user_token = validate_user(user_email, user_password)
-
+    # Login Successful
     if user_token:
         return jsonify({"jwt_token": user_token})
+    # Login Failed
     else:
         Response(status=401)
 

@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
 import style from './style';
-
 import Button from '@material-ui/core/Button';
-// import manager from '../../../public/manager.gif'
 import {fetchMostBookings, fetchLeastBookings, fetchMostRevenues, fetchCarMakes, fetchMonthlyRevenues} from '../../actions/managerAction';
 import Grid from '@material-ui/core/Grid';
 import Chart from "react-google-charts";
 import { Link } from "react-router-dom";
+
 class DashboardManager extends Component {
     constructor(props) {
         super(props);
@@ -21,31 +20,27 @@ class DashboardManager extends Component {
             bookedlist: [],
             carmakelist: [],
             monthlyrevenues: []
-            
         }
     }
+
     componentDidMount() {
         if (sessionStorage.getItem("id") === null) {
-            
             this.props.history.push("/")
         }
+
         this.props.fetchMostBookings()
         this.props.fetchLeastBookings()
         this.props.fetchMostRevenues()
         this.props.fetchCarMakes()
         this.props.fetchMonthlyRevenues()
-        
-        
-        
     }
+
     logout = () => {
         sessionStorage.removeItem("id")
         sessionStorage.removeItem("role")
-        
     }
 
     componentDidUpdate(prevProps) {
-        console.log(this.props.mostbookings)
         if(this.props.mostbookings !== prevProps.mostbookings) {
             let list = [['Car', 'Booked Times']]
             this.props.mostbookings.forEach((booking) => 
@@ -56,11 +51,13 @@ class DashboardManager extends Component {
                 bookedlist: list
             })
         }  
+
         if(this.props.leastbookings !== prevProps.leastbookings) {
             this.setState({
                 leastbookings: this.props.leastbookings
             })
         }  
+
         if(this.props.revenues !== prevProps.revenues) {
             
             let list = [['Car', 'Booked Times']]
@@ -72,6 +69,7 @@ class DashboardManager extends Component {
                 revenuelist: list
             })
         } 
+
         if(this.props.carmakes !== prevProps.carmakes) {
             let list = [['Car', 'Booked Times']]
             this.props.carmakes.forEach((revenue) => 
@@ -82,6 +80,7 @@ class DashboardManager extends Component {
                 carmakelist: list
             })
         }
+        
         if(this.props.monthlyrevenues !== prevProps.monthlyrevenues) {
             let list = [['x', 'Revenues']]
             this.props.monthlyrevenues.forEach((revenue) => 
@@ -93,9 +92,6 @@ class DashboardManager extends Component {
             })
         }      
     }
-
-
-  
 
     render() {
         const {classes} = this.props;
@@ -111,17 +107,14 @@ class DashboardManager extends Component {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav mr-auto">
                                 <li className="nav-item active">
-                                {/* <a className="nav-link" href="/customer/cars"></a> */}
                                 </li>
                                 <li className="nav-item active">
-                                    {/* <a className="nav-link" href="/customer/dashboard">Dashboard</a> */}
                                     
                                 </li>
                                 
                                 </ul>
                                 <form className="form-inline my-2 my-lg-0">
                                     {sessionStorage.getItem("id") !== null ? (<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button>):(<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Login</Button>)}
-                                {/* <Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button><br/> */}
                                 </form>
                             </div>
                     </nav>
@@ -130,9 +123,9 @@ class DashboardManager extends Component {
                     
                     <div>
                   
-     <img src="https://static.dribbble.com/users/1163232/screenshots/14002832/media/cefce9d9c71a4d4eddf04f3d0fd4453d.jpg"
-     className="d-inline-block align-top" style={{width: "50%"}}
-      alt="mdb logo"/>
+                        <img src="https://static.dribbble.com/users/1163232/screenshots/14002832/media/cefce9d9c71a4d4eddf04f3d0fd4453d.jpg"
+                        className="d-inline-block align-top" style={{width: "50%"}}
+                        alt="mdb logo"/>
                     </div>
                     <h3 className={classes.toptitle}>
                         Welcome, Manager!
@@ -141,7 +134,7 @@ class DashboardManager extends Component {
                 </div>
                 <div style={{ textAlign:'center'}} className={classes.cardchart}>
                             
-                            {console.log(this.state.monthlyrevenues)}
+                           
                             {this.state.monthlyrevenues.length !== 0 ? (
                             <Chart
                                 width={'800px'}
@@ -170,7 +163,7 @@ class DashboardManager extends Component {
                         <Grid item lg={6} >
                         <div style={{ textAlign:'center'}} className={classes.cardpie1} >
                         
-                        {/* {console.log(this.state.bookedlist !== undefined ? (): null)} */}
+                       
                         {this.state.bookedlist.length !== 0 ? (
                             <Chart
                             width={'400px'}
@@ -263,18 +256,8 @@ class DashboardManager extends Component {
                         />
                     ): null}
                     <h3 className={classes.charttitle}>Makes of car</h3>
-                    </div>
-                    
-                        
-                   
-                    
-                
-
-                
+                    </div>  
             </div>
-            {/* <div class="footer">
-  <p>Programming Internet of Things - Group 2</p>
-</div> */}
             </div>
         )
     }
@@ -289,13 +272,11 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-    
     mostbookings: state.managerReducer.mostbookings,
     leastbookings: state.managerReducer.leastbookings,
     revenues: state.managerReducer.revenues,
     carmakes: state.managerReducer.carmakes,
     monthlyrevenues: state.managerReducer.monthlyrevenues
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(DashboardManager));

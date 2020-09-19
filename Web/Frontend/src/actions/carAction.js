@@ -1,6 +1,7 @@
 import { FETCH_CARS, BOOK_CAR} from './types';
 import {backend} from './backend';
-// backend = "https://iot-assignment2-286206.df.r.appspot.com/"
+
+// Function to fetch all cars
 export const fetchCars = () => dispatch => {
     console.log("fetched cars")
     fetch(backend+'api/cars', {
@@ -23,8 +24,8 @@ export const fetchCars = () => dispatch => {
     )
 }
 
+// Function to book a car/create a booking
 export const bookCar = (booking) => dispatch => {
-    console.log("book a car")
     fetch(backend+'api/bookings', {
         method: 'POST',
         headers: {
@@ -59,6 +60,7 @@ export const bookCar = (booking) => dispatch => {
     })
 }
 
+// Function to create a car
 export const createCar = (car) => dispatch => {
     fetch(backend+'api/cars', {
         method: 'POST',

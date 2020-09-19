@@ -19,6 +19,7 @@ class Login extends Component {
             generalerror: ''
         }
     }
+
     componentDidUpdate(prevProps) {
         console.log(this.props)
         if(this.props.loginsuccess !== prevProps.loginsuccess & this.props.loginsuccess === 'success') {
@@ -36,18 +37,15 @@ class Login extends Component {
                 passworderror: "Wrong Password"
             })
         }
-        
     }
+
     onChange(e) {
-       
-        
         this.setState({
             [e.target.name] : e.target.value
         })
     }
     
     onSubmit(e) {
-    
         e.preventDefault();
         if (this.state.loginemail === '' ||this.state.loginpassword === '' ) {
             this.setState({
@@ -58,17 +56,14 @@ class Login extends Component {
                 username: this.state.loginemail,
                 password: this.state.loginpassword
             }
-            // console.log(user)
             this.props.login(user)
         }
         
     }
     render() {
         const {classes} = this.props;
-        
         return (
             <div className={classes.container}>
-                
                 <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.onSubmit(e)}>
                 <h2 className={classes.logintitle}>Hello again !</h2>
                 <p style={{ color: "#66827A"}}>{this.state.generalerror}</p>
@@ -80,11 +75,12 @@ class Login extends Component {
                 className={classes.textField} fullWidth 
                 helperText = {this.state.emailerror}
                 id="loginEmail"
-            
                 onChange= {(e) => this.onChange(e)}
                 value={this.state.loginemail}
                 />
+
                 <br/>
+
                 <TextField 
                 variant='outlined'
                 type="password"
@@ -95,9 +91,9 @@ class Login extends Component {
                 helperText = {this.state.passworderror}
                 onChange= {(e) => this.onChange(e)}
                 value={this.state.loginpassword}
-                
                 id="loginPassword"
                 />
+
                 <Button component={Link} to="/signup" >Sign Up Here</Button><br/>
                 {(this.state.success === true ?
                 
@@ -111,13 +107,9 @@ class Login extends Component {
                     ))
                     ))
                     )
-                 
-                
                 )
                 :
-                (<Button variant="contained" color="primary" className={classes.btnlogin} type='submit'>Login</Button>))}
-                
-                               
+                (<Button variant="contained" color="primary" className={classes.btnlogin} type='submit'>Login</Button>))}      
                 </form>
             </div>
         )
@@ -125,13 +117,11 @@ class Login extends Component {
 }
 const mapDispatchToProps = dispatch => ({
     login: (user) => dispatch(login(user)),
-   
 })
 
 const mapStateToProps = state => ({
     loginsuccess: state.userReducer.loginsuccess,
     login_message: state.userReducer.login_message,
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Login));

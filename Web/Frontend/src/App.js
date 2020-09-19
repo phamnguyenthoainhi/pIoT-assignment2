@@ -25,25 +25,19 @@ class App extends Component{
     return (
     <BrowserRouter>
       <Provider store={store}>
-      <ThemeProvider theme={theme}>
-      <Route exact path={'/'} render={(props) => <Homepage {...props} />} />
-      <Route exact path={'/login'} render={(props) => <Login {...props} />} />
-      <Route exact path={'/signup'} render={(props) => <Signup {...props} />} />
-      <Route exact path={'/customer/cars'} render={(props) => <Carslist {...props} />} />
-      <Route exact path={'/customer/dashboard'} render={(props) => <Dashboard {...props} />} />
-      <Route exact path={'/customer/booking'} render={(props) => <Bookingdetails {...props} />} />
-      <Route exact path={'/admin/cars'} render={(props) => <Carslistadmin {...props} />} />
-      <Route exact path={'/admin/history'} render={(props) => <Rentalhistory {...props} />} />
-      <Route exact path={'/admin/users'} render={(props) => <Userslist {...props} />} />
-      <Route exact path={'/engineer/reports'} render={(props) => <Reportedcars {...props} />} />
-      <Route exact path={'/manager/dashboard'} render={(props) => <DashboardManager {...props} />} />
-      
-   
-
-      </ThemeProvider>
-        
-
-        
+        <ThemeProvider theme={theme}>
+          <Route exact path={'/'} render={(props) => <Homepage {...props} />} />
+          <Route exact path={'/login'} render={(props) => <Login {...props} />} />
+          <Route exact path={'/signup'} render={(props) => <Signup {...props} />} />
+          <Route exact path={'/customer/cars'} render={(props) => <Carslist {...props} />} />
+          <Route exact path={'/customer/dashboard'} render={(props) => <Dashboard {...props} />} />
+          <Route exact path={'/customer/booking'} render={(props) => <Bookingdetails {...props} />} />
+          <Route exact path={'/admin/cars'} render={(props) => <Carslistadmin {...props} />} />
+          <Route exact path={'/admin/history'} render={(props) => <Rentalhistory {...props} />} />
+          <Route exact path={'/admin/users'} render={(props) => <Userslist {...props} />} />
+          <Route exact path={'/engineer/reports'} render={(props) => <Reportedcars {...props} />} />
+          <Route exact path={'/manager/dashboard'} render={(props) => <DashboardManager {...props} />} />
+        </ThemeProvider>
       </Provider>
     </BrowserRouter>
     

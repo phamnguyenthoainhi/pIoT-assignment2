@@ -1,14 +1,15 @@
 const style = (theme) => ({
     textField: {
-        // marginBottom: "30px",
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: theme.color.green.dark
         },
         
     },
+
     carlistcontainer: {
         margin: "20px 50px 20px 50px"
     },
+
     addcarbtn: {
         backgroundColor: theme.color.green.light,
         color: "white",
@@ -20,6 +21,7 @@ const style = (theme) => ({
         },
         margin: "20px 0px 20px 0px"
     },
+
     buttonLogout: {
         backgroundColor: 'transparent',
         color: 'white',
@@ -28,14 +30,14 @@ const style = (theme) => ({
         borderBottom: "2px transparent solid",
         "&:hover" : {
             color: theme.color.grey.lighter,
-            borderBottom: "2px white solid",
-            
-            
+            borderBottom: "2px white solid", 
         }
     },
+
     usertable: {
         marginTop: "40px"
     },
+
     edituser: {
         backgroundColor: theme.color.green.light,
         color: 'white',
@@ -50,8 +52,8 @@ const style = (theme) => ({
               
         }
     },
+
     deleteuser: {
-        
         transitionDuration : "0.2s",
         color: theme.color.green.dark,
         border: "2px #66827A solid",
@@ -65,14 +67,13 @@ const style = (theme) => ({
               
         }
     },
+
     historycontainer: {
         padding: "20px 50px 20px 50px"
     },
+
     admindeletebutton: {
-        // marginBottom: "100px",
         fontSize: '14px',
-        // paddingTop: "5%",
-        // paddingBottom: "5%",
         backgroundColor: "transparent",
         textAlign: 'center',
         color: '#b71c1c',
@@ -84,11 +85,9 @@ const style = (theme) => ({
             color: 'white'
         }
     },
+
     admineditbutton: {
-       
-        
         fontSize: '14px',
-      
         backgroundColor: "transparent",
         textAlign: 'center',
         color: '#66827A',
@@ -98,14 +97,11 @@ const style = (theme) => ({
         "&:hover" : {
             backgroundColor: theme.color.green.light,
             color: 'white',
-            
         }
     },
+
     adminreportbutton: {
-        // marginBottom: "100px",
         fontSize: '14px',
-        // paddingTop: "5%",
-        // paddingBottom: "5%",
         backgroundColor: "transparent",
         textAlign: 'center',
         color: 'black',
@@ -118,4 +114,5 @@ const style = (theme) => ({
         }
     }
 })
+
 export default style;

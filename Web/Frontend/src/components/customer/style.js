@@ -1,7 +1,4 @@
 const style = (theme) => ({
-    root: {
-        
-    },
     buttonLogout: {
         backgroundColor: 'transparent',
         color: 'white',
@@ -10,30 +7,32 @@ const style = (theme) => ({
         borderBottom: "2px transparent solid",
         "&:hover" : {
             color: theme.color.grey.lighter,
-            borderBottom: "2px white solid",
-            
-            
+            borderBottom: "2px white solid",   
         }
     },
+
     textField: {
-        // marginBottom: "30px",
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: theme.color.green.dark
         },
         
     },
+
     content: {
         margin: "20px 50px 20px 50px"
     },
+
     carscontainer: {
         marginTop: "20px"
     },
+
     carcard: {
         border: "none",
         
         boxShadow: "2px 10px 25px #dfe1e2",
         padding: "10px"
     },
+
     carcardtitle: {
         color: theme.color.green.light,
         fontSize: "24px",
@@ -41,6 +40,7 @@ const style = (theme) => ({
         borderBottom: "1px #93ABA5 solid"
 
     },
+
     bookingcard: {
         border: "none",
         
@@ -48,6 +48,7 @@ const style = (theme) => ({
         padding: "10px",
         minHeight: "250px"
     },
+
     bookcarbutton: {
         backgroundColor: theme.color.green.light,
         color: theme.color.grey.light,
@@ -62,11 +63,13 @@ const style = (theme) => ({
             
         }
     },
+
     avatar: {
         backgroundColor: "whitesmoke",
         padding: 2
         
     },
+
     savebtn: {
         backgroundColor: 'black',
         color: 'white',
@@ -77,6 +80,7 @@ const style = (theme) => ({
         marginRight: "10px",
         marginTop: "10px"
     },
+
     unlockbutton : {
         backgroundColor: theme.color.green.light,
         color: theme.color.grey.light,
@@ -89,6 +93,7 @@ const style = (theme) => ({
             color: theme.color.green.dark
         }
     },
+
     lockbutton : {
         backgroundColor: "#c62828",
         color: theme.color.grey.light,
@@ -101,11 +106,13 @@ const style = (theme) => ({
             color: "#c62828"
         }
     },
+
     dateinput: {
         width: "500px",
         marginBottom : "20px",
         padding: "5px"
     },
+
     canelbutton: {
         backgroundColor: "#c62828",
         color: theme.color.grey.light,
@@ -117,13 +124,8 @@ const style = (theme) => ({
             backgroundColor: "transparent",
             border: "2px #c62828 solid",
             color: "#c62828"
-        }
-       
+        }  
     },
-
-  
-
-    
-
 })
+
 export default style;

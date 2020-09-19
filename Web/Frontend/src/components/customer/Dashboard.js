@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -16,16 +15,16 @@ import Divider from '@material-ui/core/Divider';
 import Navigationbar from './Navigationbar';
 import {getBookingsbyUserid, cancelBooking, unlock, lock} from '../../actions/userAction';
 import Grid from '@material-ui/core/Grid';
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             bookings: []
-            
         }
     }
+
     componentDidMount() {
-        
         if ( sessionStorage.getItem("id") !== undefined & sessionStorage.getItem("id") !== '' & sessionStorage.getItem("id") !== null) {
             this.props.getBookingsbyUserid(sessionStorage.getItem("id"))
 
@@ -35,42 +34,40 @@ class Dashboard extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        
         if(this.props.bookings !== prevProps.bookings) {
             this.setState({
                 bookings: this.props.bookings
             })
         }    
     }
+
     dateConvert = (date) => {
         const mydate = new Date(date)
         const string = mydate.getDate() + "-" + mydate.getMonth() + "-" + mydate.getFullYear() 
-        // + " " + mydate.getHours()+ ":" + mydate.getMinutes()
-        
         return string
     }
+
     cancelbooking = (booking) => {
-        
         this.props.cancelBooking(booking.booking)
     }
+
     unlock = (booking) => {
-        
         this.props.unlock(booking.booking)
     }
+
     lock = (booking) => {
-        
         this.props.lock(booking.booking)
     }
 
     displayLock = (startDate, endDate) => {
         var today = new Date()
         if (today >= new Date(startDate) && today <= new Date(endDate)) {
-            
             return true
         } else {
             return false
         }
     }
+
     displayCancel = (startDate, endDate) => {
         var today = new Date()
         if (today < new Date(startDate)) {
@@ -82,8 +79,6 @@ class Dashboard extends Component {
 
     render() {
         const {classes} = this.props;
-       
-        console.log(this.state.bookings)
         return (
             <div>
                 <Navigationbar {...this.props}/>
@@ -191,42 +186,29 @@ class Dashboard extends Component {
                             :
                             (null)
                             }
-                            
                             </ListItem>
-                            
                         </List>
-                        
                         </CardContent>
-                            
-                            
-                            
-                
             </Card> 
                     </Grid>
-                
-                
                 ))
                 :
                 (null)}
                 </Grid>    
-                
             </div>
         )
     }
 }
+
 const mapDispatchToProps = dispatch => ({
     getBookingsbyUserid: (user_id) => dispatch(getBookingsbyUserid(user_id)),
     cancelBooking: (booking_id) => dispatch(cancelBooking(booking_id)),
     unlock: (booking) => dispatch(unlock(booking)),
     lock: (booking) => dispatch(lock(booking)),
-   
-  
 })
 
 const mapStateToProps = state => ({
-    
     bookings: state.userReducer.bookings,
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Dashboard));

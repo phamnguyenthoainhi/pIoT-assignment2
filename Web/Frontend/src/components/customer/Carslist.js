@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
-// import { Link } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
-
 import style from './style';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -11,10 +9,10 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
 import {fetchCars, bookCar} from '../../actions/carAction'
 import Bookingdetails from './Bookingdetails';
 import Navigationbar from './Navigationbar';
+
 class Carslist extends Component {
     constructor(props) {
         super(props);
@@ -39,24 +37,18 @@ class Carslist extends Component {
 
     componentDidMount() {
         this.props.fetchCars()
-        // if (this.state.searchedCars.length === 0) {
-        //         this.setState({
-        //             searchedCars: this.state.cars
-        // })
-        
-    // }
     }
+
     showDetails = (car) => {
         if (sessionStorage.getItem("id") === null) {
             this.props.history.push("/")
         } else {
         var bookdetails = document.getElementById("bookdetails");
         bookdetails.style.display = 'block'
-        this.setState({
-            chosenCar: car.car
-        })
-    }
-        
+            this.setState({
+                chosenCar: car.car
+            })
+        }    
     }
 
     handleClose = () => {
@@ -81,15 +73,9 @@ class Carslist extends Component {
                 })
             }
         }
-        
-
-        
-        // console.log(this.state.searchinput)
     }
     
-    
     render() {
-        // console.log(this.state.searchedCars)
         const {classes} = this.props;
         return (
             <div>
@@ -152,9 +138,7 @@ class Carslist extends Component {
                                 id='bookcarbtn' className={classes.bookcarbutton}>Book this car</Button>
                             </CardActions>
                         </Card>
-                        </Grid>
-                        
-                    
+                        </Grid>    
     )}</Grid>):
                 (<Grid container spacing={3}>
                     {this.state.cars.map((car) => 
@@ -194,12 +178,9 @@ class Carslist extends Component {
                                 </CardActions>
                             </Card>
                         </Grid>
-                        
-                    
                 )}
                 </Grid>)
                 }
-                
                 </div>  
             </div>
         )
@@ -209,12 +190,10 @@ class Carslist extends Component {
 const mapDispatchToProps = dispatch => ({
     fetchCars: () => dispatch(fetchCars()),
     bookCar: (booking) => dispatch(bookCar(booking))
-   
 })
 
 const mapStateToProps = state => ({
     cars: state.customerReducer.cars,
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Carslist));

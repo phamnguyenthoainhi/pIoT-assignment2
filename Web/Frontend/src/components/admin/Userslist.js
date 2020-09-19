@@ -5,46 +5,39 @@ import style from './style.js';
 import {fetchUsers, editUser, deleteUser} from '../../actions/adminAction'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
 import Navigationbaradmin from './Navigationbar';
+
 class Userslist extends Component {
     constructor(props) {
         super(props);
         this.state = {
             users: [],
             searcheduser: [],
-            
             searchinput : '',
             editemail: '',
             editusername: "",
             user_id: ''
         }
     }
+
     componentDidUpdate(prevProps) {
-        
         if(this.props.users !== prevProps.users) {
             this.setState({
                 users: this.props.users,
                 searcheduser : this.props.users
-               
-                
             })
         }
     }
 
     componentDidMount() {
         this.props.fetchUsers()
-        
-        
     }
+
     onChange(e) {
-       
-        
         this.setState({
             [e.target.name] : e.target.value
         })
     }
-    
     
     handleChangeSearch = (e) => {
         e.preventDefault();
@@ -64,11 +57,9 @@ class Userslist extends Component {
                 searcheduser
             })
         }
-
-        // console.log(this.state.searchinput)
     }
+
     openedit = (user) => {
-        
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
         this.setState({
@@ -76,38 +67,32 @@ class Userslist extends Component {
             editusername: user.user.username,
             user_id: user.user.user_id
         })
-        // const user = {
-
-        // }
-
-
-
-       
     }
+
     delete = (user) => {
         this.props.deleteUser(user.user)
     }
+
     onSubmit = (e) => {
         e.preventDefault();
         const user = {
             email: this.state.editemail,
             username: this.state.editusername,
             user_id: this.state.user_id
-            
         }
-        
         this.props.editUser(user)
         this.closeedit()
     }
+
     closeedit = () => {
         var modal = document.getElementById("myModal");
         modal.style.display = "none";
     }
+
     render() {
         const {classes} = this.props;
         return (
             <div>
-                
                 <Navigationbaradmin {...this.props}/>
                 <div className={classes.carlistcontainer}>
                 <TextField 
@@ -119,6 +104,7 @@ class Userslist extends Component {
                 onChange={(e) => this.handleChangeSearch(e)}
                 value={this.state.searchinput}
                 />
+
                 <form id="myModal" className="modal" onSubmit={(e) => this.onSubmit(e)}>
                     <div className="modal-content">
                     <span className="close" onClick={() => this.closeedit()}  >&times;</span>
@@ -135,6 +121,7 @@ class Userslist extends Component {
                     </div>
 
                 </form>
+
                 <div className={classes.usertable}>
                  <table className="table">
                     <thead>
@@ -163,15 +150,13 @@ class Userslist extends Component {
                             this.state.users.map((user) => 
                             
                             <tr>
-                        <td style={{textAlign: 'left'}}>{user.username}</td>
-                        <td style={{textAlign: 'left'}}>{user.email}</td>
-                        
-                        <td style={{textAlign: 'left'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
-                        <td style={{textAlign: 'right'}}><Button variant="outlined" color="secondary" className={classes.deleteuser} onClick={() => this.delete({user})}>DELETE</Button></td>
-                    </tr>)
+                                <td style={{textAlign: 'left'}}>{user.username}</td>
+                                <td style={{textAlign: 'left'}}>{user.email}</td>
+                                
+                                <td style={{textAlign: 'left'}}><Button variant="outlined" color="primary" className={classes.edituser} onClick={() => this.openedit({user})}   >EDIT</Button></td>
+                                <td style={{textAlign: 'right'}}><Button variant="outlined" color="secondary" className={classes.deleteuser} onClick={() => this.delete({user})}>DELETE</Button></td>
+                            </tr>)
                             )}
-                    
-                    
                     </tbody>
                 </table>
                 </div>
@@ -180,6 +165,7 @@ class Userslist extends Component {
         )
     }
 }
+
 const mapDispatchToProps = dispatch => ({
     fetchUsers: () => dispatch(fetchUsers()),
     editUser: (user) => dispatch(editUser(user)),
@@ -192,4 +178,5 @@ const mapStateToProps = state => ({
   users: state.adminReducer.users,
 
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Userslist));

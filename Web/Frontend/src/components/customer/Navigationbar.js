@@ -5,20 +5,20 @@ import { Link } from "react-router-dom";
 import style from './style';
 import { withStyles } from '@material-ui/core';
 class Navigationbar extends Component {
+
     logout = () => {
         sessionStorage.removeItem("id")
         sessionStorage.removeItem("role")
-        
     }
+
     componentDidMount() {
         if (sessionStorage.getItem("id") === null) {
             this.props.history.push("/")
-            
         }
     }
+
     render() {
         const {classes} = this.props;
-        console.log(sessionStorage.getItem("id"))
         return (
             <div className='navigationbar'>
                     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -39,7 +39,6 @@ class Navigationbar extends Component {
                                 </ul>
                                 <form className="form-inline my-2 my-lg-0">
                                     {sessionStorage.getItem("id") !== null ? (<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button>):(<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Login</Button>)}
-                                {/* <Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button><br/> */}
                                 </form>
                             </div>
                     </nav>
@@ -47,4 +46,5 @@ class Navigationbar extends Component {
         )
     }
 }
+
 export default connect(null)(withStyles(style)(Navigationbar));

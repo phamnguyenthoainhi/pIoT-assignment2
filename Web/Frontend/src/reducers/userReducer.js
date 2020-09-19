@@ -8,7 +8,6 @@ const initialState = {
     loginsuccess: "",
     signupsuccess: "",
     bookings: []
-   
 }
 
 export default function (state = initialState, action) {
@@ -18,26 +17,28 @@ export default function (state = initialState, action) {
                 ...state,
                 loginsuccess: action.payload
             }
+
         case LOGIN_FAILED:
             return {
                 ...state,
                 login_message: action.payload
             }
+
         case SIGNUP:
             return {
                 ...state,
                 signupsuccess: action.payload
             }
+
         case SIGNUP_FAILED:
             return {
                 ...state,
                 signup_message: action.payload
             }
+
         case FETCH_BOOKINGS:
-            
             return {
                 ...state,
-               
                 bookings: action.payload
             }
         

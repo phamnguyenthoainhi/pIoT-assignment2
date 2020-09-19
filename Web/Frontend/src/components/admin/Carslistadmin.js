@@ -20,7 +20,6 @@ class Carslistadmin extends Component {
         this.state = {
             cars: [],
             searchedCar: [],
-        
                 car_id: '', 
                 make: "", 
                 body_type: "",
@@ -36,58 +35,44 @@ class Carslistadmin extends Component {
             lat: ''
         }
         this.autocompleteInput = React.createRef();
-    this.autocomplete = null;
-    this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
+        this.autocomplete = null;
+        this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
     }
+
     onChange(e) {
-    //    console.log(e.target.value)
         this.setState({
             [e.target.name] : e.target.value
         })
-        // this.autocomplete = new window.google.maps.places.Autocomplete(this.autocompleteInput.current,
-        //     {"types": ["geocode"]});
-    
         this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
-        // const place = this.autocomplete.getPlace();
-        
-        // this.setState({
-        //     long: place.geometry.location.lng(),
-        //     lat: place.geometry.location.lat(),
-        //     location : place.formatted_address
-        // })
     }
+
     componentDidUpdate(prevProps) {
-        // console.log(this.props.cars)
         if(this.props.cars !== prevProps.cars) {
             this.setState({
                 cars: this.props.cars,
-                searchedCars : this.props.cars
-               
-                
+                searchedCars : this.props.cars    
             })
         }
     }
 
     handlePlaceChanged(){
         const place = this.autocomplete.getPlace();
-        
         this.setState({
             long: place.geometry.location.lng(),
             lat: place.geometry.location.lat(),
             location : place.formatted_address
         })
         
-      }
-
+    }
+    
     componentDidMount() {
         this.props.fetchCars()
         this.autocomplete = new window.google.maps.places.Autocomplete(this.autocompleteInput.current,
             {"types": ["geocode"]});
     
-        this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
-    
-        
+        this.autocomplete.addListener('place_changed', this.handlePlaceChanged);    
     }
+
     handleChangeSearch = (e) => {
         e.preventDefault();
         this.setState({
@@ -105,13 +90,9 @@ class Carslistadmin extends Component {
                 })
             }
         }
-        
-
-        // console.log(this.state.searchinput)
     }
 
     openedit = (car) => {
-        
         var modal = document.getElementById("myModal");
         modal.style.display = "block";
         if (car !== undefined ) {
@@ -127,16 +108,10 @@ class Carslistadmin extends Component {
                     long: car.car.longitude,
                     lat: car.car.latitude
             })
-        } else {
-            
         }
-        
-      
-        // When the user clicks anywhere outside of the modal, close it
-       
     }
+
     openreport = (car) => {
-        
         var modal = document.getElementById("myModal1");
         modal.style.display = "block";
         this.setState({
@@ -145,17 +120,7 @@ class Carslistadmin extends Component {
         this.setState({
             reportcarid: car.car.car_id,
             car: car.car
-        })
-        
-        
-
-        
-
-    
-        
-
-        // When the user clicks anywhere outside of the modal, close it
-       
+        })  
     }
 
     closeedit = () => {
@@ -169,7 +134,6 @@ class Carslistadmin extends Component {
     }
 
     delete = (car) => {
-
         this.props.deleteCar(car.car)
     }
 
@@ -183,15 +147,12 @@ class Carslistadmin extends Component {
             report_date : date.toString(),
             car: this.state.car
         }
-        
         this.props.createReport(report)
         this.closeopen()
     }
+
     onSubmit(e) {
         e.preventDefault();
-        
-        // console.log(this.state.car_id)
-         
         if (this.state.car_id !== '') {
             const car = {
                 car_id: this.state.car_id, 
@@ -204,11 +165,9 @@ class Carslistadmin extends Component {
                 latitude: parseFloat(this.state.lat),
                 longitude: parseFloat(this.state.long)
             }
-            console.log(car)
             this.props.editCar(car)
         } else {
             const car = {
-                
                 make: this.state.make, 
                 body_type: this.state.body_type,
                 color: this.state.color, 
@@ -219,16 +178,12 @@ class Carslistadmin extends Component {
                 latitude: this.state.lat,
                 longitude: this.state.long
             }
-
-        
         this.props.createCar(car)
         }
-        
         this.closeedit()
     }
         
     render() {
-        console.log(this.state.cars)
         const {classes} = this.props;
         return (
             <div>
@@ -243,14 +198,13 @@ class Carslistadmin extends Component {
                 onChange={(e) => this.handleChangeSearch(e)}
                 value={this.state.searchinput}
                 />
+
                 <Button
-                
-                
                 className={classes.addcarbtn}
                 startIcon={<AddIcon />}
                 onClick={() => this.openedit()}
                 >Add a new car</Button>
-                {/* <Button variant="contained" onClick={() => this.openedit()}>ADD A NEW CAR</Button> */}
+
                 <form id="myModal" className="modal" onSubmit={(e) => this.onSubmit(e)}>
                     <div className="modal-content">
                     <span className="close" onClick={() => this.closeedit()}  >&times;</span>
@@ -277,8 +231,7 @@ class Carslistadmin extends Component {
                     <div className="form-group">
                         <label htmlFor="location">Location:</label>
                         <input ref={this.autocompleteInput}  id="autocomplete" placeholder="Enter your address"  required name='location' value={this.state.location} onChange = {(e) => this.handleChangeSearch(e)}
-         type="text"></input>
-                        {/* <input type="text" className="form-control"  id="location" name='location' value={this.state.location} onChange= {(e) => this.onChange(e)} required/> */}
+                        type="text"></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="cost">Cost per hour:</label>
@@ -365,16 +318,10 @@ class Carslistadmin extends Component {
                             >
                                 Delete
                             </Button>
-                            {/* </div> */}
-                       
-                            {/* <Button variant="outlined" color="default" onClick={() => this.openreport({car})} >Report</Button> */}
-                            {/* <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit({car})}   >EDIT</Button>
-                            <Button variant="outlined" color="secondary" onClick={() => this.delete({car})}>DELETE</Button> */}
                         </td>
                        
                     </tr>
                     )}
-                        
                     </tbody>):
                     (<tbody>
                         {this.state.cars.map((car) => 
@@ -387,17 +334,12 @@ class Carslistadmin extends Component {
                             <td style={{textAlign: 'center'}}>{car.cost}</td>
                             <td style={{textAlign: 'center'}}>
                                 <Button variant="outlined" color="default" onClick={() => this.openreport()} >Report</Button>
-                                <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit({car})}   >EDIT</Button>
+                                <Button variant="outlined" color="primary" className='edit-btn' onClick={() => this.openedit({car})}>EDIT</Button>
                                 <Button variant="outlined" color="secondary" onClick={() => this.delete({car})}>DELETE</Button>
                             </td>
-                           
                         </tr>
                         )}
-                            
                         </tbody>)}
-                    
-                    
-                    
                 </table>
                  
             </div>
@@ -405,6 +347,7 @@ class Carslistadmin extends Component {
         )
     }
 }
+
 const mapDispatchToProps = dispatch => ({
     fetchCars: () => dispatch(fetchCars()),
     createCar: (car) => dispatch(createCar(car)),
@@ -415,9 +358,10 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   cars: state.customerReducer.cars,
-
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Carslistadmin));
+
 GoogleApiWrapper({
     apiKey: 'AIzaSyCc23hisVCuVZTq3GNvfJGSWXlMr19feC8'
   })(Carslistadmin);

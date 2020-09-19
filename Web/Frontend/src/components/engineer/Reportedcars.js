@@ -16,6 +16,7 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import { Link } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
+
 class Reportedcars extends Component {
     constructor(props) {
         super(props);
@@ -23,6 +24,7 @@ class Reportedcars extends Component {
             reports: [],
         }
     }
+
     componentDidUpdate(prevProps) {
         // console.log(this.props.reports)
         if(this.props.reports !== prevProps.reports) {
@@ -33,33 +35,28 @@ class Reportedcars extends Component {
             })
         }
     }
+
     logout = () => {
         sessionStorage.removeItem("id")
-        sessionStorage.removeItem("role")
-        
+        sessionStorage.removeItem("role")  
     }
+
     displayMarkers = (car) => {
-        // return this.state.stores.map((store, index) => {
           return <Marker key={car.car_id} id={car.car_id} position={{
            lat: car.latitude,
            lng: car.longitude
          }}
-        //  onClick={() => console.log("You clicked me!")} 
          />
-        // })
-      }
+    }
 
     componentDidMount() {
         if (sessionStorage.getItem("id") === null) {
-            
             this.props.history.push("/")
         }
-        this.props.fetchReport()
-        
-        
+        this.props.fetchReport() 
     }
+
     render() {
-        
         const {classes} = this.props;
         return (
             <div>
@@ -70,24 +67,14 @@ class Reportedcars extends Component {
                             </button>
 
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul className="navbar-nav mr-auto">
-                                <li className="nav-item active">
-                                {/* <a className="nav-link" href="/customer/cars"></a> */}
-                                </li>
-                                <li className="nav-item active">
-                                    {/* <a className="nav-link" href="/customer/dashboard">Dashboard</a> */}
-                                    
-                                </li>
-                                
+                                <ul className="navbar-nav mr-auto"> 
                                 </ul>
                                 <form className="form-inline my-2 my-lg-0">
                                     {sessionStorage.getItem("id") !== null ? (<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button>):(<Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Login</Button>)}
-                                {/* <Button className={classes.buttonLogout} onClick={()=> this.logout()} component={Link} to='/'>Logout</Button><br/> */}
                                 </form>
                             </div>
                     </nav>
                 </div>
-                {/* {sessionStorage.getItem('role')} */}
                 <div>
                 <Grid container className={classes.root} spacing={3}>
                     {this.state.reports ? (
@@ -163,43 +150,29 @@ class Reportedcars extends Component {
                         </List>
                         
                         <CardContent>
-                        {/* Report: {report.report_id}
-                        <br/>
-                        Car: {report.car_id}
-                        <br/>
-                        Content: {report.content} */}
                         <MapLoader car={report.car}/>
                         </CardContent>
-                        
-                        {/* <CardMedia>
-                        
-                        </CardMedia> */}
-    
                     </Card>
                         </Grid>
                         )
                     ):null}
-                   
-                    
                 </Grid>
-                </div>
-               
-               
-
-                
+                </div>  
             </div>
         )
     }
 }
+
 const mapDispatchToProps = dispatch => ({
     fetchReport: () => dispatch(fetchReport()),
 })
 
 const mapStateToProps = state => ({
   reports: state.engineerReducer.reports,
-
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Reportedcars));
+
 GoogleApiWrapper({
     apiKey: 'AIzaSyCc23hisVCuVZTq3GNvfJGSWXlMr19feC8'
   })(Reportedcars);

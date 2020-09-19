@@ -105,15 +105,16 @@ def most_revenues():
     # print(actualResults)
     return json.dumps(tuple(actualResults))
 
+# Count number of booking times of each car make
 @app.route("/api/cars/countmake", methods=['GET'])
 @cross_origin()
 def count_carmake_api():
     mydb = create_connection()
     countmake = count_carmake(mydb)
     
-    for number in countmake:
-        print(number)
-        print(type(number))
+    # for number in countmake:
+    #     print(number)
+    #     print(type(number))
     return json.dumps(countmake)
     
 
@@ -427,6 +428,7 @@ def rmReport(report_id):
         return "Success"
     return Response("Bad request", status=400)
 
+# Register new account
 @app.route("/register", methods=["POST"])
 @cross_origin()
 def register_user():
@@ -435,6 +437,7 @@ def register_user():
     user_confirm_password = request.json["confirm_password"]
     user_role = request.json["role"]
     user_name = request.json['username']
+    # Check user inputs
     if user_password == user_confirm_password and validate_user_input(
         "authentication", username=user_name, password=user_password
     ) and registered_email_check(username=user_name):
@@ -452,12 +455,15 @@ def register_user():
         else:
             # Registration Failed
             return Response(status=409)
+    # Wrong password
     elif user_password != user_confirm_password:
         return Response("Password does not match", status=401)
+    # Input is not valid
     elif validate_user_input(
         "authentication", username=user_name, password=user_password
     ) is False:
         return Response("Input is not valid", status=401)
+    # Username is not in the database
     elif registered_email_check(username=user_name) is False:
         return Response("Username is already registered", status=401)
 
@@ -465,18 +471,20 @@ def register_user():
         # Registration Failed
         return Response(status=400)
 
+# Login Function
 @app.route("/login", methods=["POST"])
 @cross_origin()
 def login_user():
     user_name = request.json["username"]
     user_password = request.json["password"]
-
     user_token = validate_user(user_name, user_password)
-    print("USER_TOKEN "+ str(user_token))
+    # Login success
     if user_token != 1 and user_token != 2 :
         return jsonify({"jwt_token": user_token[0], "role": user_token[1], "user_id": user_token[2]})
+    # Username is not registerd
     elif user_token == 1:
         return Response("Username is not registered", status=401)
+    # Password does not match
     elif user_token == 2:
         return Response("Wrong Password", status=401)
         
@@ -521,7 +529,4 @@ def editUser(user_id):
  
 
 if __name__ == '__main__':
-    
     app.run(debug=True, host='127.0.0.1', port=8081)
-# if __name__ == '__main__':
-#     app.run()

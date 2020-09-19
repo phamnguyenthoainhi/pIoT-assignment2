@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core';
 import {connect} from "react-redux";
-
 import style from './style';
 import Button from '@material-ui/core/Button';
 import DatePicker from "react-datepicker";
@@ -28,14 +27,12 @@ class Bookingdetails extends Component {
         startDate: "",
         excludeDates: [],
         rentalhistory: [],
-        total : 0
-        
-        
-        
+        total : 0   
     }
     this.onChangepickup = this.onChangepickup.bind(this);
     this.onChangereturn = this.onChangereturn.bind(this);
 }
+
       componentDidUpdate(prevProps) {
         if(this.props.car !== prevProps.car) {
             this.setState({
@@ -59,40 +56,28 @@ class Bookingdetails extends Component {
               return_dates: this.props.return_dates,
               booking_dates: this.props.booking_dates
           })
-
-
     }
+
     if(this.props.rentalhistory !== prevProps.rentalhistory) {
       this.setState({
-        rentalhistory: this.props.rentalhistory,
-        
-          
-         
-          
+        rentalhistory: this.props.rentalhistory,  
       })
+
       var dateArray = []
       this.props.rentalhistory.forEach(function(booking) {
-        
-      // bookings.forEach(function(booking) {
-        // console.log("test should be 6")
         var currentDate = new Date(booking.booking_date);
         var endDate = new Date(booking.return_date);
         while (currentDate < endDate) {
           dateArray.push(new Date(currentDate));
           currentDate.setDate(currentDate.getDate() + 1)
-          
         }
         dateArray.push(new Date(endDate))
-        
-        
-
       })
       this.setState({
           excludeDates: dateArray
-        })
-      // console.log(dateArray)
-     
+        }) 
   }
+
         if(this.props.bookingStatus !== prevProps.bookingStatus && this.props.bookingStatus === 'success') {
           this.close()
           alert("Booking Success");
@@ -101,6 +86,7 @@ class Bookingdetails extends Component {
         
       }
     }
+
     componentDidMount() {
       this.props.fetchRentalHistory()
       var today = new Date()
@@ -109,54 +95,49 @@ class Bookingdetails extends Component {
         pickuptime: null,
         returntime: null
       })
-     
-
-      
     }
 
     close = () => {
       this.props.handleClose()
     };
     
-      onChangepickup(date) {
-        
-        this.setState({
-          pickuptime: date
-        })
-      }
-      onChangereturn(date) {
-        
-        this.setState({
-          returntime: date
-        })
-      }
+    onChangepickup(date) {
+      
+      this.setState({
+        pickuptime: date
+      })
+    }
+    onChangereturn(date) {
+      
+      this.setState({
+        returntime: date
+      })
+    }
 
-      getTime = (date) => {
-        var time = []
-        time.push(date.getHours())
-        time.push(date.getMinutes())
-        
-      }
+    getTime = (date) => {
+      var time = []
+      time.push(date.getHours())
+      time.push(date.getMinutes())
+      
+    }
 
-      getDates = (startDate, endDate) => {
-        var dateArray = []
-        var currentDate = startDate;
-        while (currentDate < endDate) {
-          dateArray.push(new Date(currentDate));
-          currentDate.setDate(new Date(currentDate).getDate() + 1)
-          console.log(currentDate)
-        }
-        
-        return dateArray
+    getDates = (startDate, endDate) => {
+      var dateArray = []
+      var currentDate = startDate;
+      while (currentDate < endDate) {
+        dateArray.push(new Date(currentDate));
+        currentDate.setDate(new Date(currentDate).getDate() + 1)
+        console.log(currentDate)
       }
       
-  
-
+      return dateArray
+    }
+    
     book = () => {
       
-      console.log(this.state.returntime)
+
       if (this.state.pickuptime !== null && this.state.returntime !== null) {
-        // console.log("not null")
+   
         var pickupTime = this.state.pickuptime.toISOString()
         var returnTime = this.state.returntime.toISOString()
      
@@ -229,10 +210,6 @@ class Bookingdetails extends Component {
         return_date : this.state.returntime,
         price : total
       }
-      
-      
-      
-      
       this.props.bookCar(booking)
       this.setState({
         
@@ -255,28 +232,16 @@ class Bookingdetails extends Component {
         time.push(new Date(item).getHours())
         time.push(new Date(item).getMinutes())
     });
-        
         return date_array
-
     }
     calculateTotal = (startDate, endDate, cost) => {
-      
       var datecount = Math.round((new Date(endDate)-new Date(startDate))/(1000*60*60*24));
       cost = parseInt(cost)
       var total = cost * datecount
       return total
     }
 
-
-   
     render() {
-
-      // this.calculateTotal (this.state.pickuptime, this.state.returntime, this.state.car.cost)
-      // console.log("2020-09-09T09:00:00-07:00" == new Date())
-      // if (this.state.pickuptime !== null) {
-      //   console.log(this.state.pickuptime.toISOString())
-
-      // }
         const {classes} = this.props;
         return (
             <div className={classes.formroot}>
@@ -285,63 +250,62 @@ class Bookingdetails extends Component {
                 <h2>Booking Details</h2>
                 
       
-       <DatePicker
-       className={classes.dateinput}
-      showTimeSelect
-      selected = {this.state.pickuptime}
-      onChange={ this.onChangepickup }
-      name='pickuptime'
-      
-      excludeDates={this.state.excludeDates}
-      value = {this.state.pickuptime}
-      minDate={this.state.today}
-      maxDate={this.state.returntime}
-      timeFormat="HH:mm"
-      timeIntervals={60}
-      timeCaption="time"
-      dateFormat="MMMM d, yyyy h:mm aa"
-      placeholderText="Choose pickup time"
-      minTime={setHours(setMinutes(new Date(), 0), 9)}
-      maxTime={setHours(setMinutes(new Date(), 0), 17)}
-      required
-      
-    />
-    <br/>
-    <DatePicker
-    className={classes.dateinput}
-      showTimeSelect
-      selected = {this.state.returntime}
-      onChange={ this.onChangereturn }
-      name='pickuptime'
-      excludeDates={this.state.excludeDates}
-     
-      value = {this.state.returntime}
-      minDate={this.state.pickuptime} 
-      timeFormat="HH:mm"
-      timeIntervals={60}
-      timeCaption="time"
-      dateFormat="MMMM d, yyyy h:mm aa"
-      minTime={setHours(setMinutes(new Date(), 0), 9)}
-      maxTime={setHours(setMinutes(new Date(), 0), 17)}
-      placeholderText="Choose return time"
-      
-    />
-                
-                <br/>
-                <Button variant="contained" color="primary" onClick = {() => this.book()} className={classes.savebtn}>Save</Button>
-                <Button variant="contained" color="primary" onClick = {this.close} className={classes.savebtn}>Cancel</Button>
-                </form>
-            </div>
+                    <DatePicker
+                    className={classes.dateinput}
+                    showTimeSelect
+                    selected = {this.state.pickuptime}
+                    onChange={ this.onChangepickup }
+                    name='pickuptime'
+                    
+                    excludeDates={this.state.excludeDates}
+                    value = {this.state.pickuptime}
+                    minDate={this.state.today}
+                    maxDate={this.state.returntime}
+                    timeFormat="HH:mm"
+                    timeIntervals={60}
+                    timeCaption="time"
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                    placeholderText="Choose pickup time"
+                    minTime={setHours(setMinutes(new Date(), 0), 9)}
+                    maxTime={setHours(setMinutes(new Date(), 0), 17)}
+                    required
+                    
+                  />
+                  <br/>
+                  <DatePicker
+                  className={classes.dateinput}
+                    showTimeSelect
+                    selected = {this.state.returntime}
+                    onChange={ this.onChangereturn }
+                    name='pickuptime'
+                    excludeDates={this.state.excludeDates}
+                  
+                    value = {this.state.returntime}
+                    minDate={this.state.pickuptime} 
+                    timeFormat="HH:mm"
+                    timeIntervals={60}
+                    timeCaption="time"
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                    minTime={setHours(setMinutes(new Date(), 0), 9)}
+                    maxTime={setHours(setMinutes(new Date(), 0), 17)}
+                    placeholderText="Choose return time"
+                    
+                  />
+          
+                              <br/>
+                              <Button variant="contained" color="primary" onClick = {() => this.book()} className={classes.savebtn}>Save</Button>
+                              <Button variant="contained" color="primary" onClick = {this.close} className={classes.savebtn}>Cancel</Button>
+                              </form>
+                          </div>
         )
     }
 }
+
 const mapDispatchToProps = dispatch => ({
     bookCar: (booking) => dispatch(bookCar(booking)),
     getBookingDates: (car) => dispatch(getBookingDates(car)),
     getReturnDates: (car) => dispatch(getReturnDates(car)),
     fetchRentalHistory: () => dispatch(fetchRentalHistory()),
-   
-  
 })
 
 const mapStateToProps = state => ({
@@ -349,7 +313,6 @@ const mapStateToProps = state => ({
   booking_dates: state.customerReducer.booking_dates,
   return_dates: state.customerReducer.return_dates,
   rentalhistory: state.adminReducer.rentalhistory
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(Bookingdetails));
