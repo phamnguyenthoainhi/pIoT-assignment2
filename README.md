@@ -30,28 +30,28 @@ npm test: run all the unit tests <br/>
     username: Engineer<br/>
     password: 123456<br/>
 #### Available Functions
-**Users:** <br/>
+Users: <br/>
 - Login/Register with username and password
 - Logout
 <br/>
-**Admin** <br/>
+Admin <br/>
 - View car rental history
 - Search users and cars
 - Add, remove and modify information of users and cars
 - Report car with issue, then the engineer can find and fix the problem
 <br/>
-**Engineer** <br/>
+Engineer <br/>
 - Check the reported car’s location in the web page
 <br/>
-**Manager** <br/>
+Manager <br/>
 - See all the charts about the business status
 <br/>
-**Customers**<br/>
+Customers <br/>
 - Book a car
 - Cancel a booking
 - Search for a car
 <br/>
-**System*
+System
 - Send email to engineer when a report is created
 - Add a event to user Google Calendar when book a car
 - Display the location of the car in Google Map
