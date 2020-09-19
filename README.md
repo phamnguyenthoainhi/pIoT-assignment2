@@ -55,6 +55,7 @@ System:<br/>
 -Send email to engineer when a report is created<br/>
 -Add a event to user Google Calendar when book a car<br/>
 -Display the location of the car in Google Map<br/>
+-Display three types of charts using React Google Graph <br/>
 
 #### Backend: Built using Flask framework
 
