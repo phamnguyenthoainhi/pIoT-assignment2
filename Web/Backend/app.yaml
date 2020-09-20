@@ -1,0 +1,11 @@
+
+
+runtime: python38
+
+
+env_variables:
+  CLOUD_SQL_USERNAME: root
+  CLOUD_SQL_PASSWORD: 1234
+  CLOUD_SQL_DATABASE_NAME: car_share
+  CLOUD_SQL_CONNECTION_NAME: iot-assignment2-286206:asia-east2:iot-programming-asntwo
+

@@ -1,0 +1,7 @@
+1. Pham Nguyen Thoai Nhi - s3695349
+All the evidence of contribution images are stored in Pham Nguyen Thoai Nhi folder
+    + Web Frontend (All functions including UI)
+    + Frontend Unit Test
+    + Authentication Backend
+    + Send email function Backend
+    + Deploy Frontend and Backend using Google App Engine
