@@ -9,7 +9,7 @@ Lee Ping Shan - s3635413<br/>
 ## Project Structure
 ### Web Application
 #### Frontend: Built using ReactJS/Redux framework
-Deployed by Google App Engine
+Deployed by Google App Engine <br/>
 **Frontend Link**:  https://car-share-289705.df.r.appspot.com/
 **Backend Link:**  https://iot-assignment2-286206.df.r.appspot.com/
 #### Available Script
@@ -30,26 +30,32 @@ npm test: run all the unit tests <br/>
     username: Engineer<br/>
     password: 123456<br/>
 #### Available Functions
-**Users:** <br/>
-- Login/Register with username and password
-- Logout
-**Admin** <br/>
-- View car rental history
-- Search users and cars
-- Add, remove and modify information of users and cars
-- Report car with issue, then the engineer can find and fix the problem
-**Engineer** <br/>
-- Check the reported car’s location in the web page
-**Manager** <br/>
-- See all the charts about the business status
-**Customers**<br/>
-- Book a car
-- Cancel a booking
-- Search for a car
-**System*
-- Send email to engineer when a report is created
-- Add a event to user Google Calendar when book a car
-- Display the location of the car in Google Map
+Users: <br/>
+-Login/Register with username and password<br/>
+-Logout
+<br/>
+Admin: <br/>
+-View car rental history<br/>
+-Search users and cars<br/>
+-Add, remove and modify information of users and cars<br/>
+-Report car with issue, then the engineer can find and fix the problem<br/>
+<br/>
+Engineer: <br/>
+-Check the reported car’s location in the web page<br/>
+<br/>
+Manager: <br/>
+-See all the charts about the business status<br/>
+<br/>
+Customers: <br/>
+-Book a car<br/>
+-Cancel a booking<br/>
+-Search for a car<br/>
+<br/>
+System:<br/>
+-Send email to engineer when a report is created<br/>
+-Add a event to user Google Calendar when book a car<br/>
+-Display the location of the car in Google Map<br/>
+-Display three types of charts using React Google Graph <br/>
 
 #### Backend: Built using Flask framework
 
