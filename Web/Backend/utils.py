@@ -7,14 +7,20 @@ import base64
 import os
 import pathlib
 
-# Function to generate salt ranromly
+
 def generate_salt():
+    """
+    Generate salt ranromly
+    """
     salt = os.urandom(16)
     print("SALT: " + str(salt.hex()))
     return salt.hex()
 
-# Function to generate hash taking plain_password and password_salt as paramters
+
 def generate_hash(plain_password, password_salt):
+    """
+    Generate hash taking plain_password and password_salt as paramters
+    """
     password_hash = pbkdf2_hmac(
         "sha256",
         b"%b" % bytes(plain_password, "utf-8"),
@@ -24,16 +30,22 @@ def generate_hash(plain_password, password_salt):
     print("PASSWORD: " + str(password_hash.hex()))
     return password_hash.hex()
 
-# Function to validate user input 
+
 def validate_user_input(input_type, **kwargs):
+    """
+    Validate user input
+    """
     if input_type == "authentication":
         if len(kwargs["username"]) <= 255 and len(kwargs["password"]) <= 255:
             return True
         else:
             return False
 
-# Function to generate jwt token
+
 def generate_jwt_token(content):
+    """
+    Generate jwt token
+    """
     encoded_content = jwt.encode(content, "JWT_SECRET_KEY", algorithm="HS256")
     print("ENCODED CONTENT "+ str(encoded_content))
     
@@ -41,8 +53,11 @@ def generate_jwt_token(content):
     print("TOKEN "+ str(token))
     return token
 
-# Function to check if user has been registered or not
+
 def registered_email_check(username):
+    """
+    Check if user has been registered or not
+    """
     mydb = create_connection()
     input_email = db_read(mydb, """SELECT * FROM users Where username = %s""", (username,))
     print("-------------------")
@@ -52,8 +67,11 @@ def registered_email_check(username):
     else:
         return False
 
-# Function to convert photo from base64 string to File and then from file to binary and insert that binary to database
+
 def convertPhoto(photo, username, user_id):
+    """
+    Convert photo from base64 string to File and then from file to binary and insert that binary to database
+    """
     path = str(pathlib.Path(__file__).parent.absolute()) + "/"
     # convert b64string to File
     imgdata = base64.b64decode(photo)
@@ -76,8 +94,10 @@ def convertPhoto(photo, username, user_id):
                 print("The file does not exist")
         
 
-# Function to check if username and password are correct
 def validate_user(username, password):
+    """
+    Check if username and password are correct
+    """
     mydb = create_connection()
     current_user = db_read(mydb, """SELECT * FROM users WHERE username = %s""", (username,))
     if len(current_user) == 1:
@@ -95,7 +115,6 @@ def validate_user(username, password):
         else:
             # login fails
             return 2
-
     else:
         # input user name has not been registered
         return 1
