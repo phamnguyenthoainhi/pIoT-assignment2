@@ -8,83 +8,79 @@ from threading import Timer
 import subprocess
 import camera
 from selenium import webdriver
-from client import my_client, start_client
+from client import my_client
 import sys
 import threading
-import signal
+from sense_hat import SenseHat
+
 
 app = Flask(__name__)
-#app = Flask(__name__, template_folder='/var/www/html/templates')
+sense = SenseHat() 
 
 @app.route('/', methods=['GET', 'POST'])
-def move():
+def debug():
+    """
+    Open Website for view the footage for debugging
+    """
     result = ""
     if request.method == 'POST':
-        
-        return render_template('index.html', res_str=result)
-                        
+        return render_template('index.html', res_str=result)          
     return render_template('index.html')
 
-def setName(match):        
+def setName(match):  
+    """
+    Set name value to global variable
+    """      
     globals.name = match 
 
 def setPassword(pw):
+    """
+    Set password value to global variable
+    """  
     globals.password = pw
-
-def signal_handler(signal, frame):
-  sys.exit(0)
-
 
 
 def gen(cameraa):
+    """
+    Generate camera footage and scan for match
+    """  
     
     while globals.result:
         while True:
-            
+            #Get image frame continously
             frame = cameraa.get_frame()
+
+            #Get the matched username from global 
             match = globals.name 
-            # print("test: " + match)
-        # name = cameraa.get_frame.person
-        # print(name)
+            
             if match != "Unknown" :
-                # globals.run_cam = not globals.run_cam
+                #if there is match ask for user password
                 
                 print("Hello " + match + ", please enter your password to access this vehicle")
                 password = input()
-                # for i in range(15,0,-1):
-                #     sys.stdout.write( ".(Timeout:15 seconds)" + str(i))
-                #     sys.stdout.flush()
-                #     time.sleep(1)
                 setName(match)
-            
                 setPassword(password)
                 
-
                 time.sleep(5)
-                
+                #AT THIS STAGE, THE CLIENT.PY HAS RETRIEVED USERNAME AND PASSWORD, AND SENT TO THE SERVER FOR VERIFICATION
 
+                #Get the response from global
                 response = globals.accessResponse
                 print("Current Response status:" + response)
+
+                #Unlock car when the response from server is "pass"
                 if response == "pass":
                     globals.result = not globals.result
                     globals.run = False
                     print("Access granted: Car Unlocked")
+                    sense.show_message("Car Unlocked")
                     print("Press Ctrl + C to use other sevices")
                     break
-                    
+                #Continue scanning if fail
                 else:
                     print("Access Denied, continue scanning...")
                     cameraa.skip_frame()
                    
-                # if password == "duma":
-                #     globals.result = not globals.result
-                #     print(globals.result)
-                #     break
-                # else:
-                #     print("rip, continue scanning....")
-                #     cameraa.skip_frame()
-                #     # globals.run_cam = not globals.run_cam
-            
             setName("Unknown")
             
             yield (b'--frame\r\n'
@@ -92,14 +88,18 @@ def gen(cameraa):
 
 @app.route('/video_feed')
 def video_feed():
+    """
+    Route video feed to debugging website
+    """  
     return Response(gen(VideoCamera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 def open_browser():
-    # webbrowser.open('http://0.0.0.0:5000/', autoraise=False)
-    # subprocess.check_output(['open', 'http://0.0.0.0:5000/', '--hide'])
-    
+    """
+    Hide the debugging website on start
+    """  
+      
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--disable-notifications')
     chrome_options.add_argument("--headless")
@@ -108,20 +108,17 @@ def open_browser():
     time.sleep(2)
 
 def run_facial_recognition():
+    """
+    Start the program
+    """  
     
     while globals.run:
-        
+        #Utilizing multiple threads to start various tasks
         threading.Timer(11, my_client).start()
         Timer(1, open_browser).start()
         app.run(host='0.0.0.0')
         
 
-# globals.init()
-# if __name__ == '__main__':
-#     while globals.run:
-#         threading.Timer(11, my_client).start()
-#         print("con2")
-#         Timer(1, open_browser).start();
-#         app.run(host='0.0.0.0', debug=True, threaded=True)
+
     
 

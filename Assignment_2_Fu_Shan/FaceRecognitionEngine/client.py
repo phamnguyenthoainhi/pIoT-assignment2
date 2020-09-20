@@ -4,62 +4,65 @@ import threading
 import time
 
 
-HOST = '192.168.0.2'  # The server's hostname or IP address
-PORT = 8086      # The port used by the server
+HOST = '192.168.0.2'  # The server's hostname or IP address CHECK BEFORE RUNNING PROGRAM
+PORT = 8086      # The port used by the server CHECK BEFORE RUNNING PROGRAM
 
 
-def process_data_from_server(x):
-    x1, y1 = x.split(",")
-    return x1,y1
+
 
 def getName():
+    """
+    Get name value from global
+    """
     return globals.name
 
 def getPW():
+    """
+    Get password value from global
+    """
     return globals.password
 
 def setResponse(status):
+    """
+    Set the response value to global
+    """
     globals.accessResponse = status
 
 def clearPassword():
+    """
+    Clear password value 
+    """
     globals.password = ""
 
 
-def start_client():
-    globals.init()
-    while True:
-        my_client()
-
 
 def my_client():
+    """
+    Build socket communication with server
+    """
     while True:
-        # threading.Timer(11, my_client).start()
-        # print("console log")
+
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-
+            #Connection attempt
             s.connect((HOST, PORT))
-            # print("connecting")
-            # my = input("Enter command ")
-            
+            #Get the username and passowrd from global value
             name = getName()
             pw = getPW()
-            # name = "Fu"
-            # pw = "1234556"
             acc = "Data " + name + " " + pw  + " 1"#car id
-            # print("current account value:" + acc)
+
+            #send the data if exist
             if pw != "":
-                
+                #encode the account and send
                 my_inp = acc.encode('utf-8')
-
                 print("Current account value:" + acc)
-
                 s.sendall(my_inp)
-
+                #receive the server response
                 data = s.recv(1024).decode('utf-8')
                 
                 answer = data
                 print("Server response:" + answer)
+
                 # if answer == "Access Granted":
                 #     setResponse("pass")
                 # elif answer == "Access Denied. Wrong Password":
@@ -86,7 +89,7 @@ def my_client():
         
     print("Socket communication closed")
     
-# globals.init()
+#Program start
 if __name__ == "__main__":
     while 1:
         my_client()
