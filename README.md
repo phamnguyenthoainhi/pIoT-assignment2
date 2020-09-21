@@ -57,7 +57,10 @@ System:<br/>
 -Display the location of the car in Google Map<br/>
 -Display three types of charts using React Google Graph <br/>
 
-#### Backend: Built using Flask framework
+#### Backend: 
+Built using Flask framework
+SQL database on Google Cloud
+
 
 
 ### IOT(Agent Pi):
