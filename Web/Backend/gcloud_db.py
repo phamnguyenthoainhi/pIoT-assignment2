@@ -60,8 +60,8 @@ def createtable_users(mydb):
     Returns: true if the query executes successfully, false if there is error
     """    
     try:
-      cursor = mydb.cursor()
-      cursor.execute("CREATE TABLE IF NOT EXISTS users( \
+        cursor = mydb.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS users( \
                                                   user_id INT \
                                                   auto_increment \
                                                   PRIMARY KEY, \
@@ -71,11 +71,11 @@ def createtable_users(mydb):
                                                   password_hash VARCHAR(255) NOT NULL, \
                                                   role ENUM('Customer', 'Admin', 'Manager', 'Engineer')\
                                                   )")
-      return True
+        return True
 
-  except mysql.connector.Error as e:
-      print(str(e))
-      return False
+    except mysql.connector.Error as e:
+        print(str(e))
+        return False
 
 def createtable_bookings(mydb):
     """
@@ -84,9 +84,9 @@ def createtable_bookings(mydb):
         mydb: a MySQLConnection object
     Returns: true if the query executes successfully, false if there is error
     """
-  try:
-      cursor = mydb.cursor()
-      cursor.execute("CREATE TABLE IF NOT EXISTS bookings( \
+    try:
+        cursor = mydb.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS bookings( \
                                                   booking_id INT \
                                                   auto_increment \
                                                   PRIMARY KEY, \
@@ -99,11 +99,11 @@ def createtable_bookings(mydb):
                                                   return_date VARCHAR(255), \
                                                   price FLOAT \
                                                   )")
-      return True
+        return True
 
-  except mysql.connector.Error as e:
-      print(str(e))
-      return False
+    except mysql.connector.Error as e:
+        print(str(e))
+        return False
 
 def createtable_reports(mydb):
     """
@@ -112,9 +112,9 @@ def createtable_reports(mydb):
         mydb: a MySQLConnection object
     Returns: true if the query executes successfully, false if there is error
     """
-  try:
-      cursor = mydb.cursor()
-      cursor.execute("CREATE TABLE IF NOT EXISTS reports( \
+    try:
+        cursor = mydb.cursor()
+        cursor.execute("CREATE TABLE IF NOT EXISTS reports( \
                                                   report_id INT \
                                                   auto_increment \
                                                   PRIMARY KEY, \
@@ -125,11 +125,11 @@ def createtable_reports(mydb):
                                                   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE, \
                                                   report_date VARCHAR(255) \
                                                   )")
-      return True
+        return True
 
-  except mysql.connector.Error as e:
-      print(str(e))
-      return False
+    except mysql.connector.Error as e:
+        print(str(e))
+        return False
     
 def createtable_photos(mydb):
     """
