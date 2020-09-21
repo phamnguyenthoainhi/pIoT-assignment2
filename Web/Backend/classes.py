@@ -1,5 +1,6 @@
 import json
 
+# Convert objective to JSON
 class ComplexEncoder(json.JSONEncoder):
     def default(self, obj):
         if hasattr(obj,'reprJSON'):
