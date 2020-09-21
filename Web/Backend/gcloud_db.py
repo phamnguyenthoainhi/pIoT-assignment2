@@ -23,6 +23,12 @@ def create_connection():
         
 
 def createtable_cars(mydb):
+    """
+    Create a table named Cars
+    Parameters: 
+        mydb: a MySQLConnection object
+    Returns: true if the query executes successfully, false if there is error
+    """
     try:
         cursor = mydb.cursor()
         
@@ -47,7 +53,13 @@ def createtable_cars(mydb):
         return False
 
 def createtable_users(mydb):
-  try:
+    """
+    Create a table named Users
+    Parameters: 
+        mydb: a MySQLConnection object
+    Returns: true if the query executes successfully, false if there is error
+    """    
+    try:
       cursor = mydb.cursor()
       cursor.execute("CREATE TABLE IF NOT EXISTS users( \
                                                   user_id INT \
@@ -66,6 +78,12 @@ def createtable_users(mydb):
       return False
 
 def createtable_bookings(mydb):
+    """
+    Create a table named Bookings
+    Parameters: 
+        mydb: a MySQLConnection object
+    Returns: true if the query executes successfully, false if there is error
+    """
   try:
       cursor = mydb.cursor()
       cursor.execute("CREATE TABLE IF NOT EXISTS bookings( \
@@ -88,6 +106,12 @@ def createtable_bookings(mydb):
       return False
 
 def createtable_reports(mydb):
+    """
+    Create a table named Reports
+    Parameters: 
+        mydb: a MySQLConnection object
+    Returns: true if the query executes successfully, false if there is error
+    """
   try:
       cursor = mydb.cursor()
       cursor.execute("CREATE TABLE IF NOT EXISTS reports( \
@@ -108,6 +132,12 @@ def createtable_reports(mydb):
       return False
     
 def createtable_photos(mydb):
+    """
+    Create a table named Photos
+    Parameters: 
+        mydb: a MySQLConnection object
+    Returns: true if the query executes successfully, false if there is error
+    """
     try:
         cursor = mydb.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS photos( \
