@@ -58,16 +58,16 @@ System:<br/>
 -Display three types of charts using React Google Graph <br/>
 
 #### Backend: 
-Built using Flask framework.
-RESTful APIs to perform CRUD operations on the models, and to query for graph data 
+-Built using Flask framework.
+-RESTful APIs to perform CRUD operations on the models, and to query for graph data 
 
 #### Tables:
 #### SQL database on Google Cloud
-Users: stores users with 4 roles "Customer", "Admin", "Manager", and "Engineer"
-Cars: stores cars with various characteristics, lock/unlock status and the location
-Bookings: car bookings with start date, end date and price, with 3 status "Pending", "Booked", and "Canceled"
-Reports: reports containing the issue for engineers to look at 
-Photos: contains the photos of each user to use for authentication on the AP
+-Users: stores users with 4 roles "Customer", "Admin", "Manager", and "Engineer"
+-Cars: stores cars with various characteristics, lock/unlock status and the location
+-Bookings: car bookings with start date, end date and price, with 3 status "Pending", "Booked", and "Canceled"
+-Reports: reports containing the issue for engineers to look at 
+-Photos: contains the photos of each user to use for authentication on the AP
 
 
 
