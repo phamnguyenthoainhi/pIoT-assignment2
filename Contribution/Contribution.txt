@@ -17,6 +17,7 @@ All the tasks below all have contribution from both team members
     + Console-Based menu
     
 4. Le Pham Ngoc Hoai - s3636085
+All the evidence of contribution images are stored in Le Pham Ngoc Hoai folder
     + Created the database + tables in a MySQL instance on Google Cloud
     + Created the database functions for those tables: CRUD operations and other queries to suit the requirements.
     + Created restful APIs connecting those database functions for use on the web
