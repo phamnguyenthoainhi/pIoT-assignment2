@@ -5,3 +5,14 @@ All the evidence of contribution images are stored in Pham Nguyen Thoai Nhi fold
     + Authentication Backend
     + Send email function Backend
     + Deploy Frontend and Backend using Google App Engine
+    
+2. Lee Ping Shan - s3635413 & 3. Tseng Chia Fu - s3634996 (Agent Pi)
+All the evidence of contribution images are stored in Shan & Fu folder
+All the tasks below all have contribution from both team members
+    + Bluetooth Scanner for Engineer
+    + QR Code detector for reading engineer's profile
+    + Facial Recognition Engine
+    + Socket Communication 
+    + User image receiver from cloud database
+    + Console-Based menu
+    
