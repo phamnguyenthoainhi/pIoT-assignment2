@@ -7,6 +7,22 @@ class ComplexEncoder(json.JSONEncoder):
         else:
             return json.JSONEncoder.default(self, obj)
 
+        
+"""
+A class to represent a car 
+Attributes
+----------
+car_id: int - car id in database
+make : str - car make
+body_type : str
+color: str
+seats: int
+location: str - google map compatible location
+cost: float
+locked: bool - whether the car is locked or not
+latitude: float
+longitude: float
+"""
 class Car():
     car_id = int
     make = str
@@ -35,7 +51,17 @@ class Car():
     def reprJSON(self):
         return dict(car_id=self.car_id, make=self.make, body_type=self.body_type, color=self.color, seats=self.seats, location=self.location, cost=self.cost, locked=self.locked, latitude=self.latitude, longitude=self.longitude)
 
-
+"""
+A class to represent a user
+Attributes
+----------
+user_id: int - id in database
+username: str
+email: str
+password_salt: str - added salt to password to prevent duplicates
+password_hash: str - hashed password
+role: str - 1 of the 4 roles
+"""
 class User():
     user_id = int
     username = str
@@ -59,6 +85,16 @@ class User():
     def reprJSON(self):
         return dict(user_id = self.user_id, username = self.username, email= self.email)
 
+"""
+A class to represent a report
+Attributes
+----------
+report_id: int
+car_id: int - foreign key 
+user_id: int - foreign key 
+content: str - the content of the report
+report_date: str - date of the report
+"""
 class Report():
     report_id = int
     car_id = int
@@ -79,7 +115,19 @@ class Report():
         return dict(report_id=self.report_id, car_id=self.car_id, user_id=self.user_id, content=self.content, report_date=self.report_date, car = self.car)
       
 
-
+"""
+A class to represent a car booking
+Attributes
+----------
+booking_id: int
+car_id: int - foreign key
+user_id: int - foreign key
+status: str - status of the booking (booked, canceled or pending)
+booking_date, return_date: str - book date and return date
+price: int - total price of the booking
+car object
+user object
+"""
 class Booking():
     booking_id = int
     car_id = int
