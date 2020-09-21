@@ -119,6 +119,8 @@ pip3 install face_recognition
 To use the QR code scanner, press 2 in the console menu to start the application, and aim your given QR code with engineer ID to the camera to unlock the car. Any other QR codes without engineer profile ID that is recognised by the Agent Pi, will not unlock the car.
 
 Sample Engineer QR Codes:
+
+
 <img width="480" alt="Sample 1" src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-0/p280x280/119676902_379573039870239_7551320180432845006_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=d1TKSddKoHkAX_d0te6&_nc_ht=scontent.fsgn2-4.fna&tp=6&oh=9bb4edb1d625c87f1a701c1faf48ebb1&oe=5F893759">
 
 <img width="480" alt="Sample 2" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-0/p280x280/119709349_634942190553455_8335974865124209296_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=pyJ_33kACwUAX-wM8U7&_nc_ht=scontent.fsgn2-6.fna&tp=6&oh=3ea80812dd0ebbb0aee3068b18a131b0&oe=5F8BF0ED">
