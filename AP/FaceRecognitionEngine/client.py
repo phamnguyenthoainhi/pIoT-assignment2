@@ -63,21 +63,21 @@ def my_client():
                 answer = data
                 print("Server response:" + answer)
 
-                # if answer == "Access Granted":
-                #     setResponse("pass")
-                # elif answer == "Access Denied. Wrong Password":
-                #     setResponse("denied")
-                # # elif answer == "Access Denied. Username is not registered":
-                # #     setResponse("denied")
-                # elif answer == "Access Denied. You have not booked":
-                #     setResponse("denied")
-
-                if answer == "Account verified":
+                if answer == "Access Granted":
                     setResponse("pass")
-                    break
-                
-                elif answer == "Access Denied":
+                elif answer == "Access Denied. Wrong Password":
                     setResponse("denied")
+                # elif answer == "Access Denied. Username is not registered":
+                #     setResponse("denied")
+                elif answer == "Access Denied. You have not booked":
+                    setResponse("denied")
+
+#                 if answer == "Account verified":    #Code for Test server
+#                     setResponse("pass")
+#                     break
+                
+#                 elif answer == "Access Denied":
+#                     setResponse("denied")
 
                 else:
                     setResponse("denied")
