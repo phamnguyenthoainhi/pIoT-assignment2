@@ -119,13 +119,13 @@ pip3 install face_recognition
 To use the QR code scanner, press 2 in the console menu to start the application, and aim your given QR code with engineer ID to the camera to unlock the car. Any other QR codes without engineer profile ID that is recognised by the Agent Pi, will not unlock the car.
 
 Sample Engineer QR Codes:
-<img width="1440" alt="Sample 1" src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-0/p280x280/119676902_379573039870239_7551320180432845006_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=d1TKSddKoHkAX_d0te6&_nc_ht=scontent.fsgn2-4.fna&tp=6&oh=9bb4edb1d625c87f1a701c1faf48ebb1&oe=5F893759">
+<img width="480" alt="Sample 1" src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.15752-0/p280x280/119676902_379573039870239_7551320180432845006_n.jpg?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=d1TKSddKoHkAX_d0te6&_nc_ht=scontent.fsgn2-4.fna&tp=6&oh=9bb4edb1d625c87f1a701c1faf48ebb1&oe=5F893759">
 
-<img width="1440" alt="Sample 2" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-0/p280x280/119709349_634942190553455_8335974865124209296_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=pyJ_33kACwUAX-wM8U7&_nc_ht=scontent.fsgn2-6.fna&tp=6&oh=3ea80812dd0ebbb0aee3068b18a131b0&oe=5F8BF0ED">
+<img width="480" alt="Sample 2" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-0/p280x280/119709349_634942190553455_8335974865124209296_n.jpg?_nc_cat=110&_nc_sid=b96e70&_nc_ohc=pyJ_33kACwUAX-wM8U7&_nc_ht=scontent.fsgn2-6.fna&tp=6&oh=3ea80812dd0ebbb0aee3068b18a131b0&oe=5F8BF0ED">
 
-<img width="1440" alt="Sample 3" src="https://scontent.fsgn2-2.fna.fbcdn.net/v/t1.15752-0/p280x280/119422850_691322738132576_7643445337821270048_n.jpg?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=tp7rKzAgjsoAX9hznFn&_nc_ht=scontent.fsgn2-2.fna&tp=6&oh=09937b594a68741344f7b57a4a30febf&oe=5F8BA3EB">
+<img width="480" alt="Sample 3" src="https://scontent.fsgn2-2.fna.fbcdn.net/v/t1.15752-0/p280x280/119422850_691322738132576_7643445337821270048_n.jpg?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=tp7rKzAgjsoAX9hznFn&_nc_ht=scontent.fsgn2-2.fna&tp=6&oh=09937b594a68741344f7b57a4a30febf&oe=5F8BA3EB">
 
-<img width="1440" alt="Sample 4" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/119469970_355281458944509_7060815091840533936_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=11V-dmeCy4EAX8JD6Sg&_nc_ht=scontent.fsgn2-6.fna&oh=6a093ee9631dd1553e84ddf3a320c997&oe=5F8A81D7">
+<img width="480" alt="Sample 4" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t1.15752-9/119469970_355281458944509_7060815091840533936_n.jpg?_nc_cat=100&_nc_sid=b96e70&_nc_ohc=11V-dmeCy4EAX8JD6Sg&_nc_ht=scontent.fsgn2-6.fna&oh=6a093ee9631dd1553e84ddf3a320c997&oe=5F8A81D7">
 
 #### Bluetooth Scanner: 
 To use Bluetooth Scanner, press 1 to initiate the scanning sequence, when the engineer registered mobile device is detected in the vicinity, the car will be unlocked.
@@ -134,7 +134,7 @@ The registered mobile MAC address is stored locally in the Agent Pi.
 
 #### Facial Recognition Unlocker:
 
-To use facial recognition unlocker, press 4 to start the face scanning program, after the program has initiated, face towards the camera device provided and proceed the scaning.
+To use facial recognition unlocker, press 3 to start the face scanning program, after the program has initiated, face towards the camera device provided and proceed the scaning.
 
 The face recognition system works only on faces that have been registered via Car Share's website, and the registered users must have also booked the corresponding car they want to unlock.
 ---
