@@ -2,6 +2,7 @@ import mysql.connector
 from gcloud_db import create_connection
 import sys
 
+# Function to convert bytes into integers
 def bytes_to_int(bytes):
     result = 0
     if type(bytes) == int:
@@ -33,7 +34,7 @@ def insertBLOB(mydb, user_id, name, photo):
     except mysql.connector.Error as error:
         print(str(error))
 
-
+# Delete a photo by id
 def delete_photo(mydb, photo_id):
     try:
         sql = "DELETE FROM photos WHERE photo_id = %s"
@@ -99,6 +100,7 @@ def edit_user(mydb, data):
     except mysql.connector.Error as e:
         print(str(e))
 
+# Get all cars in the database
 def get_cars(mydb):
     try:
         sql = "select * from cars"
@@ -110,6 +112,7 @@ def get_cars(mydb):
     except mysql.connector.Error as e:
         print(str(e))
 
+# Add a car
 def add_car(mydb, data):
     try:
         sql = "INSERT INTO cars \
@@ -122,7 +125,7 @@ def add_car(mydb, data):
     except mysql.connector.Error as e:
         print(str(e))
 
-
+# Insert into database
 def db_write(mydb, query, params):
     cursor = mydb.cursor()
     try:
@@ -137,7 +140,7 @@ def db_write(mydb, query, params):
         print(e)
         return False
 
-
+# Get data from database
 def db_read(mydb, query, params=None):
     cursor = mydb.cursor()
     if params:
@@ -381,6 +384,7 @@ def get_engineers(mydb):
     except mysql.connector.Error as e:
         print(str(e))
 
+# Count the number of bookings by car makes
 def count_carmake(mydb):
     try:
         sql = """ SELECT c.make, count(*) FROM cars AS c, bookings AS b Where b.car_id = c.car_id group by c.make; """
