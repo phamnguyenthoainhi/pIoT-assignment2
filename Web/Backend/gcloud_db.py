@@ -23,12 +23,6 @@ def create_connection():
         
 
 def createtable_cars(mydb):
-    """
-    Create a table named datab1 in assignment1 database
-    Parameters:
-        mydb: a MySQLConnection object
-    Returns: true if the query excecutes sucessfully, false if there is error
-    """
     try:
         cursor = mydb.cursor()
         
@@ -53,12 +47,6 @@ def createtable_cars(mydb):
         return False
 
 def createtable_users(mydb):
-  """
-  Create a table named datab1 in assignment1 database
-  Parameters:
-      mydb: a MySQLConnection object
-  Returns: true if the query excecutes sucessfully, false if there is error
-  """
   try:
       cursor = mydb.cursor()
       cursor.execute("CREATE TABLE IF NOT EXISTS users( \
@@ -78,12 +66,6 @@ def createtable_users(mydb):
       return False
 
 def createtable_bookings(mydb):
-  """
-  Create a table named datab1 in assignment1 database
-  Parameters:
-      mydb: a MySQLConnection object
-  Returns: true if the query excecutes sucessfully, false if there is error
-  """
   try:
       cursor = mydb.cursor()
       cursor.execute("CREATE TABLE IF NOT EXISTS bookings( \
